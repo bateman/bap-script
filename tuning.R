@@ -1,50 +1,44 @@
+# enables commandline arguments from script launched using Rscript
+args<-commandArgs(TRUE)
+run <- args[1]
+run <- ifelse(is.na(run),-1, run)
+
+# library setup, depedencies are handled by R
+library(e1071) # for normality adjustment
+library(pROC) # for AUC
+library(caret) # for param tuning
+
 # comma delimiter
 #SO <- read.csv("so_features.csv", header = TRUE)
 SO <- read.csv("head.csv", header = TRUE)
 
+# name of outcome var to be predicted
+outcomeName <- 'solution'
+# list of predictor vars by name
+predictorsNames <- names(SO[,  !(names(SO)  %in% c(outcomeName))]) # removes the var to be predicted from the test set
+
 # converts boolean factors 
-#SO$solution <- as.factor(SO$solution)
 SO$has_links<- as.logical.factor(SO$has_links)
 
-# converts timestamps into POSIX std time values
-SO$date_time <- as.POSIXct(SO$date_time, tz = "GMT", format = "'%Y-%m-%d %H:%M:%S'")
+# first converts timestamps into POSIX std time values
+SO$date_time <- as.numeric(as.POSIXct(SO$date_time, tz = "GMT", format = "'%Y-%m-%d %H:%M:%S'")) # then to equivalent number
 
-# normality distrib check for indipendent vars (predictors)
-library(e1071) # load e1071                     
-# ln(x+1) transformation for mitigating skeweness
-SO$answers_count <- log1p(SO$answers_count)
-SO$answers_count <- log1p(SO$time_difference)
-SO$answers_count <- log1p(SO$time_difference_rank)
-SO$answers_count <- log1p(SO$len)
-SO$answers_count <- log1p(SO$len_rank)
-SO$answers_count <- log1p(SO$wordcount)
-SO$answers_count <- log1p(SO$wordcount_rank)
-SO$answers_count <- log1p(SO$avg_chars_per_word)
-SO$answers_count <- log1p(SO$avg_chars_per_word_rank)
-SO$answers_count <- log1p(SO$sentences)
-SO$answers_count <- log1p(SO$sentences_rank)
-SO$answers_count <- log1p(SO$avg_words_per_sentence)
-SO$answers_count <- log1p(SO$avg_words_per_sentence_rank)
-SO$answers_count <- log1p(SO$longest_sentence)
-SO$answers_count <- log1p(SO$longest_sentence_rank)
-SO$answers_count <- log1p(SO$loglikelihood)
-SO$answers_count <- log1p(SO$loglikelihood_ascending_rank)
-SO$answers_count <- log1p(abs(SO$F.K))
-SO$answers_count <- log1p(SO$F.K_ascending_rank)
-SO$answers_count <- log1p(SO$has_links)
+# normality adjustments for indipendent vars (predictors)
+# ln(x+1) transformation mitigates skeweness
+for (i in 1:length(predictorsNames)){
+  SO[,predictorsNames[i]] <- log1p(SO[,predictorsNames[i]])
+}
 
-# loads caret for param tuning
-library(caret)
+# sets the fixed random seed for this run
+#set.seed(sample(1:100000, 1))
+set.seed(45645)
 
 # create stratified training and test sets from SO dataset
-set.seed(825)
-inTraining <- createDataPartition(y = SO$solution, 
-                                  p = 0.50, 
-                                  list = FALSE)
-training <- SO[inTraining, ]
-testing <- SO[-inTraining, ]
+splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE, times = 1)
+training <- SO[splitIndex, ]
+testing <- SO[-splitIndex, ]
 
-# 100 = 10 x 10 repetitions
+# 10 repetitions
 fitControl <- trainControl(## 10-fold CV
                            method = "repeatedcv",
                            number = 10,
@@ -56,7 +50,9 @@ fitControl <- trainControl(## 10-fold CV
                            # enable parallel computing if avail
                            allowParallel = TRUE)
 
-classifier <- readLines("models.txt")
+# loads all the classifier to tune
+classifier <- readLines("models1.txt")
+
 for(i in 1:length(classifier)){
   print(paste("Building model for classifier", classifier[i]))
   model <- train(solution ~ ., data = training,
@@ -65,18 +61,51 @@ for(i in 1:length(classifier)){
                  metric = "ROC",
                  tuneLength = 5 # five values per param
                  )
-  str(model)
+  
+  cat("", "===============================\n", file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  
+  out <- capture.output(model)
+  title = paste(classifier[i], 1, sep = "_run# ")
+  cat(title, out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  
+  predictions <- predict(object=model, testing[,predictorsNames], type='prob')
+  #head(predictions)
+  #auc <- roc(ifelse(testing[,outcomeName]=="True",1,0), predictions[[2]])
+  #out <- capture.output(auc$auc)
+  #cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  
+  # computes the scalar metrics
+  predictions <- predict(object=model, testing[,predictorsNames], type='raw')
+  CM <-  confusionMatrix(predictions, testing[,outcomeName])
+  out <- capture.output(CM)
+  cat("\nConfusion Matrix:\n", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  
+  TP <- CM[1]
+  FP <- CM[3]
+  FN <- CM[2]
+  TN <- CM[4]
+  precision <- posPredValue(predictions, testing[,outcomeName])
+  recall <- sensitivity(predictions, testing[,outcomeName])
+  TNr <- specificity(predictions, testing[,outcomeName])
+  TPr <- recall
+  FPr <- FP / (FP + TN)
+  
+  F1 <- (2 * precision * recall) / (precision + recall)
+  out <- paste("F-measure =", F1)
+  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  G <- sqrt(TPr * TNr)
+  out <- paste("G-mean =", G)
+  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  M <- ((TP*TN) - (FP*FN)) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
+  out <- paste("Matthews phi =", M)
+  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  B <- 1 - (sqrt((0-FPr)^2 +(1-TPr)^2)/sqrt(2))
+  out <- paste("Balance =", B)
+  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   rm(model)
+  rm(predictions)
   gc()
 }
 
-
-
-#p <- predict(model, testing, type="prob")
-#summary(p)
-#plot(p)
 # unload a package:
 ## detach("package:vegan", unload=TRUE)
-
-#rm(model)
-#gc()

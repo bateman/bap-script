@@ -10,7 +10,7 @@ rbf
 mlp
 mlpWeightDecay
 multinom
-lda
+lda2
 pda
 fda
 JRip
