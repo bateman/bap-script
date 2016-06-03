@@ -18,8 +18,8 @@ J48:RWeka
 LMT:RWeka
 rpart:rpart
 ADT
-lssvmLinear:kernlab
-lssvmPoly:kernlab
+svmLinear:kernlab
+svmRadial:kernlab
 SMO
 rf:randomForest
 treebag:ipred

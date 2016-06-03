@@ -1,4 +1,4 @@
-# enables commandline arguments from script launched using Rscript
+# enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 run <- args[1]
 run <- ifelse(is.na(run),-1, run)
@@ -10,9 +10,9 @@ log.error <- function() {
 options("error"=log.error)
 
 # library setup, depedencies are handled by R
-library(e1071) # for normality adjustment
 #library(pROC) # for AUC
-library(caret) # for param tuning
+require(caret) # for param tuning
+library(e1071) # for normality adjustment
 
 # comma delimiter
 #SO <- read.csv("so_features.csv", header = TRUE)
@@ -21,12 +21,12 @@ SO <- read.csv("head.csv", header = TRUE)
 # name of outcome var to be predicted
 outcomeName <- 'solution'
 # list of predictor vars by name
-predictorsNames <- names(SO[,  !(names(SO)  %in% c(outcomeName))]) # removes the var to be predicted from the test set
+predictorsNames <- names(SO[,!(names(SO)  %in% c(outcomeName))]) # removes the var to be predicted from the test set
 
-# converts boolean factors 
+# convert boolean factors 
 SO$has_links<- as.logical.factor(SO$has_links)
 
-# first converts timestamps into POSIX std time values
+# first convert timestamps into POSIX std time values
 SO$date_time <- as.numeric(as.POSIXct(SO$date_time, tz = "GMT", format = "'%Y-%m-%d %H:%M:%S'")) # then to equivalent number
 
 # normality adjustments for indipendent vars (predictors)
@@ -34,12 +34,13 @@ SO$date_time <- as.numeric(as.POSIXct(SO$date_time, tz = "GMT", format = "'%Y-%m
 for (i in 1:length(predictorsNames)){
   SO[,predictorsNames[i]] <- log1p(SO[,predictorsNames[i]])
 }
-# excludes rows with NaN (missing values)
+# exclude rows with NaN (missing values)
 SO <- na.omit(SO)
 
+# for(j in 1:10) { ... # 10 repetions
 # sets the fixed random seed for this run
-set.seed(sample(1:1000, 1))
-#set.seed(45645)
+#set.seed(sample(1:1000, 1))
+set.seed(45645)
 
 # create stratified training and test sets from SO dataset
 splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE, times = 1)
@@ -48,29 +49,31 @@ testing <- SO[-splitIndex, ]
 
 # 10 repetitions
 fitControl <- trainControl(## 10-fold CV
-                           method = "repeatedcv",
-                           number = 5,
-                           ## repeated ten times
-                           repeats = 2,
-                           # binary problem
-                           summaryFunction=twoClassSummary,
-                           classProbs = TRUE,
-                           # enable parallel computing if avail
-                           allowParallel = TRUE)
+  method = "repeatedcv",
+  number = 3,
+  ## repeated ten times
+  repeats = 2,
+  # binary problem
+  summaryFunction=twoClassSummary,
+  classProbs = TRUE)
+  # enable parallel computing if avail
+  #allowParallel = TRUE)
 
-# loads all the classifier to tune
-classifier <- readLines("models1.txt")
+# load all the classifier to tune
+nline <- readLines("models1.txt")
+nline <- strsplit(nline, ":")[[1]]
+classifier <- nline[[1]]
+cpackage <- nline[2]
 
 for(i in 1:length(classifier)){
   print(paste("Building model for classifier", classifier[i]))
   
-  model <- train(solution ~ ., data = training,
-                 method = classifier[i],
-                 trControl = fitControl,
-                 metric = "ROC",
-                 tuneLength = 2 # five values per param
-                 )
-  
+  model <- caret::train(solution ~ ., data = training,
+                        method = classifier[i],
+                        trControl = fitControl,
+                        metric = "ROC",
+                        tuneLength = 2 # five values per param
+                        )
   cat("", "===============================\n", file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
   out <- capture.output(model)
@@ -81,8 +84,7 @@ for(i in 1:length(classifier)){
   out <- capture.output(getTrainPerf(model))
   cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
-  # ci sono classificatori che vogliono prob e alcuni raw????
-  predictions <- predict(object=model, testing[,predictorsNames], type='prob', na.action = na.pass)
+  predictions <- predict(object=model, testing[,predictorsNames], type='prob')
   #head(predictions)
   #auc <- roc(ifelse(testing[,outcomeName]=="True",1,0), predictions[[2]])
   #out <- capture.output(auc$auc)
@@ -91,8 +93,6 @@ for(i in 1:length(classifier)){
   # computes the scalar metrics
   predictions <- predict(object=model, testing[,predictorsNames], type='raw')
   CM <- table(data=predictions, reference=testing[,outcomeName])
-  #if(!is.atomic(CM))
-    #CM <- CM$table
   out <- capture.output(CM)
   cat("\nConfusion Matrix:\n", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
@@ -111,18 +111,26 @@ for(i in 1:length(classifier)){
   cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   G <- sqrt(TPr * TNr)
   out <- paste("G-mean =", G)
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  cat("", out, file=paste(classifier[i], "txt", sep="."), sep = "\n", append = TRUE)
   M <- ((TP*TN) - (FP*FN)) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
   out <- paste("Matthews phi =", M)
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  cat("", out, file=paste(classifier[i], "txt", sep="."), sep = "\n", append = TRUE)
   B <- 1 - (sqrt((0-FPr)^2 +(1-TPr)^2)/sqrt(2))
   out <- paste("Balance =", B)
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
-  #rm(model)
-  #rm(predictions)
-  #gc()
+  cat("", out, file=paste(classifier[i], "txt", sep="."), sep = "\n", append = TRUE)
+  
+  ## === cleanup ===
+  # deallocate large objects
+  rm(model)
+  rm(predictions)
+  # unload the package:
+  if(!is.na(cpackage))
+    detach(name=paste("package", cpackage, sep=":"), unload = TRUE, character.only = TRUE)
+  # garbage collection
+  gc()
 }
 
-# unload a package:
-## detach("package:vegan", unload=TRUE)
+
+# } # end of for 10 repetitions
+
 # SO[!complete.cases(SO),]
