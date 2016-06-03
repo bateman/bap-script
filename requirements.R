@@ -1,20 +1,20 @@
-# caret
-# https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
+print("Checking the required packages... will be re-installed if already present.")
 
-# installs required packages
-if (!require("pacman")) 
-  install.packages("pacman", dependencies = TRUE)
-
-pacman::p_load(caret, klaR, gpls, earth, nnet, RSNNS, MASS, 
-               mda, rpart, kernlab, randomForest, ipred, gbm, 
-               fastAdaboost, mboost, caTools, xgboost, C50)
+# from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
+# installs most of the 340 caret dependencies and
+# caret book + seven commonly used but not all of them
+mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
+           "data.table", "plyr", "knitr", "shiny", "xts", "lattice", "e1071",
+            "klaR", "gpls", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
+            "randomForest", "ipred", "gbm", "fastAdaboost", "mboost", "caTools", "xgboost", "C50")
+install.packages(mostP, dependencies = c("Imports", "Depends"))
 
 # checks if RJava is present
 # if not, it has to be installed manually
-if(!require("RJava")) {
-  print("Please, Install RJava package manually and re-run.")
+if(!require("rJava")) {
+  print("Please, Install rJava package manually and re-run.")
 } else if (!require("RWeka") || !require("RWekajars")) {
-  pacman::p_load(RWeka, RWekajars)
+  install.packages(c("RWeka", "RWekajars"), dependencies = c("Imports", "Depends"))
 }
 
 # non optimized (unsupported by caret)

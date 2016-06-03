@@ -11,7 +11,7 @@ options("error"=log.error)
 
 # library setup, depedencies are handled by R
 #library(pROC) # for AUC
-require(caret) # for param tuning
+library(caret) # for param tuning
 library(e1071) # for normality adjustment
 
 # comma delimiter
