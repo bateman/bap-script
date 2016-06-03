@@ -70,9 +70,9 @@ testing <- SO[-splitIndex, ]
 # 10 repetitions
 fitControl <- trainControl(## 10-fold CV
                            method = "repeatedcv",
-                           number = 10,
+                           number = 5,
                            ## repeated ten times
-                           repeats = 10,
+                           repeats = 2,
                            # binary problem
                            summaryFunction=twoClassSummary,
                            classProbs = TRUE,
@@ -89,7 +89,7 @@ for(i in 1:length(classifier)){
                  method = classifier[i],
                  trControl = fitControl,
                  metric = "ROC",
-                 tuneLength = 5 # five values per param
+                 tuneLength = 2 # five values per param
                  )
   
   cat("", "===============================\n", file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
@@ -112,8 +112,8 @@ for(i in 1:length(classifier)){
   # computes the scalar metrics
   predictions <- predict(object=model, testing[,predictorsNames], type='raw')
   CM <- table(data=predictions, reference=testing[,outcomeName])
-  if(!is.atomic(CM))
-    CM <- CM$table
+  #if(!is.atomic(CM))
+    #CM <- CM$table
   out <- capture.output(CM)
   cat("\nConfusion Matrix:\n", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
