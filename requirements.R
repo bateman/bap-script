@@ -1,3 +1,6 @@
+# caret
+# https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
+
 # installs required packages
 if (!require("pacman")) 
   install.packages("pacman", dependencies = TRUE)
