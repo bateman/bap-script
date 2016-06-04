@@ -4,10 +4,25 @@ run <- args[1]
 run <- ifelse(is.na(run),-1, run)
 
 # logs errors to file
+# FIXME
 log.error <- function() {
   cat(geterrmessage(), file=paste(format(Sys.time(), "%d-%m-%Y-%X"), log, sep = "."), append=TRUE)
 }
 options("error"=log.error)
+
+# build a weka classifier from WPM
+make_Weka_classifier <- function(classifier) {
+  model <- NaN
+  require("RWeka")
+  if(classifier == "ADT") {
+    WPM("install-package", "alternatingDecisionTrees")
+    WPM("load-package", "alternatingDecisionTrees")
+    ADT <- make_Weka_classifier("weka/classifiers/trees/ADTree")
+    model <- ADT(solution ~ ., data = training)
+  }
+  
+  return(model)
+}
 
 # library setup, depedencies are handled by R
 #library(pROC) # for AUC
@@ -77,15 +92,35 @@ for(i in 1:length(classifier)){
                             colsample_bytree = 1,
                             min_child_weight = 1
                            )
+    time.start <- Sys.time()
     model <- caret::train(solution ~ ., 
                           data = training,
                           method = classifier[i],
                           trControl = fitControl,
                           tuneGrid = xgb_grid,
-                          metric = "ROC",
-                          tuneLength = 5 # five values per param
+                          metric = "ROC"
                           )
-  } else {
+    time.end <- Sys.time()
+  } 
+  else if(classifier[i] == "gamboost") {
+    gamboost_grid <- expand.grid(mstop = c(50, 100, 150, 200, 250),
+                                 prune = c(1,2,3,4,5)
+                                )
+    time.start <- Sys.time()
+    model <- caret::train(solution ~ ., 
+                          data = training,
+                          method = classifier[i],
+                          trControl = fitControl,
+                          tuneGrid = gamboost_grid,
+                          metric = "ROC"
+    )
+    time.end <- Sys.time()
+  } 
+  else if(cpackage[i] == "WPM") {
+    model = make_Weka_classifier(classifier[i])
+  } 
+  else {
+    time.start <- Sys.time()
     model <- caret::train(solution ~ ., 
                           data = training,
                           method = classifier[i],
@@ -93,16 +128,22 @@ for(i in 1:length(classifier)){
                           metric = "ROC",
                           tuneLength = 2 # five values per param
                           )
+    time.end <- Sys.time()
   }
   cat("", "===============================\n", file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
-  
+
   out <- capture.output(model)
   title = paste(classifier[i], 1, sep = "_run# ")
   cat(title, out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
+  # elapsed time
+  time.elapsed <- time.end - time.start
+  out <- capture.output(time.elapsed)
+  cat("\nElapsed time", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  
   # the highest roc val from train to save
   out <- capture.output(getTrainPerf(model))
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  cat("\nHighest ROC value:", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
   predictions <- predict(object=model, testing[,predictorsNames], type='prob')
   #head(predictions)
