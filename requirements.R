@@ -1,8 +1,7 @@
 print("Checking the required packages... will be re-installed if already present.")
 
 # from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
-# installs most of the 340 caret dependencies and
-# caret book + seven commonly used but not all of them
+# installs most of the 340 caret dependencies but not all of them
 mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
            "data.table", "plyr", "knitr", "shiny", "xts", "lattice", "e1071",
             "klaR", "gpls", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
@@ -10,7 +9,7 @@ mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
 install.packages(mostP, dependencies = c("Imports", "Depends"))
 
 # checks if RJava is present
-# if not, it has to be installed manually
+# if not, it has to be installed manually, depending on OS
 if(!require("rJava")) {
   print("Please, Install rJava package manually and re-run.")
 } else if (!require("RWeka") || !require("RWekajars")) {
