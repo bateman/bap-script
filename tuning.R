@@ -55,9 +55,9 @@ fitControl <- trainControl(## 10-fold CV
   repeats = 2,
   # binary problem
   summaryFunction=twoClassSummary,
-  classProbs = TRUE)
+  classProbs = TRUE,
   # enable parallel computing if avail
-  #allowParallel = TRUE)
+  allowParallel = TRUE)
 
 # load all the classifier to tune
 nline <- readLines("models1.txt")

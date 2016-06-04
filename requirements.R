@@ -5,7 +5,7 @@ print("Checking the required packages... will be re-installed if already present
 mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
            "data.table", "plyr", "knitr", "shiny", "xts", "lattice", "e1071",
             "klaR", "gpls", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
-            "randomForest", "ipred", "gbm", "fastAdaboost", "mboost", "caTools", "xgboost", "C50")
+            "randomForest", "ipred", "gbm", "adabag", "mboost", "caTools", "xgboost", "C50")
 install.packages(mostP, dependencies = c("Imports", "Depends"))
 
 # checks if RJava is present

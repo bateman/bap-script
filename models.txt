@@ -24,7 +24,7 @@ SMO
 rf:randomForest
 treebag:ipred
 gbm:gbm
-adaboost:fastAdaboost
+AdaBoost.M1:adabag
 gamboost:mboost
 LogitBoost:caTools
 xgbTree:xgboost
