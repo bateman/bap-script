@@ -68,12 +68,32 @@ cpackage <- nline[2]
 for(i in 1:length(classifier)){
   print(paste("Building model for classifier", classifier[i]))
   
-  model <- caret::train(solution ~ ., data = training,
-                        method = classifier[i],
-                        trControl = fitControl,
-                        metric = "ROC",
-                        tuneLength = 2 # five values per param
-                        )
+  if(classifier[i] == "xgbTree") {
+    xgb_grid <- expand.grid(nrounds = c(50, 100, 150, 200, 250),
+                            eta = c(0.1, 0.2, 0.3, 0.4, 0.5),
+                            max_depth = c(1, 2, 3, 4, 5),
+                            # defaults, untuned
+                            gamma = 0,
+                            colsample_bytree = 1,
+                            min_child_weight = 1
+                           )
+    model <- caret::train(solution ~ ., 
+                          data = training,
+                          method = classifier[i],
+                          trControl = fitControl,
+                          tuneGrid = xgb_grid,
+                          metric = "ROC",
+                          tuneLength = 5 # five values per param
+                          )
+  } else {
+    model <- caret::train(solution ~ ., 
+                          data = training,
+                          method = classifier[i],
+                          trControl = fitControl,
+                          metric = "ROC",
+                          tuneLength = 2 # five values per param
+                          )
+  }
   cat("", "===============================\n", file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
   out <- capture.output(model)
