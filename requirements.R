@@ -9,7 +9,7 @@ mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
 install.packages(mostP, dependencies = c("Imports", "Depends"))
 
 # checks if RJava is present
-# if not, it has to be installed manually, depending on OS
+# if not, it has to be installed manually , depending on OS
 if(!require("rJava")) {
   print("Please, Install rJava package manually and re-run.")
 } else if (!require("RWeka") || !require("RWekajars")) {
