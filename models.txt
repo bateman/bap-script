@@ -6,7 +6,7 @@ glm
 nnet:nnet
 avNNet:nnet
 pcaNNet:nnet
-rbf:RSNNS
+rbfDDA:RSNNS
 mlp:RSNNS
 mlpWeightDecay:RSNNS
 multinom:nnet
@@ -17,10 +17,10 @@ JRip:RWeka
 J48:RWeka
 LMT:RWeka
 rpart:rpart
-ADT
+ADT:WPM
 svmLinear:kernlab
 svmRadial:kernlab
-SMO
+SMO:WPM
 rf:randomForest
 treebag:ipred
 gbm:gbm
