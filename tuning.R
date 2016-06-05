@@ -10,20 +10,6 @@ log.error <- function() {
 }
 options("error"=log.error)
 
-# build a weka classifier from WPM
-make_Weka_classifier <- function(classifier) {
-  model <- NaN
-  require("RWeka")
-  if(classifier == "ADT") {
-    WPM("install-package", "alternatingDecisionTrees")
-    WPM("load-package", "alternatingDecisionTrees")
-    ADT <- make_Weka_classifier("weka/classifiers/trees/ADTree")
-    model <- ADT(solution ~ ., data = training)
-  }
-  
-  return(model)
-}
-
 # library setup, depedencies are handled by R
 #library(pROC) # for AUC
 library(caret) # for param tuning
@@ -88,7 +74,7 @@ for(i in 1:length(classifier)){
   
   if(classifier[i] == "xgbTree") {
     xgb_grid <- expand.grid(nrounds = c(50, 100, 150, 200, 250),
-                            eta = c(0.1, 0.2, 0.3, 0.4, 0.5),
+                            eta = c(0.1, 0.3, 0.5, 0.7),
                             max_depth = c(1, 2, 3, 4, 5),
                             # defaults, untuned
                             gamma = 0,
@@ -124,9 +110,6 @@ for(i in 1:length(classifier)){
                           tuneLength = 2 # five values per param
     )
     time.end <- Sys.time()
-  } 
-  else if(cpackage[i] == "WPM") {
-    model = make_Weka_classifier(classifier[i])
   } 
   else {
     time.start <- Sys.time()

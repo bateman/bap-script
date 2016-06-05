@@ -19,8 +19,7 @@ if(!require("rJava")) {
 # non optimized (unsupported by caret)
 
 # to load in case of ADT:
-# WPM("refresh-cache")
-# WPM("install-package", "alternatingDecisionTrees")
+## WPM("install-package", "alternatingDecisionTrees")
 ## WPM("load-package", "alternatingDecisionTrees")
 ## ADT <- make_Weka_classifier("weka/classifiers/trees/ADTree")
 ## model <- ADT(solution ~ ., data = training)
@@ -29,3 +28,23 @@ if(!require("rJava")) {
 ## see http://www.inside-r.org/packages/cran/RWeka/docs/SMO
 ## model<-SMO(solution ~ ., data = training, control = Weka_control(K =list("weka.classifiers.functions.supportVector.RBFKernel", G = 2)))
 
+
+# build a weka classifier from WPM
+# make_Weka_classifier <- function(classifier) {
+#   model <- NaN
+#   require("RWeka")
+#   if(classifier == "ADT") {
+#     WPM("install-package", "alternatingDecisionTrees")
+#     WPM("load-package", "alternatingDecisionTrees")
+#     ADT <- make_Weka_classifier("weka/classifiers/trees/ADTree")
+#     model <- ADT(solution ~ ., data = training)
+#   } else if (classifier == "SMO") {
+#     model<-SMO(solution ~ ., 
+#                data = training, 
+#                control = Weka_control(K =list("weka.classifiers.functions.supportVector.RBFKernel", 
+#                                               G = 2))
+#     )
+#   }
+#   
+#   return(model)
+# }

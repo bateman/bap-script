@@ -17,10 +17,8 @@ JRip:RWeka
 J48:RWeka
 LMT:RWeka
 rpart:rpart
-ADT:WPM
 svmLinear:kernlab
 svmRadial:kernlab
-SMO:WPM
 rf:randomForest
 treebag:ipred
 gbm:gbm
