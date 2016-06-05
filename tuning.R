@@ -41,12 +41,15 @@ SO <- na.omit(SO)
 # for(j in 1:10) { ... # 10 repetions
 # sets the fixed random seed for this run
 #set.seed(sample(1:1000, 1))
+# TODO write a file of 10 random/fixed seeds
 set.seed(45645)
 
 # create stratified training and test sets from SO dataset
 splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE, times = 1)
 training <- SO[splitIndex, ]
 testing <- SO[-splitIndex, ]
+
+
 
 # 10 repetitions
 fitControl <- trainControl(## 10-fold CV
@@ -72,6 +75,14 @@ cpackage <- nline[2]
 for(i in 1:length(classifier)){
   print(paste("Building model for classifier", classifier[i]))
   
+  if(classifier[i] == "gamboost") {
+    ## quick fix, has_links predictor causes error
+    predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
+    SO <- SO[ , !(names(SO) %in% c("has_links"))]
+    training <- training[ , !(names(training) %in% c("has_links"))]
+    testing <- testing[ , !(names(testing) %in% c("has_links"))]
+  } 
+  
   if(classifier[i] == "xgbTree") {
     xgb_grid <- expand.grid(nrounds = c(50, 100, 150, 200, 250),
                             eta = c(0.1, 0.3, 0.5, 0.7),
@@ -89,26 +100,6 @@ for(i in 1:length(classifier)){
                           tuneGrid = xgb_grid,
                           metric = "ROC"
                           )
-    time.end <- Sys.time()
-  } 
-  else if(classifier[i] == "gamboost") {
-    ## quick fix, has_links predictor causes error
-    predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
-    SO <- SO[ , !(names(SO) %in% c("has_links"))]
-    training <- training[ , !(names(training) %in% c("has_links"))]
-    testing <- testing[ , !(names(testing) %in% c("has_links"))]
-    
-    # gamboost_grid <- expand.grid(mstop = c(50, 100, 150, 200, 250),
-    #                              prune = c(1,2,3,4,5)
-    #                             )
-    time.start <- Sys.time()
-    model <- caret::train(solution ~ ., 
-                          data = training,
-                          method = classifier[i],
-                          trControl = fitControl,
-                          metric = "ROC",
-                          tuneLength = 2 # five values per param
-    )
     time.end <- Sys.time()
   } 
   else {
