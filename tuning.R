@@ -31,7 +31,7 @@ library(e1071) # for normality adjustment
 
 # comma delimiter
 #SO <- read.csv("so_features.csv", header = TRUE)
-SO <- read.csv("head.csv", header = TRUE)
+SO <- read.csv("head.csv", header = TRUE, sep=",")
 
 # name of outcome var to be predicted
 outcomeName <- 'solution'
@@ -39,7 +39,7 @@ outcomeName <- 'solution'
 predictorsNames <- names(SO[,!(names(SO)  %in% c(outcomeName))]) # removes the var to be predicted from the test set
 
 # convert boolean factors 
-SO$has_links<- as.logical.factor(SO$has_links)
+SO$has_links<- as.integer(as.logical(SO$has_links))
 
 # first convert timestamps into POSIX std time values
 SO$date_time <- as.numeric(as.POSIXct(SO$date_time, tz = "GMT", format = "'%Y-%m-%d %H:%M:%S'")) # then to equivalent number
@@ -72,7 +72,10 @@ fitControl <- trainControl(## 10-fold CV
   summaryFunction=twoClassSummary,
   classProbs = TRUE,
   # enable parallel computing if avail
-  allowParallel = TRUE)
+  allowParallel = TRUE,
+  returnData = FALSE,
+  returnResamp = "all"
+  )
 
 # load all the classifier to tune
 nline <- readLines("models1.txt")
@@ -103,16 +106,22 @@ for(i in 1:length(classifier)){
     time.end <- Sys.time()
   } 
   else if(classifier[i] == "gamboost") {
-    gamboost_grid <- expand.grid(mstop = c(50, 100, 150, 200, 250),
-                                 prune = c(1,2,3,4,5)
-                                )
+    ## quick fix, has_links predictor causes error
+    predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
+    SO <- SO[ , !(names(SO) %in% c("has_links"))]
+    training <- training[ , !(names(training) %in% c("has_links"))]
+    testing <- testing[ , !(names(testing) %in% c("has_links"))]
+    
+    # gamboost_grid <- expand.grid(mstop = c(50, 100, 150, 200, 250),
+    #                              prune = c(1,2,3,4,5)
+    #                             )
     time.start <- Sys.time()
     model <- caret::train(solution ~ ., 
                           data = training,
                           method = classifier[i],
                           trControl = fitControl,
-                          tuneGrid = gamboost_grid,
-                          metric = "ROC"
+                          metric = "ROC",
+                          tuneLength = 2 # five values per param
     )
     time.end <- Sys.time()
   } 
