@@ -23,7 +23,6 @@ log.error <- function() {
 options(show.error.locations=TRUE)
 options(error=log.error)
 
-
 # library setup, depedencies are handled by R
 #library(pROC) # for AUC
 library(caret) # for param tuning
@@ -58,7 +57,7 @@ training <- SO[splitIndex, ]
 testing <- SO[-splitIndex, ]
 
 # 10-fold CV repetitions
-fitControl <- trainControl(## 
+fitControl <- trainControl(
   method = "repeatedcv",
   number = 3,
   ## repeated ten times
@@ -72,16 +71,16 @@ fitControl <- trainControl(##
   returnResamp = "all"
 )
 
-# load all the classifier to tune
-nline <- readLines("models1.txt")
-nline <- strsplit(nline, ":")[[1]]
-classifier <- nline[[1]]
-cpackage <- nline[2]
+# load all the classifiers to tune
+classifiers <- readLines("models.txt")
 
-for(i in 1:length(classifier)){
-  print(paste("Building model for classifier", classifier[i]))
+for(i in 1:length(classifiers)){
+  nline <- strsplit(classifiers[i], ":")[[1]]
+  classifier <- nline[1]
+  cpackage <- nline[2]
+  print(paste("Building model for classifier", classifier))
 
-  if(classifier[i] == "gamboost") {
+  if(classifier == "gamboost") {
     ## quick fix, has_links predictor causes error
     predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
     SO <- SO[ , !(names(SO) %in% c("has_links"))]
@@ -89,7 +88,7 @@ for(i in 1:length(classifier)){
     testing <- testing[ , !(names(testing) %in% c("has_links"))]
   } 
   
-  if(classifier[i] == "xgbTree") {
+  if(classifier == "xgbTree") {
     xgb_grid <- expand.grid(nrounds = c(50, 100, 150, 200, 250),
                             eta = c(0.1, 0.3, 0.5, 0.7),
                             max_depth = c(1, 2, 3, 4, 5),
@@ -101,7 +100,7 @@ for(i in 1:length(classifier)){
     time.start <- Sys.time()
     model <- caret::train(solution ~ ., 
                           data = training,
-                          method = classifier[i],
+                          method = classifier,
                           trControl = fitControl,
                           tuneGrid = xgb_grid,
                           metric = "ROC"
@@ -112,7 +111,7 @@ for(i in 1:length(classifier)){
     time.start <- Sys.time()
     model <- caret::train(solution ~ ., 
                           data = training,
-                          method = classifier[i],
+                          method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
                           tuneLength = 2 # five values per param
@@ -121,12 +120,12 @@ for(i in 1:length(classifier)){
   }
   
   # output file for the classifier at nad
-  output_file <- paste(output_dir, paste(classifier[i], "txt", sep="."), sep = "/")
+  output_file <- paste(output_dir, paste(classifier, "txt", sep="."), sep = "/")
   
   cat("", "===============================\n", file=output_file, sep="\n", append=TRUE)
   cat("Seed:", seed, file=output_file, sep="\n", append=TRUE)
   out <- capture.output(model)
-  title = paste(classifier[i], run, sep = "_run# ")
+  title = paste(classifier, run, sep = "_run# ")
   cat(title, out, file=output_file, sep="\n", append=TRUE)
 
   # elapsed time
@@ -142,7 +141,7 @@ for(i in 1:length(classifier)){
   #head(predictions)
   #auc <- roc(ifelse(testing[,outcomeName]=="True",1,0), predictions[[2]])
   #out <- capture.output(auc$auc)
-  #cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  #cat("", out, file=paste(classifier, "txt", sep="."), sep="\n", append=TRUE)
   
   # computes the scalar metrics
   predictions <- predict(object=model, testing[,predictorsNames], type='raw')
@@ -183,6 +182,5 @@ for(i in 1:length(classifier)){
   # garbage collection
   gc()
 }
-
 
 # SO[!complete.cases(SO),]
