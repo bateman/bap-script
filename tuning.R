@@ -1,23 +1,35 @@
+# setting default lib paths, necessary for running RScript
+library.path <- cat(.libPaths())
+
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 run <- args[1]
-run <- ifelse(is.na(run),-1, run)
+run <- ifelse(is.na(run), 0, run)
+
+# set the random seed, held constant for the current run
+seeds <- readLines("seeds.txt")
+seed <- ifelse(length(seeds[run]) == 0, sample(1:1000, 1), seeds[run])
+
+# creates current output directory for current execution
+output_dir <- paste("output", format(Sys.time(), "%Y-%m-%d_%H.%M"), sep="/")
+if(!dir.exists(output_dir))
+  dir.create(output_dir, showWarnings = TRUE, recursive = TRUE, mode = "0644")
 
 # logs errors to file
-# FIXME
-log.error <- function() {
-  cat(geterrmessage(), file=paste(format(Sys.time(), "%d-%m-%Y-%X"), log, sep = "."), append=TRUE)
-}
-options("error"=log.error)
+# error_file <- paste(format(Sys.time(), "%d-%m-%Y-%X"), "log", sep = ".")
+# log.error <- function() {
+#   cat(geterrmessage(), file=paste(output_dir, error_file, sep = "/"), append=TRUE)
+# }
+# options("error"=log.error)
 
 # library setup, depedencies are handled by R
 #library(pROC) # for AUC
-library(caret) # for param tuning
-library(e1071) # for normality adjustment
+library(caret, lib.loc = library.path) # for param tuning
+library(e1071, lib.loc = library.path) # for normality adjustment
 
 # comma delimiter
-#SO <- read.csv("so_features.csv", header = TRUE)
-SO <- read.csv("head.csv", header = TRUE, sep=",")
+#SO <- read.csv("input/so_features.csv", header = TRUE)
+SO <- read.csv("input/head.csv", header = TRUE, sep=",")
 
 # name of outcome var to be predicted
 outcomeName <- 'solution'
@@ -38,21 +50,13 @@ for (i in 1:length(predictorsNames)){
 # exclude rows with NaN (missing values)
 SO <- na.omit(SO)
 
-# for(j in 1:10) { ... # 10 repetions
-# sets the fixed random seed for this run
-#set.seed(sample(1:1000, 1))
-# TODO write a file of 10 random/fixed seeds
-set.seed(45645)
-
 # create stratified training and test sets from SO dataset
 splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE, times = 1)
 training <- SO[splitIndex, ]
 testing <- SO[-splitIndex, ]
 
-
-
-# 10 repetitions
-fitControl <- trainControl(## 10-fold CV
+# 10-fold CV repetitions
+fitControl <- trainControl(## 
   method = "repeatedcv",
   number = 3,
   ## repeated ten times
@@ -64,7 +68,7 @@ fitControl <- trainControl(## 10-fold CV
   allowParallel = TRUE,
   returnData = FALSE,
   returnResamp = "all"
-  )
+)
 
 # load all the classifier to tune
 nline <- readLines("models1.txt")
@@ -74,7 +78,7 @@ cpackage <- nline[2]
 
 for(i in 1:length(classifier)){
   print(paste("Building model for classifier", classifier[i]))
-  
+
   if(classifier[i] == "gamboost") {
     ## quick fix, has_links predictor causes error
     predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
@@ -91,7 +95,7 @@ for(i in 1:length(classifier)){
                             gamma = 0,
                             colsample_bytree = 1,
                             min_child_weight = 1
-                           )
+    )
     time.start <- Sys.time()
     model <- caret::train(solution ~ ., 
                           data = training,
@@ -99,7 +103,7 @@ for(i in 1:length(classifier)){
                           trControl = fitControl,
                           tuneGrid = xgb_grid,
                           metric = "ROC"
-                          )
+    )
     time.end <- Sys.time()
   } 
   else {
@@ -110,23 +114,27 @@ for(i in 1:length(classifier)){
                           trControl = fitControl,
                           metric = "ROC",
                           tuneLength = 2 # five values per param
-                          )
+    )
     time.end <- Sys.time()
   }
-  cat("", "===============================\n", file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
-
-  out <- capture.output(model)
-  title = paste(classifier[i], 1, sep = "_run# ")
-  cat(title, out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
   
+  # output file for the classifier at nad
+  output_file <- paste(output_dir, paste(classifier[i], "txt", sep="."), sep = "/")
+  
+  cat("", "===============================\n", file=output_file, sep="\n", append=TRUE)
+  cat("Seed:", seed, file=output_file, sep="\n", append=TRUE)
+  out <- capture.output(model)
+  title = paste(classifier[i], run, sep = "_run# ")
+  cat(title, out, file=output_file, sep="\n", append=TRUE)
+
   # elapsed time
   time.elapsed <- time.end - time.start
   out <- capture.output(time.elapsed)
-  cat("\nElapsed time", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  cat("\nElapsed time", out, file=output_file, sep="\n", append=TRUE)
   
   # the highest roc val from train to save
   out <- capture.output(getTrainPerf(model))
-  cat("\nHighest ROC value:", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  cat("\nHighest ROC value:", out, file=output_file, sep="\n", append=TRUE)
   
   predictions <- predict(object=model, testing[,predictorsNames], type='prob')
   #head(predictions)
@@ -138,7 +146,7 @@ for(i in 1:length(classifier)){
   predictions <- predict(object=model, testing[,predictorsNames], type='raw')
   CM <- table(data=predictions, reference=testing[,outcomeName])
   out <- capture.output(CM)
-  cat("\nConfusion Matrix:\n", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  cat("\nConfusion Matrix:\n", out, file=output_file, sep="\n", append=TRUE)
   
   TP <- CM[1]
   FP <- CM[3]
@@ -152,16 +160,16 @@ for(i in 1:length(classifier)){
   
   F1 <- (2 * precision * recall) / (precision + recall)
   out <- paste("F-measure =", F1)
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep="\n", append=TRUE)
+  cat("", out, file=output_file, sep="\n", append=TRUE)
   G <- sqrt(TPr * TNr)
   out <- paste("G-mean =", G)
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep = "\n", append = TRUE)
+  cat("", out, file=output_file, sep = "\n", append = TRUE)
   M <- ((TP*TN) - (FP*FN)) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
   out <- paste("Matthews phi =", M)
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep = "\n", append = TRUE)
+  cat("", out, file=output_file, sep = "\n", append = TRUE)
   B <- 1 - (sqrt((0-FPr)^2 +(1-TPr)^2)/sqrt(2))
   out <- paste("Balance =", B)
-  cat("", out, file=paste(classifier[i], "txt", sep="."), sep = "\n", append = TRUE)
+  cat("", out, file=output_file, sep = "\n", append = TRUE)
   
   ## === cleanup ===
   # deallocate large objects
@@ -174,7 +182,5 @@ for(i in 1:length(classifier)){
   gc()
 }
 
-
-# } # end of for 10 repetitions
 
 # SO[!complete.cases(SO),]
