@@ -13,7 +13,7 @@ seed <- ifelse(length(seeds[run]) == 0, sample(1:1000, 1), seeds[run])
 # creates current output directory for current execution
 output_dir <- paste("output", format(Sys.time(), "%Y-%m-%d_%H.%M"), sep="/")
 if(!dir.exists(output_dir))
-  dir.create(output_dir, showWarnings = TRUE, recursive = TRUE, mode = "0644")
+  dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
 # logs errors to file
 # error_file <- paste(format(Sys.time(), "%d-%m-%Y-%X"), "log", sep = ".")
