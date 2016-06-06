@@ -1,6 +1,3 @@
-# setting default lib paths, necessary for running RScript
-library.path <- cat(.libPaths())
-
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 run <- args[1]
@@ -8,24 +5,29 @@ run <- ifelse(is.na(run), 0, run)
 
 # set the random seed, held constant for the current run
 seeds <- readLines("seeds.txt")
-seed <- ifelse(length(seeds[run]) == 0, sample(1:1000, 1), seeds[run])
+seed <- ifelse(length(seeds[run]) == 0, sample(1:1000, 1), seeds[as.integer(run)])
+
+# saves that script start time
+date_time <- ifelse(is.na(args[2]), format(Sys.time(), "%Y-%m-%d_%H.%M"), args[2])
 
 # creates current output directory for current execution
-output_dir <- paste("output", format(Sys.time(), "%Y-%m-%d_%H.%M"), sep="/")
+output_dir <- paste("output", date_time, sep="/")
 if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = TRUE, recursive = TRUE, mode = "0644")
 
 # logs errors to file
-# error_file <- paste(format(Sys.time(), "%d-%m-%Y-%X"), "log", sep = ".")
-# log.error <- function() {
-#   cat(geterrmessage(), file=paste(output_dir, error_file, sep = "/"), append=TRUE)
-# }
-# options("error"=log.error)
+ error_file <- paste(date_time, "log", sep = ".")
+log.error <- function() {
+  cat(geterrmessage(), file=paste(output_dir, error_file, sep = "/"), append=TRUE)
+}
+options(show.error.locations=TRUE)
+options(error=log.error)
+
 
 # library setup, depedencies are handled by R
 #library(pROC) # for AUC
-library(caret, lib.loc = library.path) # for param tuning
-library(e1071, lib.loc = library.path) # for normality adjustment
+library(caret) # for param tuning
+library(e1071) # for normality adjustment
 
 # comma delimiter
 #SO <- read.csv("input/so_features.csv", header = TRUE)
