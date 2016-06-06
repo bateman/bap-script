@@ -13,7 +13,7 @@ date_time <- ifelse(is.na(args[2]), format(Sys.time(), "%Y-%m-%d_%H.%M"), args[2
 # creates current output directory for current execution
 output_dir <- paste("output", date_time, sep="/")
 if(!dir.exists(output_dir))
-  dir.create(output_dir, showWarnings = TRUE, recursive = TRUE, mode = "0644")
+  dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
 # logs errors to file
  error_file <- paste(date_time, "log", sep = ".")
