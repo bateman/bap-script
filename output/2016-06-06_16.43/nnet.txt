@@ -1,0 +1,86 @@
+
+===============================
+
+Seed:
+849
+nnet_run# 1
+Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 234, 233, 233, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec      
+  1     0.0    0.6053610  1.0000000  0.00000000
+  1     0.1    0.7300420  1.0000000  0.04444444
+  3     0.0    0.6120487  0.9820261  0.02301587
+  3     0.1    0.7198257  0.9444444  0.11428571
+
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 1 and decay = 0.1. 
+
+Elapsed time
+Time difference of 0.8840458 secs
+
+Highest ROC value:
+  TrainROC TrainSens  TrainSpec method
+1 0.730042         1 0.04444444   nnet
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   18
+  True      0    0
+
+F-measure = 0.935251798561151
+
+G-mean = 0
+
+Matthews phi = NaN
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+342
+nnet_run# 2
+Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec      
+  1     0.0    0.5193744  1.0000000  0.00000000
+  1     0.1    0.7688531  0.9967320  0.03333333
+  3     0.0    0.4945923  0.9918301  0.00000000
+  3     0.1    0.7245798  0.9575163  0.15952381
+
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 1 and decay = 0.1. 
+
+Elapsed time
+Time difference of 0.862637 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7688531  0.996732 0.03333333   nnet
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   17
+  True      1    1
+
+F-measure = 0.934782608695652
+
+G-mean = 0.234793963142593
+
+Matthews phi = 0.13549356453256
+
+Balance = 0.332154778320752

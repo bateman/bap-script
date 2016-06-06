@@ -1,0 +1,80 @@
+
+===============================
+
+Seed:
+849
+J48_run# 1
+C4.5-like Trees 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 234, 233, ... 
+Resampling results:
+
+  ROC        Sens       Spec     
+  0.5365352  0.9395425  0.1365079
+
+Tuning parameter 'C' was held constant at a value of 0.25
+ 
+
+Elapsed time
+Time difference of 1.031975 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.5365352 0.9395425 0.1365079    J48
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   127   14
+  True      3    4
+
+F-measure = 0.937269372693727
+
+G-mean = 0.465933489989738
+
+Matthews phi = 0.306633366879073
+
+Balance = 0.449786034354072
+
+===============================
+
+Seed:
+342
+J48_run# 2
+C4.5-like Trees 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 233, 234, ... 
+Resampling results:
+
+  ROC        Sens       Spec     
+  0.5796024  0.9558824  0.1380952
+
+Tuning parameter 'C' was held constant at a value of 0.25
+ 
+
+Elapsed time
+Time difference of 1.040003 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.5796024 0.9558824 0.1380952    J48
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   124   12
+  True      6    6
+
+F-measure = 0.932330827067669
+
+G-mean = 0.563869415688347
+
+Matthews phi = 0.343875525552352
+
+Balance = 0.527467132381653

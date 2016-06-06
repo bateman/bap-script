@@ -1,0 +1,82 @@
+
+===============================
+
+Seed:
+849
+knn_run# 1
+k-Nearest Neighbors 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  k  ROC        Sens       Spec     
+  5  0.6258131  0.9526144  0.1722222
+  7  0.6881536  0.9787582  0.1253968
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was k = 7. 
+
+Elapsed time
+Time difference of 0.5604372 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.6881536 0.9787582 0.1253968    knn
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   15
+  True      1    3
+
+F-measure = 0.941605839416058
+
+G-mean = 0.406675073473425
+
+Matthews phi = 0.320423064355455
+
+Balance = 0.410719245163192
+
+===============================
+
+Seed:
+342
+knn_run# 2
+k-Nearest Neighbors 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  k  ROC        Sens       Spec     
+  5  0.6932073  0.9542484  0.1158730
+  7  0.7206855  0.9705882  0.1039683
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was k = 7. 
+
+Elapsed time
+Time difference of 0.4922659 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7206855 0.9705882 0.1039683    knn
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   128   14
+  True      2    4
+
+F-measure = 0.941176470588235
+
+G-mean = 0.467764276963749
+
+Matthews phi = 0.34278170572682
+
+Balance = 0.449920479387084

@@ -1,0 +1,94 @@
+
+===============================
+
+Seed:
+849
+gbm_run# 1
+Stochastic Gradient Boosting 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  interaction.depth  n.trees  ROC        Sens       Spec      
+  1                   50      0.7249378  0.9885621  0.04603175
+  1                  100      0.7152428  0.9787582  0.07936508
+  2                   50      0.7206816  0.9705882  0.14682540
+  2                  100      0.7047697  0.9542484  0.18095238
+
+Tuning parameter 'shrinkage' was held constant at a value of 0.1
+
+Tuning parameter 'n.minobsinnode' was held constant at a value of 10
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were n.trees = 50, interaction.depth =
+ 1, shrinkage = 0.1 and n.minobsinnode = 10. 
+
+Elapsed time
+Time difference of 0.8728969 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7249378 0.9885621 0.04603175    gbm
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   128   16
+  True      2    2
+
+F-measure = 0.934306569343066
+
+G-mean = 0.330759292237889
+
+Matthews phi = 0.192942920472102
+
+Balance = 0.371366504559033
+
+===============================
+
+Seed:
+342
+gbm_run# 2
+Stochastic Gradient Boosting 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  interaction.depth  n.trees  ROC        Sens       Spec     
+  1                   50      0.7565982  0.9689542  0.1150794
+  1                  100      0.7431528  0.9656863  0.1595238
+  2                   50      0.7605742  0.9673203  0.1698413
+  2                  100      0.7581855  0.9738562  0.1484127
+
+Tuning parameter 'shrinkage' was held constant at a value of 0.1
+
+Tuning parameter 'n.minobsinnode' was held constant at a value of 10
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were n.trees = 50, interaction.depth =
+ 2, shrinkage = 0.1 and n.minobsinnode = 10. 
+
+Elapsed time
+Time difference of 0.8779509 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7605742 0.9673203 0.1698413    gbm
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   127   14
+  True      3    4
+
+F-measure = 0.937269372693727
+
+G-mean = 0.465933489989738
+
+Matthews phi = 0.306633366879073
+
+Balance = 0.449786034354072

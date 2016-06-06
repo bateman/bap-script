@@ -1,0 +1,80 @@
+
+===============================
+
+Seed:
+849
+lda2_run# 1
+Linear Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results:
+
+  ROC        Sens       Spec      
+  0.7541783  0.9803922  0.06904762
+
+Tuning parameter 'dimen' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 0.462642 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7541783 0.9803922 0.06904762   lda2
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   16
+  True      1    2
+
+F-measure = 0.938181818181818
+
+G-mean = 0.332048807039583
+
+Matthews phi = 0.239862750158188
+
+Balance = 0.371437104027069
+
+===============================
+
+Seed:
+342
+lda2_run# 2
+Linear Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 233, 234, ... 
+Resampling results:
+
+  ROC        Sens       Spec      
+  0.6976813  0.9722222  0.08095238
+
+Tuning parameter 'dimen' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 0.430881 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.6976813 0.9722222 0.08095238   lda2
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   17
+  True      1    1
+
+F-measure = 0.934782608695652
+
+G-mean = 0.234793963142593
+
+Matthews phi = 0.13549356453256
+
+Balance = 0.332154778320752

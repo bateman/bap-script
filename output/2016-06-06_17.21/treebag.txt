@@ -1,0 +1,78 @@
+
+===============================
+
+Seed:
+849
+treebag_run# 1
+Bagged CART 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results:
+
+  ROC        Sens       Spec     
+  0.6821234  0.9656863  0.1365079
+
+ 
+
+Elapsed time
+Time difference of 2.205285 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec  method
+1 0.6821234 0.9656863 0.1365079 treebag
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   126   14
+  True      4    4
+
+F-measure = 0.933333333333333
+
+G-mean = 0.464095480892257
+
+Matthews phi = 0.276733078220144
+
+Balance = 0.449597866479849
+
+===============================
+
+Seed:
+342
+treebag_run# 2
+Bagged CART 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results:
+
+  ROC        Sens       Spec     
+  0.6721405  0.9542484  0.1595238
+
+ 
+
+Elapsed time
+Time difference of 2.242333 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec  method
+1 0.6721405 0.9542484 0.1595238 treebag
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   127   15
+  True      3    3
+
+F-measure = 0.933823529411765
+
+G-mean = 0.403510238805055
+
+Matthews phi = 0.237964159347544
+
+Balance = 0.410518452865935

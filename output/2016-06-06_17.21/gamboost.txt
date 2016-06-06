@@ -1,0 +1,84 @@
+
+===============================
+
+Seed:
+849
+gamboost_run# 1
+Boosted Generalized Additive Model 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 234, 233, 233, ... 
+Resampling results across tuning parameters:
+
+  mstop  ROC        Sens       Spec      
+   50    0.7661251  1.0000000  0.01333333
+  100    0.7591317  0.9901961  0.04095238
+
+Tuning parameter 'prune' was held constant at a value of no
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were mstop = 50 and prune = no. 
+
+Elapsed time
+Time difference of 2.476267 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec   method
+1 0.7661251         1 0.01333333 gamboost
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   15
+  True      1    3
+
+F-measure = 0.941605839416058
+
+G-mean = 0.406675073473425
+
+Matthews phi = 0.320423064355455
+
+Balance = 0.410719245163192
+
+===============================
+
+Seed:
+342
+gamboost_run# 2
+Boosted Generalized Additive Model 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 234, 233, 233, ... 
+Resampling results across tuning parameters:
+
+  mstop  ROC        Sens       Spec      
+   50    0.7491674  0.9983660  0.00000000
+  100    0.7422969  0.9918301  0.01111111
+
+Tuning parameter 'prune' was held constant at a value of no
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were mstop = 50 and prune = no. 
+
+Elapsed time
+Time difference of 2.667198 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.7491674  0.998366         0 gamboost
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   18
+  True      0    0
+
+F-measure = 0.935251798561151
+
+G-mean = 0
+
+Matthews phi = NaN
+
+Balance = 0.292893218813453

@@ -1,0 +1,84 @@
+
+===============================
+
+Seed:
+849
+svmRadial_run# 1
+Support Vector Machines with Radial Basis Function Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 234, 233, 233, ... 
+Resampling results across tuning parameters:
+
+  C     ROC        Sens  Spec      
+  0.25  0.6054855  1     0.01111111
+  0.50  0.6061547  1     0.01111111
+
+Tuning parameter 'sigma' was held constant at a value of 0.07020335
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were sigma = 0.07020335 and C = 0.5. 
+
+Elapsed time
+Time difference of 1.353881 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec    method
+1 0.6061547         1 0.01111111 svmRadial
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   18
+  True      0    0
+
+F-measure = 0.935251798561151
+
+G-mean = 0
+
+Matthews phi = NaN
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+342
+svmRadial_run# 2
+Support Vector Machines with Radial Basis Function Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  C     ROC        Sens       Spec
+  0.25  0.5867414  0.9934641  0   
+  0.50  0.5859633  0.9983660  0   
+
+Tuning parameter 'sigma' was held constant at a value of 0.07060833
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were sigma = 0.07060833 and C = 0.25. 
+
+Elapsed time
+Time difference of 1.483518 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec    method
+1 0.5867414 0.9934641         0 svmRadial
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   17
+  True      0    1
+
+F-measure = 0.938628158844765
+
+G-mean = 0.235702260395516
+
+Matthews phi = 0.221654603869348
+
+Balance = 0.332176928879372

@@ -1,0 +1,104 @@
+
+===============================
+
+Seed:
+849
+AdaBoost.M1_run# 1
+AdaBoost.M1 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  coeflearn  maxdepth  mfinal  ROC        Sens       Spec      
+  Breiman    1          50     0.7285987  0.9689542  0.07936508
+  Breiman    1         100     0.7407252  0.9771242  0.07857143
+  Breiman    2          50     0.7282135  0.9705882  0.13492063
+  Breiman    2         100     0.6923747  0.9493464  0.18253968
+  Freund     1          50     0.7236383  0.9591503  0.18333333
+  Freund     1         100     0.7277778  0.9656863  0.14761905
+  Freund     2          50     0.6889667  0.9460784  0.18253968
+  Freund     2         100     0.6765640  0.9493464  0.15952381
+  Zhu        1          50     0.7292017  0.9575163  0.11269841
+  Zhu        1         100     0.7368970  0.9575163  0.16031746
+  Zhu        2          50     0.6664721  0.9248366  0.13650794
+  Zhu        2         100     0.6711251  0.9281046  0.17063492
+
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were mfinal = 100, maxdepth = 1
+ and coeflearn = Breiman. 
+
+Elapsed time
+Time difference of 14.69706 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec      method
+1 0.7407252 0.9771242 0.07857143 AdaBoost.M1
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   127   17
+  True      3    1
+
+F-measure = 0.927007299270073
+
+G-mean = 0.232966744994869
+
+Matthews phi = 0.0654627765887489
+
+Balance = 0.331977600292972
+
+===============================
+
+Seed:
+342
+AdaBoost.M1_run# 2
+AdaBoost.M1 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  coeflearn  maxdepth  mfinal  ROC        Sens       Spec      
+  Breiman    1          50     0.7434757  0.9771242  0.12539683
+  Breiman    1         100     0.7291939  0.9705882  0.13809524
+  Breiman    2          50     0.6358232  0.9477124  0.10158730
+  Breiman    2         100     0.6638266  0.9330065  0.10396825
+  Freund     1          50     0.7314776  0.9460784  0.13730159
+  Freund     1         100     0.7339325  0.9558824  0.10317460
+  Freund     2          50     0.6876673  0.9477124  0.17063492
+  Freund     2         100     0.6705727  0.9346405  0.14841270
+  Zhu        1          50     0.7337379  0.9460784  0.16031746
+  Zhu        1         100     0.7208606  0.9542484  0.16031746
+  Zhu        2          50     0.6539994  0.9313725  0.09126984
+  Zhu        2         100     0.6586601  0.9346405  0.16111111
+
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were mfinal = 50, maxdepth = 1
+ and coeflearn = Breiman. 
+
+Elapsed time
+Time difference of 14.61105 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec      method
+1 0.7434757 0.9771242 0.1253968 AdaBoost.M1
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   14
+  True      1    4
+
+F-measure = 0.945054945054945
+
+G-mean = 0.469587926285185
+
+Matthews phi = 0.388099217892403
+
+Balance = 0.450001162181877

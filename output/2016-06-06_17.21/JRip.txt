@@ -1,0 +1,82 @@
+
+===============================
+
+Seed:
+849
+JRip_run# 1
+Rule-Based Classifier 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  NumOpt  ROC        Sens       Spec      
+  1       0.4937908  0.9901961  0.02222222
+  2       0.4937908  0.9901961  0.02222222
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was NumOpt = 2. 
+
+Elapsed time
+Time difference of 2.531012 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.4937908 0.9901961 0.02222222   JRip
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   126   15
+  True      4    3
+
+F-measure = 0.929889298892989
+
+G-mean = 0.40191847623425
+
+Matthews phi = 0.209247662376706
+
+Balance = 0.410342815694333
+
+===============================
+
+Seed:
+342
+JRip_run# 2
+Rule-Based Classifier 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  NumOpt  ROC       Sens       Spec      
+  1       0.484267  0.9624183  0.06904762
+  2       0.484267  0.9624183  0.06904762
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was NumOpt = 2. 
+
+Elapsed time
+Time difference of 2.023227 secs
+
+Highest ROC value:
+  TrainROC TrainSens  TrainSpec method
+1 0.484267 0.9624183 0.06904762   JRip
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   128   17
+  True      2    1
+
+F-measure = 0.930909090909091
+
+G-mean = 0.233882138481874
+
+Matthews phi = 0.0931698285738416
+
+Balance = 0.332088331052486

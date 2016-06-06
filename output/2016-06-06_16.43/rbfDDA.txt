@@ -1,0 +1,82 @@
+
+===============================
+
+Seed:
+849
+rbfDDA_run# 1
+Radial Basis Function Network 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  negativeThreshold  ROC        Sens       Spec      
+  0.01               0.7206038  0.9754902  0.09047619
+  0.10               0.7366480  0.9934641  0.01111111
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was negativeThreshold = 0.1. 
+
+Elapsed time
+Time difference of 6.277847 secs
+
+Highest ROC value:
+  TrainROC TrainSens  TrainSpec method
+1 0.736648 0.9934641 0.01111111 rbfDDA
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   16
+  True      0    2
+
+F-measure = 0.942028985507246
+
+G-mean = 0.333333333333333
+
+Matthews phi = 0.314538631950585
+
+Balance = 0.371460638945291
+
+===============================
+
+Seed:
+342
+rbfDDA_run# 2
+Radial Basis Function Network 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 234, 233, 233, ... 
+Resampling results across tuning parameters:
+
+  negativeThreshold  ROC        Sens       Spec      
+  0.01               0.7407874  0.9754902  0.07936508
+  0.10               0.7632509  0.9918301  0.01111111
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was negativeThreshold = 0.1. 
+
+Elapsed time
+Time difference of 6.280481 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7632509 0.9918301 0.01111111 rbfDDA
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   17
+  True      0    1
+
+F-measure = 0.938628158844765
+
+G-mean = 0.235702260395516
+
+Matthews phi = 0.221654603869348
+
+Balance = 0.332176928879372

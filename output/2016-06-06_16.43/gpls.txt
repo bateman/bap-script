@@ -1,0 +1,82 @@
+
+===============================
+
+Seed:
+849
+gpls_run# 1
+Generalized Partial Least Squares 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  K.prov  ROC        Sens      Spec      
+  1       0.7408185  1.000000  0.00000000
+  2       0.7683473  0.998366  0.02380952
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was K.prov = 2. 
+
+Elapsed time
+Time difference of 1.667303 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7683473  0.998366 0.02380952   gpls
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   18
+  True      0    0
+
+F-measure = 0.935251798561151
+
+G-mean = 0
+
+Matthews phi = NaN
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+342
+gpls_run# 2
+Generalized Partial Least Squares 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  K.prov  ROC        Sens  Spec      
+  1       0.7890834  1     0.00000000
+  2       0.7941721  1     0.02222222
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was K.prov = 2. 
+
+Elapsed time
+Time difference of 1.753733 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7941721         1 0.02222222   gpls
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   18
+  True      1    0
+
+F-measure = 0.931407942238267
+
+G-mean = 0
+
+Matthews phi = -0.0306906374588328
+
+Balance = 0.292872298803945

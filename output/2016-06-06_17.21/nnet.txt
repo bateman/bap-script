@@ -1,0 +1,86 @@
+
+===============================
+
+Seed:
+849
+nnet_run# 1
+Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec      
+  1     0.0    0.6010893  1.0000000  0.00000000
+  1     0.1    0.7715998  0.9771242  0.03492063
+  3     0.0    0.5679661  0.9722222  0.03571429
+  3     0.1    0.7367025  0.9738562  0.15714286
+
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 1 and decay = 0.1. 
+
+Elapsed time
+Time difference of 1.065172 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7715998 0.9771242 0.03492063   nnet
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   16
+  True      1    2
+
+F-measure = 0.938181818181818
+
+G-mean = 0.332048807039583
+
+Matthews phi = 0.239862750158188
+
+Balance = 0.371437104027069
+
+===============================
+
+Seed:
+342
+nnet_run# 2
+Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec      
+  1     0.0    0.5178649  0.9787582  0.05555556
+  1     0.1    0.7348350  0.9918301  0.05634921
+  3     0.0    0.4861111  0.9934641  0.00000000
+  3     0.1    0.6824463  0.9640523  0.13492063
+
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 1 and decay = 0.1. 
+
+Elapsed time
+Time difference of 0.975266 secs
+
+Highest ROC value:
+  TrainROC TrainSens  TrainSpec method
+1 0.734835 0.9918301 0.05634921   nnet
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   130   18
+  True      0    0
+
+F-measure = 0.935251798561151
+
+G-mean = 0
+
+Matthews phi = NaN
+
+Balance = 0.292893218813453

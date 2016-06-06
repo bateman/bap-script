@@ -1,0 +1,82 @@
+
+===============================
+
+Seed:
+849
+multinom_run# 1
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0.0    0.6901338  0.9493464  0.1357143
+  0.1    0.7174992  0.9754902  0.1015873
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0.1. 
+
+Elapsed time
+Time difference of 0.607734 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.7174992 0.9754902 0.1015873 multinom
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   14
+  True      1    4
+
+F-measure = 0.945054945054945
+
+G-mean = 0.469587926285185
+
+Matthews phi = 0.388099217892403
+
+Balance = 0.450001162181877
+
+===============================
+
+Seed:
+342
+multinom_run# 2
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec      
+  0.0    0.7299331  0.9330065  0.15000000
+  0.1    0.7623872  0.9738562  0.09206349
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0.1. 
+
+Elapsed time
+Time difference of 0.6921179 secs
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec   method
+1 0.7623872 0.9738562 0.09206349 multinom
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   14
+  True      1    4
+
+F-measure = 0.945054945054945
+
+G-mean = 0.469587926285185
+
+Matthews phi = 0.388099217892403
+
+Balance = 0.450001162181877

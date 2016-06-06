@@ -1,0 +1,84 @@
+
+===============================
+
+Seed:
+849
+fda_run# 1
+Flexible Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.5277817  0.9754902  0.06825397
+  28      0.6053105  0.9362745  0.10238095
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were degree = 1 and nprune = 28. 
+
+Elapsed time
+Time difference of 0.748153 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.6053105 0.9362745  0.102381    fda
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   128   13
+  True      2    5
+
+F-measure = 0.944649446494465
+
+G-mean = 0.522976360368491
+
+Matthews phi = 0.404019071381439
+
+Balance = 0.489195915902125
+
+===============================
+
+Seed:
+342
+fda_run# 2
+Flexible Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 234, 233, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6251439  0.9689542  0.08888889
+  29      0.7005291  0.9346405  0.23809524
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were degree = 1 and nprune = 29. 
+
+Elapsed time
+Time difference of 0.8049231 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7005291 0.9346405 0.2380952    fda
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   121   15
+  True      9    3
+
+F-measure = 0.909774436090226
+
+G-mean = 0.393863180721688
+
+Matthews phi = 0.116672053312405
+
+Balance = 0.408714390563778

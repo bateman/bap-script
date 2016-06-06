@@ -1,0 +1,90 @@
+
+===============================
+
+Seed:
+849
+nb_run# 1
+Naive Bayes 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 234, 233, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  usekernel  ROC        Sens       Spec     
+  FALSE      0.7825941  0.5261438  0.9420635
+   TRUE      0.8011516  0.5571895  0.8968254
+
+Tuning parameter 'fL' was held constant at a value of 0
+Tuning
+ parameter 'adjust' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were fL = 0, usekernel = TRUE and adjust
+ = 1. 
+
+Elapsed time
+Time difference of 4.202358 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8011516 0.5571895 0.8968254     nb
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False    79    5
+  True     51   13
+
+F-measure = 0.738317757009346
+
+G-mean = 0.66248689714506
+
+Matthews phi = 0.217660559705058
+
+Balance = 0.660098676620002
+
+===============================
+
+Seed:
+342
+nb_run# 2
+Naive Bayes 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 234, 233, 233, ... 
+Resampling results across tuning parameters:
+
+  usekernel  ROC        Sens       Spec     
+  FALSE      0.7588469  0.5318627  0.9142857
+   TRUE      0.7728291  0.6094771  0.7722222
+
+Tuning parameter 'fL' was held constant at a value of 0
+Tuning
+ parameter 'adjust' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were fL = 0, usekernel = TRUE and adjust
+ = 1. 
+
+Elapsed time
+Time difference of 3.909014 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7728291 0.6094771 0.7722222     nb
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False    71    1
+  True     59   17
+
+F-measure = 0.702970297029703
+
+G-mean = 0.718200505299158
+
+Matthews phi = 0.320819616250067
+
+Balance = 0.676686876918031

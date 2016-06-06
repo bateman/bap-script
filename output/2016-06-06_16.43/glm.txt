@@ -1,0 +1,78 @@
+
+===============================
+
+Seed:
+849
+glm_run# 1
+Generalized Linear Model 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results:
+
+  ROC        Sens       Spec    
+  0.7139978  0.9166667  0.147619
+
+ 
+
+Elapsed time
+Time difference of 0.4910951 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7139978 0.9166667  0.147619    glm
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   127   14
+  True      3    4
+
+F-measure = 0.937269372693727
+
+G-mean = 0.465933489989738
+
+Matthews phi = 0.306633366879073
+
+Balance = 0.449786034354072
+
+===============================
+
+Seed:
+342
+glm_run# 2
+Generalized Linear Model 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 233, 234, 234, 233, 233, ... 
+Resampling results:
+
+  ROC        Sens       Spec     
+  0.7515328  0.9460784  0.1690476
+
+ 
+
+Elapsed time
+Time difference of 0.4973381 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7515328 0.9460784 0.1690476    glm
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   127   15
+  True      3    3
+
+F-measure = 0.933823529411765
+
+G-mean = 0.403510238805055
+
+Matthews phi = 0.237964159347544
+
+Balance = 0.410518452865935

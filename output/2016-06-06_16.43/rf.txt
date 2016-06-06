@@ -1,0 +1,82 @@
+
+===============================
+
+Seed:
+849
+rf_run# 1
+Random Forest 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  mtry  ROC        Sens       Spec      
+   2    0.7243970  0.9950980  0.07936508
+  21    0.7070689  0.9836601  0.11269841
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was mtry = 2. 
+
+Elapsed time
+Time difference of 2.766154 secs
+
+Highest ROC value:
+  TrainROC TrainSens  TrainSpec method
+1 0.724397  0.995098 0.07936508     rf
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   15
+  True      1    3
+
+F-measure = 0.941605839416058
+
+G-mean = 0.406675073473425
+
+Matthews phi = 0.320423064355455
+
+Balance = 0.410719245163192
+
+===============================
+
+Seed:
+342
+rf_run# 2
+Random Forest 
+
+No pre-processing
+Resampling: Cross-Validated (3 fold, repeated 2 times) 
+Summary of sample sizes: 233, 234, 233, 233, 233, 234, ... 
+Resampling results across tuning parameters:
+
+  mtry  ROC        Sens       Spec     
+   2    0.7403361  0.9852941  0.1238095
+  21    0.7392118  0.9705882  0.1825397
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was mtry = 2. 
+
+Elapsed time
+Time difference of 2.947501 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7403361 0.9852941 0.1238095     rf
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   129   17
+  True      1    1
+
+F-measure = 0.934782608695652
+
+G-mean = 0.234793963142593
+
+Matthews phi = 0.13549356453256
+
+Balance = 0.332154778320752
