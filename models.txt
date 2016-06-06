@@ -25,5 +25,5 @@ gbm:gbm
 AdaBoost.M1:adabag
 gamboost:mboost
 LogitBoost:caTools
-xgbTree:xgboost
 C5.0:C50
+xgbTree:xgboost
