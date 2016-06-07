@@ -44,10 +44,14 @@ __version__ = '.'.join(str(i) for i in __version_info__)
 __home__ = 'https://github.com/collab-uniba/s'
 __download__ = 'https://github.com/collab-uniba/.zip'
 
+
 class ComputeMetrics(object):
     metric_files = None
+    metrics = None
+    permetric_vals = None
     classification_res = None
-    #['nb', 'knn', 'gpls', 'earth', 'glm', 'nnet', 'avNNet', 'pcaNNet', 'rbfDDA', 'mlp', 'mlpWeightDecay',
+
+    # ['nb', 'knn', 'gpls', 'earth', 'glm', 'nnet', 'avNNet', 'pcaNNet', 'rbfDDA', 'mlp', 'mlpWeightDecay',
     # 'multinom', 'lda2', 'pda', 'fda', 'JRip', 'J48', 'LMT', 'rpart', 'svmLinear', 'svmRadial', 'rf',
     # 'treebag', 'gbm', 'AdaBoost.M1', 'gamboost', 'LogitBoost', 'C5.0', 'xgbTree']
 
@@ -61,6 +65,7 @@ class ComputeMetrics(object):
 
         self.metric_files = list()
         self.classification_res = dict()
+        self.metrics = dict()
 
     def main(self):
         self.__getfiles()
@@ -68,36 +73,83 @@ class ComputeMetrics(object):
             model = string.split(mf, sep=".")[0]
             fcontent = self.__readfile(mf)
             self.classification_res[model] = fcontent
-        self.__compute_metrics()
+
+        for model, content in self.classification_res.iteritems():
+            self.permetric_vals = self.__compute_metrics(content)
+            self.metrics[model] = self.permetric_vals
+        pass
 
     def __getfiles(self):
         os.chdir(self.infolder)
         for f in glob.glob("*.{0:s}".format(self.ext)):
             self.metric_files.append(f)
-        print len(self.metric_files)
 
     @staticmethod
     def __readfile(f):
         with open(f, 'r') as _file:
-            _file_content = _file.read()#.replace('\n', '')
+            _file_content = _file.read()  # .replace('\n', '')
             return _file_content
 
-    def __compute_metrics(self):
-        #pParams = re.compile("pattern")
-        #pTime = re.compile("pattern")
-        #pHighROC = re.compile("pattern")
+    @staticmethod
+    def __compute_metrics(content):
+        permetric_vals = dict()
+
+        pParams = re.compile("The final values* used for the model (was|were) (.*\n*.*)\.")
+        Params_vals = list()
+        pTime = re.compile("Time difference of (.*) \w+")
+        Time_vals = list()
+        pHighROC = re.compile(".*TrainSpec\s+method\n1\s+(\d.\d+)")
+        HighROC_vals = list()
         pF1 = re.compile("^F-measure = (.*)$", re.MULTILINE)
-        #pGmean = re.compile("pattern")
-        #pPhi = re.compile("pattern")
-        #pBalance = re.compile("pattern")
-        for model, content in self.classification_res.iteritems():
-            for match in re.finditer(pF1, content):
-                print model + match.group()
+        F1_vals = list()
+        pGmean = re.compile("^G-mean = (.*)$", re.MULTILINE)
+        Gmean_vals = list()
+        pPhi = re.compile("^Matthews phi = (.*)$", re.MULTILINE)
+        Phi_vals = list()
+        pBal = re.compile("^Balance = (.*)$", re.MULTILINE)
+        Bal_vals = list()
+
+        for match in re.finditer(pParams, content):
+            if match is not None:
+                Params_vals.append(match.group(2).replace('\n', ''))
+        if len(Params_vals) is 0:
+            pParams = re.compile("Tuning parameter \'(.*)\' was held constant at a value of (.*)")
+            for match in re.finditer(pParams, content):
+                assert(match is not None)
+                Params_vals.append(match.group(1) + " = " + match.group(2))
+        permetric_vals['parameters'] = Params_vals
+        for match in re.finditer(pTime, content):
+            assert (match is not None)
+            Time_vals.append(match.group(1))
+        permetric_vals['time'] = Time_vals
+        for match in re.finditer(pHighROC, content):
+            assert (match is not None)
+            HighROC_vals.append(match.group(1))
+        permetric_vals['ROC'] = HighROC_vals
+        for match in re.finditer(pF1, content):
+            assert (match is not None)
+            F1_vals.append(match.group(1))
+        permetric_vals['F1'] = F1_vals
+        for match in re.finditer(pGmean, content):
+            assert (match is not None)
+            Gmean_vals.append(match.group(1))
+        permetric_vals['G-mean'] = Gmean_vals
+        for match in re.finditer(pPhi, content):
+            assert (match is not None)
+            Phi_vals.append(match.group(1))
+        permetric_vals['Phi'] = Phi_vals
+        for match in re.finditer(pBal, content):
+            assert (match is not None)
+            Bal_vals.append(match.group(1))
+        permetric_vals['Balance'] = Bal_vals
+
+        return permetric_vals
+
 
 if __name__ == '__main__':
     # default CL arg values
     outfile = 'aggregate-metrics.csv'
-    sep = ','
+    sep = ';'
     ext = 'txt'
 
     try:
