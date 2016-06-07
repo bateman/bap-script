@@ -34,6 +34,7 @@ import os
 import re
 import string
 import sys
+from pyexcelerate import Workbook, Style, Font, Fill, Color
 
 __script__ = 'collect-metrics.py'
 __author__ = '@bateman'
@@ -50,34 +51,47 @@ class ComputeMetrics(object):
     metrics = None
     permetric_vals = None
     classification_res = None
+    models = None
+    # metric_names = {'A1': 'AUROC', 'B1': 'F1', 'C1': 'G-mean', 'D1': 'Phi', 'E1': 'Balance', 'F1': 'parameters',
+    #                'G1': 'time'}
+    metric_names = ['AUROC', 'F1', 'G-mean', 'Phi', 'Balance', 'time', 'parameters']
 
-    # ['nb', 'knn', 'gpls', 'earth', 'glm', 'nnet', 'avNNet', 'pcaNNet', 'rbfDDA', 'mlp', 'mlpWeightDecay',
-    # 'multinom', 'lda2', 'pda', 'fda', 'JRip', 'J48', 'LMT', 'rpart', 'svmLinear', 'svmRadial', 'rf',
-    # 'treebag', 'gbm', 'AdaBoost.M1', 'gamboost', 'LogitBoost', 'C5.0', 'xgbTree']
-
-    def __init__(self, infolder, outfile, ext, sep):
+    def __init__(self, infolder, outfile, sep=';', ext='txt', cases=10):
         self.log = logging.getLogger('ComputeMetrics script')
 
         self.infolder = infolder
         self.outfile = outfile
         self.sep = sep
         self.ext = ext
+        self.cases = cases
 
         self.metric_files = list()
         self.classification_res = dict()
         self.metrics = dict()
+        self.models = self.__readmodels('models.txt')
 
     def main(self):
         self.__getfiles()
         for mf in self.metric_files:
-            model = string.split(mf, sep=".")[0]
+            model = mf[:-len(self.ext) - 1]  # strips .ext away
             fcontent = self.__readfile(mf)
             self.classification_res[model] = fcontent
 
         for model, content in self.classification_res.iteritems():
             self.permetric_vals = self.__compute_metrics(content)
             self.metrics[model] = self.permetric_vals
-        pass
+        self.__save_xls()
+
+    @staticmethod
+    def __readmodels(mfile):
+        models = list()
+        with open(mfile, 'r') as _file:
+            content = _file.readlines()
+
+        for m in content:
+            models.append(string.split(m.strip(), sep=":")[0])
+
+        return models
 
     def __getfiles(self):
         os.chdir(self.infolder)
@@ -87,7 +101,7 @@ class ComputeMetrics(object):
     @staticmethod
     def __readfile(f):
         with open(f, 'r') as _file:
-            _file_content = _file.read()  # .replace('\n', '')
+            _file_content = _file.read()
             return _file_content
 
     @staticmethod
@@ -115,7 +129,7 @@ class ComputeMetrics(object):
         if len(Params_vals) is 0:
             pParams = re.compile("Tuning parameter \'(.*)\' was held constant at a value of (.*)")
             for match in re.finditer(pParams, content):
-                assert(match is not None)
+                assert (match is not None)
                 Params_vals.append(match.group(1) + " = " + match.group(2))
         permetric_vals['parameters'] = Params_vals
         for match in re.finditer(pTime, content):
@@ -125,7 +139,7 @@ class ComputeMetrics(object):
         for match in re.finditer(pHighROC, content):
             assert (match is not None)
             HighROC_vals.append(match.group(1))
-        permetric_vals['ROC'] = HighROC_vals
+        permetric_vals['AUROC'] = HighROC_vals
         for match in re.finditer(pF1, content):
             assert (match is not None)
             F1_vals.append(match.group(1))
@@ -145,19 +159,40 @@ class ComputeMetrics(object):
 
         return permetric_vals
 
+    def __save_xls(self):
+        wb = Workbook()
+
+        for model in self.models:
+            ws = wb.new_sheet(sheet_name=model)
+            # sets the column name
+            for j in range(1, len(self.metric_names) + 1):
+                ws.set_cell_value(1, j, self.metric_names[j - 1])
+                #ws.set_cell_style(1, j, Style(fill=Fill(background=Color(224, 224, 224, 224))))
+                ws.set_cell_style(1, j, Style(font=Font(bold=True)))
+            # sets the cells values
+            for i in range(1, self.cases + 1):
+                for j in range(1, len(self.metric_names) + 1):
+                    try:
+                        ws.set_cell_value(i + 1, j, self.metrics[model][self.metric_names[j - 1]][i - 1])
+                    except IndexError:
+                        ws.set_cell_value(i + 1, j, '')
+
+        wb.save(self.outfile)
+
 
 if __name__ == '__main__':
     # default CL arg values
-    outfile = 'aggregate-metrics.csv'
+    outfile = 'aggregate-metrics.xlsx'
     sep = ';'
     ext = 'txt'
+    cases = 10
 
     try:
         if (len(sys.argv) <= 1):
             raise (getopt.GetoptError("No arguments!"))
         else:
-            opts, args = getopt.getopt(sys.argv[1:], "hi:o:e:s:",
-                                       ["help", "in=", "out=", "ext=", "sep="])
+            opts, args = getopt.getopt(sys.argv[1:], "hi:o:c:e:s:",
+                                       ["help", "in=", "out=", "sep="])
     except getopt.GetoptError:
         print('Wrong or no arguments. Please, enter\n\n'
               '\t%s [-h|--help]\n\n'
@@ -169,18 +204,21 @@ if __name__ == '__main__':
             print('Usage: {0:s} [OPTIONS]\n'
                   '\t-h, --help                                prints this help\n'
                   '\t-i, --in   <path/to/metrics/folder.txt>   path to metric files\n'
-                  '\t-o, --out  <output.csv>                   name of the csv output file\n'
-                  '\t-e, --ext  <txt>                          extension of metric files'
+                  '\t-o, --out  <output>.<csv|xls|txt>         output file\n'
+                  '\t-c, --cases N                             number of observed cases\n'
+                  '\t-e, --ext  <txt>                          extension of metric files\n'
                   '\t-s, --sep  <,|;>                          either , or ; as separator'.format(__script__))
             sys.exit()
         elif opt in ("-i", "--in"):
             infolder = arg
         elif opt in ("-o", "--out"):
             outfile = arg
+        elif opt in ("-c", "--case"):
+            cases = int(arg)
         elif opt in ("-e", "--ext"):
             ext = arg
         elif opt in ("-s", "--sep"):
             sep = arg
 
-    cm = ComputeMetrics(infolder, outfile, ext, sep)
+    cm = ComputeMetrics(infolder, outfile, sep, ext, cases)
     cm.main()
