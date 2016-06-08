@@ -1,5 +1,17 @@
 print("Checking the required packages... will be re-installed if already present.")
 
+# checks if RJava is present
+# if not, it has to be installed manually , depending on OS
+if(!require("rJava")) {
+  print("Please, Install rJava package manually and re-run.")
+} else if (!require("RWeka") || !require("RWekajars")) {
+  install.packages(c("RWeka", "RWekajars"), dependencies = c("Imports", "Depends"))
+}
+
+if(!require("xlsx")){
+  install.packages(c("xlsx", "xlsxjars"), dependencies = c("Imports", "Depends"))
+}
+
 # from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
 # installs most of the 340 caret dependencies but not all of them
 mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
@@ -8,13 +20,7 @@ mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
             "randomForest", "ipred", "gbm", "adabag", "mboost", "caTools", "xgboost", "C50")
 install.packages(mostP, dependencies = c("Imports", "Depends"))
 
-# checks if RJava is present
-# if not, it has to be installed manually , depending on OS
-if(!require("rJava")) {
-  print("Please, Install rJava package manually and re-run.")
-} else if (!require("RWeka") || !require("RWekajars")) {
-  install.packages(c("RWeka", "RWekajars"), dependencies = c("Imports", "Depends"))
-}
+print("Done.")
 
 # non optimized (unsupported by caret)
 
