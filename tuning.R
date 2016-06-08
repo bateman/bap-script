@@ -59,9 +59,9 @@ testing <- SO[-splitIndex, ]
 # 10-fold CV repetitions
 fitControl <- trainControl(
   method = "repeatedcv",
-  number = 3,
+  number = 10,
   ## repeated ten times
-  repeats = 2,
+  repeats = 10,
   # binary problem
   summaryFunction=twoClassSummary,
   classProbs = TRUE,
