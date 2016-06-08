@@ -30,6 +30,7 @@
 import getopt
 import glob
 import logging
+import numpy
 import os
 import re
 import string
@@ -49,25 +50,29 @@ __download__ = 'https://github.com/collab-uniba/.zip'
 class ComputeMetrics(object):
     metric_files = None
     metrics = None
-    permetric_vals = None
+    per_metric_vals = None
     classification_res = None
     models = None
     # metric_names = {'A1': 'AUROC', 'B1': 'F1', 'C1': 'G-mean', 'D1': 'Phi', 'E1': 'Balance', 'F1': 'parameters',
     #                'G1': 'time'}
     metric_names = ['AUROC', 'F1', 'G-mean', 'Phi', 'Balance', 'time', 'parameters']
 
-    def __init__(self, infolder, outfile, sep=';', ext='txt', cases=10):
+    descriptive_stats = None
+    descriptive_stats_names = ['min', 'max', 'mean', 'median', 'stdev']
+
+    def __init__(self, infolder, outfile, sep=';', ext='txt', runs=10):
         self.log = logging.getLogger('ComputeMetrics script')
 
         self.infolder = infolder
         self.outfile = outfile
         self.sep = sep
         self.ext = ext
-        self.cases = cases
+        self.runs = runs
 
         self.metric_files = list()
         self.classification_res = dict()
         self.metrics = dict()
+        self.descriptive_stats = dict()
         self.models = self.__readmodels('models.txt')
 
     def main(self):
@@ -78,8 +83,10 @@ class ComputeMetrics(object):
             self.classification_res[model] = fcontent
 
         for model, content in self.classification_res.iteritems():
-            self.permetric_vals = self.__compute_metrics(content)
-            self.metrics[model] = self.permetric_vals
+            self.per_metric_vals = self.__compute_metrics(content)
+            self.metrics[model] = self.per_metric_vals
+
+        self.__compute_descriptive_stats()
         self.__save_xls()
 
     @staticmethod
@@ -159,23 +166,57 @@ class ComputeMetrics(object):
 
         return permetric_vals
 
+    def __compute_descriptive_stats(self):
+        for model in self.models:
+            descriptive_stats = dict()
+            for nmetric in self.metric_names:
+                if nmetric is not 'parameters':
+                    mList = self.metrics[model][nmetric]
+                    mList = numpy.asarray(mList).astype(numpy.float)
+                    min = numpy.amin(mList)
+                    max = numpy.amax(mList)
+                    mean = numpy.mean(mList)
+                    median = numpy.median(mList)
+                    stdev = numpy.std(mList)
+                    stats = dict()
+                    stats['min'] = min
+                    stats['max'] = max
+                    stats['mean'] = mean
+                    stats['median'] = median
+                    stats['stdev'] = stdev
+                    descriptive_stats[nmetric] = stats
+            self.descriptive_stats[model] = descriptive_stats
+        pass
+
     def __save_xls(self):
         wb = Workbook()
 
         for model in self.models:
             ws = wb.new_sheet(sheet_name=model)
+
             # sets the column name
             for j in range(1, len(self.metric_names) + 1):
-                ws.set_cell_value(1, j, self.metric_names[j - 1])
-                #ws.set_cell_style(1, j, Style(fill=Fill(background=Color(224, 224, 224, 224))))
-                ws.set_cell_style(1, j, Style(font=Font(bold=True)))
+                ws.set_cell_value(1, j + 1, self.metric_names[j - 1])
+                # ws.set_cell_style(1, j, Style(fill=Fill(background=Color(224, 224, 224, 224))))
+                ws.set_cell_style(1, j + 1, Style(font=Font(bold=True)))
+
             # sets the cells values
-            for i in range(1, self.cases + 1):
+            for i in range(1, self.runs + 1):
+                # sets the first value in col 1 to "runX"
+                ws.set_cell_value(i + 1, 1, 'run ' + str(i))
                 for j in range(1, len(self.metric_names) + 1):
                     try:
-                        ws.set_cell_value(i + 1, j, self.metrics[model][self.metric_names[j - 1]][i - 1])
+                        ws.set_cell_value(i + 1, j + 1, self.metrics[model][self.metric_names[j - 1]][i - 1])
                     except IndexError:
-                        ws.set_cell_value(i + 1, j, '')
+                        ws.set_cell_value(i + 1, j + 1, '')
+
+            # after the last run row plus one empty row
+            offset = self.runs + 3
+            for i in range(0, len(self.descriptive_stats_names)):
+                ws.set_cell_value(i + offset, 1, self.descriptive_stats_names[i])
+                for j in range(0, len(self.metric_names) - 1):
+                    ws.set_cell_value(i + offset, j + 2, self.descriptive_stats[model][self.metric_names[j]][
+                        self.descriptive_stats_names[i]])
 
         wb.save(self.outfile)
 
@@ -185,13 +226,13 @@ if __name__ == '__main__':
     outfile = 'aggregate-metrics.xlsx'
     sep = ';'
     ext = 'txt'
-    cases = 10
+    runs = 10
 
     try:
         if (len(sys.argv) <= 1):
             raise (getopt.GetoptError("No arguments!"))
         else:
-            opts, args = getopt.getopt(sys.argv[1:], "hi:o:c:e:s:",
+            opts, args = getopt.getopt(sys.argv[1:], "hi:o:r:e:s:",
                                        ["help", "in=", "out=", "sep="])
     except getopt.GetoptError:
         print('Wrong or no arguments. Please, enter\n\n'
@@ -205,7 +246,7 @@ if __name__ == '__main__':
                   '\t-h, --help                                prints this help\n'
                   '\t-i, --in   <path/to/metrics/folder.txt>   path to metric files\n'
                   '\t-o, --out  <output>.<csv|xls|txt>         output file\n'
-                  '\t-c, --cases N                             number of observed cases\n'
+                  '\t-r, --runs N                              number of runs\n'
                   '\t-e, --ext  <txt>                          extension of metric files\n'
                   '\t-s, --sep  <,|;>                          either , or ; as separator'.format(__script__))
             sys.exit()
@@ -213,12 +254,12 @@ if __name__ == '__main__':
             infolder = arg
         elif opt in ("-o", "--out"):
             outfile = arg
-        elif opt in ("-c", "--case"):
-            cases = int(arg)
+        elif opt in ("-r", "--runs"):
+            runs = int(arg)
         elif opt in ("-e", "--ext"):
             ext = arg
         elif opt in ("-s", "--sep"):
             sep = arg
 
-    cm = ComputeMetrics(infolder, outfile, sep, ext, cases)
+    cm = ComputeMetrics(infolder, outfile, sep, ext, runs)
     cm.main()
