@@ -4,7 +4,7 @@ start_time=$(date +"%Y-%m-%d_%H.%M")
 for i in `seq 1 10`;
 do
         echo " :: Run $i"
-        Rscript tuning.R $i $start_time
+        time Rscript tuning.R $i $start_time
 done   
 
 echo " Done"
