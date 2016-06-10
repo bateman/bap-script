@@ -1,7 +1,7 @@
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 run <- args[1]
-run <- ifelse(is.na(run), 0, run)
+run <- ifelse(is.na(run), 1, run)
 
 # set the random seed, held constant for the current run
 seeds <- readLines("seeds.txt")
@@ -15,8 +15,9 @@ output_dir <- paste("output", date_time, sep="/")
 if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
-# this param always exists if launched by the bash script
+# this params always exist if launched by the bash script
 models_file <- args[3]
+csv_file <- args[4]
 
 # logs errors to file
  error_file <- paste(date_time, "log", sep = ".")
@@ -43,7 +44,7 @@ if(.Platform$OS.type != "windows") {
 }
 
 # comma delimiter
-SO <- read.csv(models_file, header = TRUE)
+SO <- read.csv(csv_file, header = TRUE)
 #SO <- read.csv("input/head.csv", header = TRUE, sep=",")
 
 # name of outcome var to be predicted
@@ -72,21 +73,23 @@ testing <- SO[-splitIndex, ]
 
 # 10-fold CV repetitions
 fitControl <- trainControl(
-  method = "repeatedcv",
+  method = "cv",
   number = 10,
-  ## repeated ten times
+  ## repeated ten times, works only with method="repeatedcv"
   repeats = 10,
+  #verboseIter = TRUE,
+  #savePredictions = TRUE,
   # binary problem
   summaryFunction=twoClassSummary,
   classProbs = TRUE,
   # enable parallel computing if avail
   allowParallel = TRUE,
-  returnData = FALSE,
-  returnResamp = "all"
+  returnData = FALSE
 )
 
 # load all the classifiers to tune
-classifiers <- readLines("models.txt")
+#classifiers <- readLines("models1.txt")
+classifiers <- readLines(models_file)
 
 for(i in 1:length(classifiers)){
   nline <- strsplit(classifiers[i], ":")[[1]]

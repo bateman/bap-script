@@ -1,8 +1,9 @@
 #!/bin/bash
 
-models_file=$1
+input_file=$1
+models_file=$2
 
-if [[ -n "$models_file" ]]; then
+if [[ -n "$models_file" && -n "$input_file" ]]; then
     printf " === Starting the tuning of classifiers' params (this may take a while...)\n"
     start_time=$(date +"%Y-%m-%d_%H.%M")
     for i in `seq 1 10`;
@@ -13,7 +14,7 @@ if [[ -n "$models_file" ]]; then
 
     echo " Done"
 else
-    echo "Argument error: no models file given."
+    echo "Argument error: models and/or input file not given."
 fi
 
 
