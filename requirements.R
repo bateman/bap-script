@@ -2,7 +2,7 @@ print("Checking the required packages... will be re-installed if already present
 
 # checks if multicore parallel package can be enabled
 if(.Platform$OS.type == "unix") {
-  install.packages("doMC", "parallel", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+  install.packages(c("doMC"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 } 
 
 
@@ -20,9 +20,10 @@ if(!require("xlsx")){
 
 # from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
 # installs most of the 340 caret dependencies but not all of them
+# gpls is not available anymore as of R 3.3.0
 mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
            "data.table", "plyr", "knitr", "shiny", "xts", "lattice", "e1071",
-            "klaR", "gpls", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
+            "klaR", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
             "randomForest", "ipred", "gbm", "adabag", "mboost", "caTools", "xgboost", "C50")
 install.packages(mostP, dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 
