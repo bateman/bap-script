@@ -9,7 +9,7 @@ if [[ -n "$models_file" && -n "$input_file" ]]; then
     for i in `seq 1 10`;
     do
         echo " :: Run $i"
-        time Rscript tuning.R $i $start_time
+        time Rscript tuning.R $i $start_time $models_file $input_file
     done   
 
     echo " Done"
