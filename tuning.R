@@ -15,6 +15,9 @@ output_dir <- paste("output", date_time, sep="/")
 if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
+# this param always exists if launched by the bash script
+models_file <- args[3]
+
 # logs errors to file
  error_file <- paste(date_time, "log", sep = ".")
 log.error <- function() {
@@ -29,8 +32,8 @@ library(caret) # for param tuning
 library(e1071) # for normality adjustment
 
 # comma delimiter
-#SO <- read.csv("input/so_features.csv", header = TRUE)
-SO <- read.csv("input/head.csv", header = TRUE, sep=",")
+SO <- read.csv(models_file, header = TRUE)
+#SO <- read.csv("input/head.csv", header = TRUE, sep=",")
 
 # name of outcome var to be predicted
 outcomeName <- 'solution'
