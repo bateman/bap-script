@@ -128,7 +128,7 @@ for(i in 1:length(classifiers)){
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          tuneLength = 2 # five values per param
+                          tuneLength = 5 # five values per param
     )
     time.end <- Sys.time()
   }
