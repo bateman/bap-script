@@ -15,9 +15,9 @@ output_dir <- paste("output", date_time, sep="/")
 if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
-# these params always exist if launched by the bash script
-models_file <- args[3]
-csv_file <- args[4]
+# these params always exist if launched by the bash script run-tuning.sh
+models_file <- ifelse(is.na(args[3]), "models.txt", args[3])
+csv_file <- ifelse(is.na(args[4]), "input/head.csv", args[4])
 
 # logs errors to file
  error_file <- paste(date_time, "log", sep = ".")
