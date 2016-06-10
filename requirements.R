@@ -5,11 +5,11 @@ print("Checking the required packages... will be re-installed if already present
 if(!require("rJava")) {
   print("Please, Install rJava package manually and re-run.")
 } else if (!require("RWeka") || !require("RWekajars")) {
-  install.packages(c("RWeka", "RWekajars"), dependencies = c("Imports", "Depends"))
+  install.packages(c("RWeka", "RWekajars"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
 if(!require("xlsx")){
-  install.packages(c("xlsx", "xlsxjars"), dependencies = c("Imports", "Depends"))
+  install.packages(c("xlsx", "xlsxjars"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
 # from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
@@ -18,7 +18,7 @@ mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
            "data.table", "plyr", "knitr", "shiny", "xts", "lattice", "e1071",
             "klaR", "gpls", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
             "randomForest", "ipred", "gbm", "adabag", "mboost", "caTools", "xgboost", "C50")
-install.packages(mostP, dependencies = c("Imports", "Depends"))
+install.packages(mostP, dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 
 print("Done.")
 
