@@ -15,7 +15,7 @@ output_dir <- paste("output", date_time, sep="/")
 if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
-# this params always exist if launched by the bash script
+# these params always exist if launched by the bash script
 models_file <- args[3]
 csv_file <- args[4]
 
