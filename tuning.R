@@ -1,7 +1,7 @@
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 run <- args[1]
-run <- ifelse(is.na(run), 0, run)
+run <- ifelse(is.na(run), 1, run)
 
 # set the random seed, held constant for the current run
 seeds <- readLines("seeds.txt")
@@ -14,6 +14,10 @@ date_time <- ifelse(is.na(args[2]), format(Sys.time(), "%Y-%m-%d_%H.%M"), args[2
 output_dir <- paste("output", date_time, sep="/")
 if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
+
+# these params always exist if launched by the bash script run-tuning.sh
+models_file <- ifelse(is.na(args[3]), "models.txt", args[3])
+csv_file <- ifelse(is.na(args[4]), "input/head.csv", args[4])
 
 # logs errors to file
  error_file <- paste(date_time, "log", sep = ".")
@@ -28,9 +32,20 @@ options(error=log.error)
 library(caret) # for param tuning
 library(e1071) # for normality adjustment
 
+# enables multicore parallel processing on unix-like systems only
+if(.Platform$OS.type != "windows") {
+  library(doMC)
+  library(parallel)
+  # reads the number of cores
+  c <- detectCores()
+  registerDoMC(cores = c)
+} else {
+  print("Multicore parellel processing not available on Winodws")
+}
+
 # comma delimiter
-#SO <- read.csv("input/so_features.csv", header = TRUE)
-SO <- read.csv("input/head.csv", header = TRUE, sep=",")
+SO <- read.csv(csv_file, header = TRUE)
+#SO <- read.csv("input/head.csv", header = TRUE, sep=",")
 
 # name of outcome var to be predicted
 outcomeName <- 'solution'
@@ -58,21 +73,23 @@ testing <- SO[-splitIndex, ]
 
 # 10-fold CV repetitions
 fitControl <- trainControl(
-  method = "repeatedcv",
+  method = "cv",
   number = 10,
-  ## repeated ten times
+  ## repeated ten times, works only with method="repeatedcv"
   repeats = 10,
+  #verboseIter = TRUE,
+  #savePredictions = TRUE,
   # binary problem
   summaryFunction=twoClassSummary,
   classProbs = TRUE,
   # enable parallel computing if avail
   allowParallel = TRUE,
-  returnData = FALSE,
-  returnResamp = "all"
+  returnData = FALSE
 )
 
 # load all the classifiers to tune
-classifiers <- readLines("models.txt")
+#classifiers <- readLines("models1.txt")
+classifiers <- readLines(models_file)
 
 for(i in 1:length(classifiers)){
   nline <- strsplit(classifiers[i], ":")[[1]]
@@ -114,7 +131,7 @@ for(i in 1:length(classifiers)){
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          tuneLength = 2 # five values per param
+                          tuneLength = 5 # five values per param
     )
     time.end <- Sys.time()
   }
