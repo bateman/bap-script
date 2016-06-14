@@ -8,6 +8,8 @@ if(.Platform$OS.type == "unix") {
 
 # checks if RJava is present
 # if not, it has to be installed manually , depending on OS
+# on Mac OS X and RStudio, you may require the following to load rJava:
+# sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
 if(!require("rJava")) {
   print("Please, Install rJava package manually and re-run.")
 } else if (!require("RWeka") || !require("RWekajars")) {

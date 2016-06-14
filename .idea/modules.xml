@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bap-script.iml" filepath="$PROJECT_DIR$/.idea/bap-script.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../extractingqa/.idea/extractingqa.iml" filepath="$PROJECT_DIR$/../extractingqa/.idea/extractingqa.iml" />
     </modules>
   </component>
 </project>
