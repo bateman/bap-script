@@ -23,28 +23,54 @@ STD_INDEX <- runs + 5
 metrics <- c("AUROC", "F1", "G.mean", "Phi", "Balance", "time")
 descrip <- c("min", "max", "mean", "median", "std")
 
-AUROCs = c()
-codes <- c()
-runs <- c(1,2,3,4,5,6,7,8,9,10)
+x <- c()
+r <- c()
+y <- c()
+seq_runs <- seq(runs) #c(1,2,3,4,5,6,7,8,9,10)
 
-ccc <- data.frame(x=as.factor(character()), r=numeric(), y=numeric())
+dfm <- data.frame(x=as.factor(character()), r=numeric(), y=numeric())
 
 for(i in 1:length(classifiers)){
+  r <- c(r, seq_runs)
+  
   nline <- strsplit(classifiers[i], ":")[[1]]
   classifier <- nline[1]
-  codes <- c(codes, classifier)
+  x <- c(x, classifier)
   
   dat <- read.xlsx(fxlsx, sheetName=classifier)
   dat <- subset(dat, select = AUROC:time)
   metrics_val <- dat[1:runs, ]
-  #descrip_val <- dat[MIN_INDEX:STD_INDEX, ]
-  mean_AUROCs <- c(mean_AUROCs, as.numeric(as.character(dat$AUROC))[MEAN_INDEX])
-  t <- c(mean_AUROCs, as.numeric(as.character(dat$AUROC)))
+  descrip_val <- dat[MIN_INDEX:STD_INDEX, ]
+  AUROCs <- as.numeric(as.character(dat$AUROC[1:runs]))
+  y <- c(y, AUROCs)
 }
 
+dfm <- data.frame(x, as.numeric(r), y)
 
-x.df <- data.frame(x=as.character(codes), y=mean_AUROCs)
 library(ScottKnott)
+## From: data frame (dfm) and response variable (y)
+sk1 <- SK(x=dfm, y=dfm$y, model='y ~ x', which='x', dispersion='se')
 
-## From: design matrix (dm) and response variable (y)
-#sk1 <- SK(x=x.df, y=x.df$y, model='y ~ x', which='x', dispersion='se')
+
+library(ggplot2)
+colfunc <- colorRampPalette(c("black", "white"))
+# col=colfunc(10),
+ggplot(sk1$av$model, aes(x=x, y=y)) +
+  # plot the boxplots
+  stat_boxplot(geom ='errorbar') + 
+  geom_boxplot() +
+  # write a custom xlab
+  xlab("Classifiers") +
+  # wrote a custom ylab
+  ylab("AUC") +
+  # swap the axes
+  coord_flip() +
+  theme_bw() + 
+  theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+
+#library(lattice)
+#lattice::bwplot(x ~ y ,data=sk1$av$model, main="AUC values of classification techniques", 
+#       ylab='Classifiers', xlab='AUC', groups = sk1$groups, scales=list(cex=.8, tck=0.9, y = list(at=seq(29)))) 
+
+#boxplot(y ~ x,data=sk1$av$model, main="AUC values of classification techniques", 
+#                xlab='Classifiers', ylab='AUC', groups = sk1$groups, las=3, rl=TRUE,lty=1, tck=0.5) 

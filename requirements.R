@@ -20,6 +20,10 @@ if(!require("xlsx")){
   install.packages(c("xlsx", "xlsxjars"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
+if(!require("ScottKnott")){
+  install.packages("ScottKnott", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+}
+
 # from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
 # installs most of the 340 caret dependencies but not all of them
 # gpls is not available anymore as of R 3.3.0
