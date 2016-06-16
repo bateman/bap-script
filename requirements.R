@@ -27,11 +27,16 @@ if(!require("ScottKnott")){
 # from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
 # installs most of the 340 caret dependencies but not all of them
 # gpls is not available anymore as of R 3.3.0
-mostP <- c("caret", "AppliedPredictiveModeling", "ggplot2", "pROC",
+mostP <- c("AppliedPredictiveModeling", "ggplot2", "pROC",
            "data.table", "plyr", "knitr", "shiny", "xts", "lattice", "e1071",
             "klaR", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
-            "randomForest", "ipred", "gbm", "adabag", "mboost", "caTools", "xgboost", "C50")
+            "randomForest", "ipred", "gbm", "caTools", "xgboost", "C50")
 install.packages(mostP, dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+install.packages("party", repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+install.packages("mboost", repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+install.packages("adabag", repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+install.packages("adabag", repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+install.packages(c("caret", "car", "pbkrtest", "lme4"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 
 print("Done.")
 
