@@ -1,0 +1,6 @@
+lda2:MASS
+pda:mda
+fda:earth
+JRip:RWeka
+J48:RWeka
+LMT:RWeka
