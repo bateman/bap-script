@@ -2,7 +2,9 @@ print("Checking the required packages... will be re-installed if already present
 
 # checks if multicore parallel package can be enabled
 if(.Platform$OS.type == "unix") {
-  install.packages(c("doMC"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+  if(!require("doMC", quietly = TRUE)){
+    install.packages(c("doMC"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+  }
 } 
 
 
@@ -10,25 +12,25 @@ if(.Platform$OS.type == "unix") {
 # if not, it has to be installed manually , depending on OS
 # on Mac OS X and RStudio, you may require the following to load rJava:
 # sudo ln -f -s $(/usr/libexec/java_home)/jre/lib/server/libjvm.dylib /usr/local/lib
-if(!require("rJava")) {
+if(!require("rJava", quietly = TRUE)) {
   print("Please, Install rJava package manually and re-run.")
-} else if (!require("RWeka") || !require("RWekajars")) {
+} else if (!require("RWeka", quietly = TRUE) || !require("RWekajars", quietly = TRUE)) {
   install.packages(c("RWeka", "RWekajars"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
-if(!require("xlsx")){
+if(!require("xlsx", quietly = TRUE)){
   install.packages(c("xlsx", "xlsxjars"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
-if(!require("ScottKnott")){
+if(!require("ScottKnott", quietly = TRUE)){
   install.packages("ScottKnott", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
-if(!require("Boruta")){
+if(!require("Boruta", quietly = TRUE)){
   install.packages("Boruta", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
-if(!require("FSelector")){
+if(!require("FSelector", quietly = TRUE)){
   install.packages("FSelector", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
