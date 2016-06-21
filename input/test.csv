@@ -1,0 +1,6 @@
+answers_count,answer_uid,date_time,time_difference,time_difference_rank,solution,len,len_rank,wordcount,wordcount_rank,avg_chars_per_word,avg_chars_per_word_rank,sentences,sentences_rank,avg_words_per_sentence,avg_words_per_sentence_rank,longest_sentence,longest_sentence_rank,loglikelihood,loglikelihood_ascending_rank,F-K,F-K_ascending_rank,upvotes,upvotes_rank,has_links
+13,4.1,2008-07-31 22:17:57,2105.0,1,True,241,8,36,9,6.69,5,2,5,18.00,9,29,8,0.00,1,463.43,5,287,1,False
+13,4.2,2008-08-01 13:53:06,58214.0,2,False,122,10,23,10,5.30,11,1,8,23.00,7,23,10,0.00,1,335.5800000000001,4,33,7,False
+13,4.3,2008-08-01 14:23:28,60036.0,3,False,416,6,65,6,6.40,6,2,5,32.50,4,34,7,0.00,1,1259.6850000000002,8,75,2,False
+13,4.4,2008-08-05 20:18:30,426938.0,4,False,466,5,69,5,6.75,4,4,2,17.25,10,25,9,0.00,1,1336.3375,9,35,6,False
+13,4.5,2008-08-10 17:54:27,850295.0,5,False,594,3,103,3,5.77,9,4,2,25.75,6,40,6,0.00,1,1622.8525000000002,11,48,3,False
