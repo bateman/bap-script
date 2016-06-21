@@ -1,7 +1,8 @@
 #!/bin/bash
 
-input_file=$1
-models_file=$2
+# read and trim params
+models_file=$(echo $1 | xargs)
+input_file=$(echo $2 | xargs)
 
 if [[ -n "$models_file" && -n "$input_file" ]]; then
     printf " === Starting the tuning of classifiers' params (this may take a while...)\n"
@@ -16,5 +17,3 @@ if [[ -n "$models_file" && -n "$input_file" ]]; then
 else
     echo "Argument error: models and/or input file not given."
 fi
-
-
