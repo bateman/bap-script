@@ -45,11 +45,12 @@ if(.Platform$OS.type != "windows") {
 
 # comma delimiter
 SO <- read.csv(csv_file, header = TRUE, sep=",")
-#SO <- read.csv("input/head.csv", header = TRUE, sep=",")
 
 # name of outcome var to be predicted
-outcomeName <- 'solution'
+outcomeName <- "solution"
 # list of predictor vars by name
+excluded_predictors <- c("answer_uid", "upvotes", "upvotes_rank")
+SO <- SO[ , !(names(SO) %in% excluded_predictors)]
 predictorsNames <- names(SO[,!(names(SO)  %in% c(outcomeName))]) # removes the var to be predicted from the test set
 
 # convert boolean factors 
@@ -65,11 +66,12 @@ SO$date_time <- as.numeric(as.POSIXct(strptime(SO$date_time, tz="CET", "%Y-%m-%d
 for (i in 1:length(predictorsNames)){
   SO[,predictorsNames[i]] <- log1p(SO[,predictorsNames[i]])
 }
-# exclude rows with NaN (missing values)
+# exclude rows with Na, NaN and Inf (missing values)
 SO <- na.omit(SO)
+#SO <- SO[complete.cases(SO), ]
 
 # create stratified training and test sets from SO dataset
-splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE, times = 1)
+splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
 training <- SO[splitIndex, ]
 testing <- SO[-splitIndex, ]
 
@@ -90,7 +92,6 @@ fitControl <- trainControl(
 )
 
 # load all the classifiers to tune
-#classifiers <- readLines("models1.txt")
 classifiers <- readLines(models_file)
 
 for(i in 1:length(classifiers)){
