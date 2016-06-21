@@ -16,8 +16,8 @@ if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
 # these params always exist if launched by the bash script run-tuning.sh
-models_file <- ifelse(is.na(args[3]), "models.txt", args[3])
-csv_file <- ifelse(is.na(args[4]), "input/head.csv", args[4])
+models_file <- ifelse(is.na(args[3]), "models/models.txt", args[3])
+csv_file <- ifelse(is.na(args[4]), "input/test.csv", args[4])
 
 # logs errors to file
  error_file <- paste(date_time, "log", sep = ".")
@@ -44,7 +44,7 @@ if(.Platform$OS.type != "windows") {
 }
 
 # comma delimiter
-SO <- read.csv(csv_file, header = TRUE)
+SO <- read.csv(csv_file, header = TRUE, sep=",")
 #SO <- read.csv("input/head.csv", header = TRUE, sep=",")
 
 # name of outcome var to be predicted
@@ -55,8 +55,8 @@ predictorsNames <- names(SO[,!(names(SO)  %in% c(outcomeName))]) # removes the v
 # convert boolean factors 
 SO$has_links<- as.integer(as.logical(SO$has_links))
 
-# first convert timestamps into POSIX std time values
-SO$date_time <- as.numeric(as.POSIXct(SO$date_time, tz = "GMT", format = "'%Y-%m-%d %H:%M:%S'")) # then to equivalent number
+# first convert timestamps into POSIX std time values, then to equivalent numbers
+SO$date_time <- as.numeric(as.POSIXct(strptime(SO$date_time, tz="CET", "%Y-%m-%d %H:%M:%S")))
 
 # normality adjustments for indipendent vars (predictors)
 # ln(x+1) transformation mitigates skeweness
