@@ -16,8 +16,8 @@ if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
 # these params always exist if launched by the bash script run-tuning.sh
-models_file <- ifelse(is.na(args[3]), "models/models.txt", args[3])
-csv_file <- ifelse(is.na(args[4]), "input/test.csv", args[4])
+models_file <- ifelse(is.na(args[3]), "models/models1.txt", args[3])
+csv_file <- ifelse(is.na(args[4]), "input/head.csv", args[4])
 
 # logs errors to file
  error_file <- paste(date_time, "log", sep = ".")
@@ -55,7 +55,9 @@ predictorsNames <- names(SO[,!(names(SO)  %in% c(outcomeName))]) # removes the v
 # convert boolean factors 
 SO$has_links<- as.integer(as.logical(SO$has_links))
 
-# first convert timestamps into POSIX std time values, then to equivalent numbers
+# first check whether thera are leading and trailing apostrophes around the date_time field
+SO$date_time <- gsub("'", '', SO$date_time)
+# then convert timestamps into POSIX std time values, then to equivalent numbers
 SO$date_time <- as.numeric(as.POSIXct(strptime(SO$date_time, tz="CET", "%Y-%m-%d %H:%M:%S")))
 
 # normality adjustments for indipendent vars (predictors)
