@@ -1,0 +1,29 @@
+
+===============================
+
+Seed:
+849
+knn_run# 1
+k-Nearest Neighbors 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 215048, 215048, 215048, 215048, 215048, 215048, ... 
+Resampling results across tuning parameters:
+
+  k   ROC        Sens       Spec     
+   5  0.7197156  0.9509162  0.2430289
+   7  0.7398138  0.9595457  0.2281315
+   9  0.7539894  0.9646724  0.2203836
+  11  0.7644166  0.9684892  0.2137753
+  13  0.7721391  0.9708048  0.2076226
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was k = 13. 
+
+Elapsed time
+Time difference of 3.301241 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7721391 0.9708048 0.2076226    knn
