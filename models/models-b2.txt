@@ -1,0 +1,4 @@
+rbfDDA:RSNNS
+mlp:RSNNS
+mlpWeightDecay:RSNNS
+multinom:nnet
