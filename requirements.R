@@ -34,9 +34,18 @@ if(!require("FSelector", quietly = TRUE)){
   install.packages("FSelector", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
+if(!require("ROCR", quietly = TRUE)){
+  install.packages("ROCR", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+}
+
+# gpls is not available anymore in CRAN as of R 3.3.0
+if(!require("gpls", quietly = TRUE)){
+  source("https://bioconductor.org/biocLite.R")
+  biocLite("gpls")
+}
+
 # from https://github.com/tobigithub/caret-machine-learning/wiki/caret-ml-setup
 # installs most of the 340 caret dependencies but not all of them
-# gpls is not available anymore as of R 3.3.0
 mostP <- c("AppliedPredictiveModeling", "ggplot2", "pROC",
            "data.table", "plyr", "knitr", "shiny", "xts", "lattice", "e1071",
             "klaR", "earth", "nnet", "RSNNS", "MASS", "mda", "rpart", "kernlab", 
