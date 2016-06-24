@@ -1,0 +1,3 @@
+JRip:RWeka
+J48:RWeka
+LMT:RWeka

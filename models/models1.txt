@@ -1,1 +1,1 @@
-knn
+gpls1a:gpls
