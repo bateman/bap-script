@@ -6,6 +6,7 @@ run <- ifelse(is.na(run), 1, run)
 # set the random seed, held constant for the current run
 seeds <- readLines("seeds.txt")
 seed <- ifelse(length(seeds[run]) == 0, sample(1:1000, 1), seeds[as.integer(run)])
+set.seed(seed)
 
 # saves that script start time
 date_time <- ifelse(is.na(args[2]), format(Sys.time(), "%Y-%m-%d_%H.%M"), args[2])
