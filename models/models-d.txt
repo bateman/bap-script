@@ -1,6 +1,0 @@
-rpart:rpart
-svmLinear:kernlab
-svmRadial:kernlab
-rf:randomForest
-treebag:ipred
-gbm:gbm
