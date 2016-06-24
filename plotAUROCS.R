@@ -1,4 +1,65 @@
-library(ROCR)
+# This files generates the ROC plots for the top-ranked (Scott-Knott test) models.
+# Here we re-run the classification, with the same seed and param config under which the generated models
+# achieved the best performance. Then, we plot the predictions
+
+# enable commandline arguments from script launched using Rscript
+args<-commandArgs(TRUE)
+
+library(caret) # for param tuning
+library(e1071) # for normality adjustment
+library(ROCR)  # for plotting ROC curves
+
+csv_file <- ifelse(is.na(args[2]), "input/test.csv", args[1])
+# name of outcome var to be predicted
+outcomeName <- "solution"
+# list of predictor vars by name
+excluded_predictors <- c("answer_uid", "upvotes", "upvotes_rank")
+SO <- SO[ , !(names(SO) %in% excluded_predictors)]
+predictorsNames <- names(SO[,!(names(SO)  %in% c(outcomeName))]) # removes the var to be predicted from the test set
+
+# convert boolean factors 
+SO$has_links<- as.integer(as.logical(SO$has_links))
+
+# first check whether thera are leading and trailing apostrophes around the date_time field
+SO$date_time <- gsub("'", '', SO$date_time)
+# then convert timestamps into POSIX std time values, then to equivalent numbers
+SO$date_time <- as.numeric(as.POSIXct(strptime(SO$date_time, tz="CET", "%Y-%m-%d %H:%M:%S")))
+
+# normality adjustments for indipendent vars (predictors)
+# ln(x+1) transformation mitigates skeweness
+for (i in 1:length(predictorsNames)){
+  SO[,predictorsNames[i]] <- log1p(SO[,predictorsNames[i]])
+}
+# exclude rows with Na, NaN and Inf (missing values)
+SO <- na.omit(SO)
+
+# 10-fold CV repetitions
+fitControl <- trainControl(
+  method = "cv",
+  number = 10,
+  ## repeated ten times, works only with method="repeatedcv"
+  repeats = 10,
+  #verboseIter = TRUE,
+  #savePredictions = TRUE,
+  # binary problem
+  summaryFunction=twoClassSummary,
+  classProbs = TRUE,
+  # enable parallel computing if avail
+  allowParallel = TRUE,
+  returnData = FALSE
+)
+
+set.seed(XXX)
+# create stratified training and test sets from SO dataset
+splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
+training <- SO[splitIndex, ]
+testing <- SO[-splitIndex, ]
+
+# no train, model with parameters already set.
+modelX <- classifier(solution ~ ., data = training, parameters...)
+modelX.pred <- predict(modelX, testing)
+
+# now plot predictions
 
 # see http://stackoverflow.com/questions/18130338/plotting-an-roc-curve-in-glmnet
 # https://mlr-org.github.io/mlr-tutorial/release/html/roc_analysis/index.html
