@@ -1,0 +1,440 @@
+
+===============================
+
+Seed:
+849
+pda_run# 1
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107617, 107615, 107616, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec      
+  0e+00   0.8043966  0.9942480  0.06866285
+  1e-04   0.8043966  0.9942480  0.06866285
+  1e-03   0.8043967  0.9942480  0.06866285
+  1e-02   0.8043970  0.9942480  0.06866285
+  1e-01   0.8043987  0.9942384  0.06853183
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 3.166594 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8043987 0.9942384 0.06853183    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44454  6071
+  True    250   469
+
+F-measure = 0.933623161011877
+
+G-mean = 0.267042126410638
+
+Matthews phi = NA
+
+Balance = 0.343589729680781
+
+===============================
+
+Seed:
+342
+pda_run# 2
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec      
+  0e+00   0.8055991  0.9942767  0.06767988
+  1e-04   0.8055991  0.9942767  0.06767988
+  1e-03   0.8055991  0.9942767  0.06767988
+  1e-02   0.8055994  0.9942767  0.06767988
+  1e-01   0.8056016  0.9942767  0.06767988
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 2.938511 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8056016 0.9942767 0.06767988    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44463  6054
+  True    241   486
+
+F-measure = 0.93389063336869
+
+G-mean = 0.271866345445172
+
+Matthews phi = NA
+
+Balance = 0.345428585911619
+
+===============================
+
+Seed:
+112
+pda_run# 3
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec      
+  0e+00   0.8058398  0.9944205  0.06728618
+  1e-04   0.8058398  0.9944205  0.06728618
+  1e-03   0.8058399  0.9944205  0.06728618
+  1e-02   0.8058400  0.9944205  0.06728618
+  1e-01   0.8058425  0.9944109  0.06722065
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 2.937681 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8058425 0.9944109 0.06722065    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44461  6068
+  True    243   472
+
+F-measure = 0.933730954606071
+
+G-mean = 0.267915935612492
+
+Matthews phi = NA
+
+Balance = 0.343914742709626
+
+===============================
+
+Seed:
+345
+pda_run# 4
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107617, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec      
+  0e+00   0.8057670  0.9943343  0.07344548
+  1e-04   0.8057670  0.9943343  0.07344548
+  1e-03   0.8057671  0.9943343  0.07344548
+  1e-02   0.8057671  0.9943343  0.07344548
+  1e-01   0.8057687  0.9943438  0.07344548
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 2.957832 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8057687 0.9943438 0.07344548    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44393  6070
+  True    311   470
+
+F-measure = 0.932949446762008
+
+G-mean = 0.267143191459955
+
+Matthews phi = NA
+
+Balance = 0.343691325223138
+
+===============================
+
+Seed:
+355
+pda_run# 5
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107616, 107616, 107616, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens    Spec      
+  0e+00   0.8061501  0.9942  0.07043145
+  1e-04   0.8061501  0.9942  0.07043145
+  1e-03   0.8061502  0.9942  0.07043145
+  1e-02   0.8061508  0.9942  0.07043145
+  1e-01   0.8061529  0.9942  0.07043145
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 3.023184 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8061529    0.9942 0.07043145    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44437  6069
+  True    267   471
+
+F-measure = 0.933452368448692
+
+G-mean = 0.267559732399539
+
+Matthews phi = NA
+
+Balance = 0.343804290825036
+
+===============================
+
+Seed:
+977
+pda_run# 6
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107615, 107616, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec     
+  0e+00   0.8055790  0.9946123  0.0672864
+  1e-04   0.8055790  0.9946123  0.0672864
+  1e-03   0.8055789  0.9946123  0.0672864
+  1e-02   0.8055793  0.9946123  0.0672864
+  1e-01   0.8055814  0.9946123  0.0672864
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 3.035422 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8055814 0.9946123 0.0672864    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44442  6083
+  True    262   457
+
+F-measure = 0.933371136943578
+
+G-mean = 0.263568091086828
+
+Matthews phi = NA
+
+Balance = 0.342291140944515
+
+===============================
+
+Seed:
+122
+pda_run# 7
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107616, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens      Spec      
+  0e+00   0.8054798  0.994363  0.06820357
+  1e-04   0.8054798  0.994363  0.06820357
+  1e-03   0.8054798  0.994363  0.06820357
+  1e-02   0.8054799  0.994363  0.06820357
+  1e-01   0.8054824  0.994363  0.06813804
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 2.810849 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8054824  0.994363 0.06813804    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44477  6082
+  True    227   458
+
+F-measure = 0.933772818407986
+
+G-mean = 0.263960179908175
+
+Matthews phi = NA
+
+Balance = 0.342402514939804
+
+===============================
+
+Seed:
+156
+pda_run# 8
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107617, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec      
+  0e+00   0.8059511  0.9943726  0.07148037
+  1e-04   0.8059511  0.9943726  0.07148037
+  1e-03   0.8059512  0.9943726  0.07148037
+  1e-02   0.8059520  0.9943726  0.07148037
+  1e-01   0.8059566  0.9943630  0.07134931
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 2.435353 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8059566  0.994363 0.07134931    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44445  6089
+  True    259   451
+
+F-measure = 0.933345933345933
+
+G-mean = 0.261841005369202
+
+Matthews phi = NA
+
+Balance = 0.341642728983947
+
+===============================
+
+Seed:
+233
+pda_run# 9
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107615, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec      
+  0e+00   0.8067023  0.9940562  0.07239711
+  1e-04   0.8067023  0.9940562  0.07239711
+  1e-03   0.8067024  0.9940562  0.07239711
+  1e-02   0.8067025  0.9940562  0.07239711
+  1e-01   0.8067049  0.9940562  0.07239711
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 2.641852 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8067049 0.9940562 0.07239711    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44424  6062
+  True    280   478
+
+F-measure = 0.93337535455405
+
+G-mean = 0.269501205499257
+
+Matthews phi = NA
+
+Balance = 0.344559760047857
+
+===============================
+
+Seed:
+454
+pda_run# 10
+Penalized Discriminant Analysis 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107616, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  lambda  ROC        Sens       Spec      
+  0e+00   0.8069441  0.9940946  0.07023563
+  1e-04   0.8069440  0.9940946  0.07023563
+  1e-03   0.8069440  0.9940946  0.07023563
+  1e-02   0.8069442  0.9940946  0.07023563
+  1e-01   0.8069466  0.9940946  0.07023563
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was lambda = 0.1. 
+
+Elapsed time
+Time difference of 3.48651 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.8069466 0.9940946 0.07023563    pda
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44454  6076
+  True    250   464
+
+F-measure = 0.933574143688178
+
+G-mean = 0.26561484667444
+
+Matthews phi = NA
+
+Balance = 0.343049137967785
