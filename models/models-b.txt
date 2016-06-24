@@ -1,6 +1,0 @@
-avNNet:nnet
-pcaNNet:nnet
-rbfDDA:RSNNS
-mlp:RSNNS
-mlpWeightDecay:RSNNS
-multinom:nnet
