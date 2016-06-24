@@ -33,15 +33,15 @@ library(caret) # for param tuning
 library(e1071) # for normality adjustment
 
 # enables multicore parallel processing on unix-like systems only
-if(.Platform$OS.type != "windows") {
-  library(doMC)
-  library(parallel)
+#if(.Platform$OS.type != "windows") {
+#  library(doMC)
+#  library(parallel)
   # reads the number of cores
-  c <- detectCores()
-  registerDoMC(cores = c)
-} else {
-  print("Multicore parellel processing not available on Winodws")
-}
+#  c <- detectCores()
+#  registerDoMC(cores = c)
+#} else {
+#  print("Multicore parellel processing not available on Winodws")
+#}
 
 # comma delimiter
 SO <- read.csv(csv_file, header = TRUE, sep=",")
