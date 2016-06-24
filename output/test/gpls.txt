@@ -1,0 +1,44 @@
+
+===============================
+
+Seed:
+849
+gpls_run# 1
+Generalized Partial Least Squares 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 629, 630, 630, 629, 629, 631, ... 
+Resampling results across tuning parameters:
+
+  K.prov  ROC        Sens       Spec      
+  1       0.1524967  0.9952381  0.01666667
+  2       0.1293545  0.9826885  0.15714286
+  3       0.1261834  0.9795387  0.15714286
+  4       0.1285006  0.9763889  0.15238095
+  5       0.1287037  0.9763641  0.13571429
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was K.prov = 1. 
+
+Elapsed time
+Time difference of 1.139078 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.1524967 0.9952381 0.01666667   gpls
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   270   26
+  True      1    2
+
+F-measure = 0.952380952380952
+
+G-mean = 0.266767684257781
+
+Matthews phi = 0.198012667795625
+
+Balance = 0.343395661630419
