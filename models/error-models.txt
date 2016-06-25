@@ -1,3 +1,4 @@
 gpls:gpls
 rbfDDA:RSNNS
 mlpWeightDecay:RSNNS
+svmLinear:kernlab
