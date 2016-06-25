@@ -1,3 +1,1 @@
 rpart:rpart
-svmLinear:kernlab
-svmRadial:kernlab
