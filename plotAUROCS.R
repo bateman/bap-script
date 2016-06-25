@@ -33,21 +33,7 @@ for (i in 1:length(predictorsNames)){
 # exclude rows with Na, NaN and Inf (missing values)
 SO <- na.omit(SO)
 
-# 10-fold CV repetitions
-fitControl <- trainControl(
-  method = "cv",
-  number = 10,
-  ## repeated ten times, works only with method="repeatedcv"
-  repeats = 10,
-  #verboseIter = TRUE,
-  #savePredictions = TRUE,
-  # binary problem
-  summaryFunction=twoClassSummary,
-  classProbs = TRUE,
-  # enable parallel computing if avail
-  allowParallel = TRUE,
-  returnData = FALSE
-)
+# for model: XYZ
 
 set.seed(XXX)
 # create stratified training and test sets from SO dataset
@@ -78,87 +64,20 @@ pred3 <- prediction(abs(ROCR.simple$predictions +
 perf <- performance(pred, "tpr", "fpr")
 perf2 <- performance(pred2, "tpr", "fpr")
 perf3 <- performance(pred3, "tpr", "fpr")
-par(
-  mar = c(5, 5, 2, 2),
-  xaxs = "i",
-  #?
-  yaxs = "i",
-  #?
-  cex.axis = 1.1,
-  cex.lab = 1.2
-)
-g <- gray.colors(
-  3,
-  start = 0.2,
-  end = 0.7,
+
+preds <- c(pred, pred2, pred3)
+
+class <- c('gpls', 'rf', 'svmlinear')
+line_types <- c(1:length(class))
+g_col <- gray.colors(
+  length(class),
+  start = 0.1,
+  end = 0.8,
   gamma = 2.2,
   alpha = NULL
 )
-plot(perf,
-     col = g,
-     lty = 1,
-     lwd = 1)
-plot(perf2,
-     add = TRUE,
-     col = g,
-     lty = 2,
-     lwd = 1.3
-)
-plot(perf3,
-     add = TRUE,
-     col = g,
-     lty = 3,
-     lwd = 1.3
-)
 
-# Add a legend
-legend(
-  "bottomright",
-  inset = .15,
-  c("1", "2", "3"),
-  title = "xx",
-  horiz = FALSE,
-  lty = c(1:3),
-  lwd = 2,
-  col = g
-)
+if(!exists("plot_curve", mode="function")) 
+  source(paste(getwd(), "plot_curve.R", sep="/"))
 
-abline(a = 0,
-       b = 1,
-       lty = "dotted",
-       lwd = 0.3)
-#
-# # calculating the values for ROC curve
-# pred <- prediction(target_pred, target_class)
-# perf <- performance(pred, "tpr", "fpr")
-# # changing params for the ROC plot - width, etc
-# par(
-#   mar = c(5, 5, 2, 2),
-#   xaxs = "i",
-#   yaxs = "i",
-#   cex.axis = 1.3,
-#   cex.lab = 1.4
-# )
-# plotting the ROC curve
-# plot(perf,
-#      col = "black",
-#      lty = 3,
-#      lwd = 3)
-# # calculating AUC
-# auc <- performance(pred, "auc")
-# # now converting S4 class to vector
-# auc <- unlist(slot(auc, "y.values"))
-# # adding min and max ROC AUC to the center of the plot
-# minauc <- min(round(auc, digits = 2))
-# maxauc <- max(round(auc, digits = 2))
-# minauct <- paste(c("min(AUC)  = "), minauc, sep = "")
-# maxauct <- paste(c("max(AUC) = "),
-#                  maxauc, sep = "")
-# legend(
-#   0.3,
-#   0.6,
-#   c(minauct, maxauct, "\n"),
-#   border = "white",
-#   cex = 1.7,
-#   box.col = "white"
-# )
+plot_curve(predictions=preds, classifiers=class, colors=g_col, line_type =line_types)
