@@ -1,0 +1,44 @@
+
+===============================
+
+Seed:
+342
+LMT_run# 2
+Logistic Model Trees 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107613, 107613, 107612, 107613, 107613, 107613, ... 
+Resampling results across tuning parameters:
+
+  iter  ROC        Sens       Spec     
+   1    0.8076773  0.9897322  0.1341815
+  21    0.8261002  0.9869999  0.1502990
+  41    0.8262055  0.9873067  0.1486607
+  61    0.8264765  0.9870478  0.1520020
+  81    0.8265770  0.9872492  0.1485288
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was iter = 81. 
+
+Elapsed time
+Time difference of 4.74268 hours
+
+Highest ROC value:
+  TrainROC TrainSens TrainSpec method
+1 0.826577 0.9872492 0.1485288    LMT
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44109  5577
+  True    594   963
+
+F-measure = 0.934621619044592
+
+G-mean = 0.381170727166058
+
+Matthews phi = NA
+
+Balance = 0.396939871512703
