@@ -60,26 +60,11 @@ sk1 <- SK(
   dispersion = 'se'
 )
 
-# generate box plot
-library(ggplot2)
-colfunc <- colorRampPalette(c("black", "white"))
-# col=colfunc(10),
-ggplot(sk1$av$model, aes(x = x, y = y)) +
-  # plot the boxplots
-  stat_boxplot(geom = 'errorbar') +
-  geom_boxplot() +
-  # write a custom xlab
-  xlab("Classifiers") +
-  # wrote a custom ylab
-  ylab("AUC") +
-  # swap the axes
-  coord_flip() +
-  theme_bw() +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    axis.line = element_line(colour = "black")
-  )
+if(!exists("plot_boxplot", mode="function")) 
+  source(paste(getwd(), "plot_boxplot.R", sep="/"))
+
+# generate box plot from SK test
+plot_boxplot(bx_model=sk1$av$model, x_lab="Classifiers", y_lab="AUC")
 
 #library(lattice)
 #lattice::bwplot(x ~ y ,data=sk1$av$model, main="AUC values of classification techniques",
