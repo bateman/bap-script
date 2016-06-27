@@ -1,0 +1,88 @@
+
+===============================
+
+Seed:
+849
+rbfDDA_run# 1
+Radial Basis Function Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 631, 630, 630, 630, 630, 630, ... 
+Resampling results across tuning parameters:
+
+  negativeThreshold  ROC        Sens       Spec     
+  1e-05              0.8357479  0.9668651  0.1047619
+  1e-04              0.8426251  0.9668651  0.1047619
+  1e-03              0.8447456  0.9747768  0.1047619
+  1e-02              0.8520993  0.9810764  0.0452381
+  1e-01              0.8453326  1.0000000  0.0000000
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was negativeThreshold = 0.01. 
+
+Elapsed time
+Time difference of 1.071006 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8520993 0.9810764 0.0452381 rbfDDA
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   266   25
+  True      5    3
+
+F-measure = 0.946619217081851
+
+G-mean = 0.324293156974545
+
+Matthews phi = 0.160125284775656
+
+Balance = 0.368519878832606
+
+===============================
+
+Seed:
+849
+rbfDDA_run# 1
+Radial Basis Function Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 145980, 145980, 145980, 145979, 145980, 145981, ... 
+Resampling results across tuning parameters:
+
+  negativeThreshold  ROC  Sens  Spec
+  1e-05              0.5  0.9   0.1 
+  1e-04              0.5  0.9   0.1 
+  1e-03              0.5  1.0   0.0 
+  1e-02              0.5  0.9   0.1 
+  1e-01              0.5  1.0   0.0 
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was negativeThreshold = 0.1. 
+
+Elapsed time
+Time difference of 4.564987 hours
+
+Highest ROC value:
+  TrainROC TrainSens TrainSpec method
+1      0.5         1         0 rbfDDA
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 52251 17262
+  True      0     0
+
+F-measure = 0.858233960776584
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
