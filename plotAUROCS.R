@@ -78,5 +78,8 @@ g_col <- gray.colors(
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "plot_curve.R", sep="/"))
-
-plot_curve(predictions=preds, classifiers=class, colors=g_col, line_type =line_types)
+png(filename="output/plots/roc-plot.png")
+plot_curve(predictions=preds, classifiers=class, 
+           colors=g_col, line_type=line_types, 
+           x_label="fpr", y_label="tpr")
+dev.off()
