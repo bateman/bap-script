@@ -1,0 +1,131 @@
+
+===============================
+
+Seed:
+849
+avNNet_run# 1
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 631, 629, 631, 630, 630, 629, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec      
+  1     0e+00  0.5000000  1.0000000  0.00000000
+  1     1e-04  0.8214971  1.0000000  0.00000000
+  1     1e-03  0.8375130  0.9937004  0.04285714
+  1     1e-02  0.8477218  0.9605407  0.17380952
+  1     1e-01  0.8570135  0.9795635  0.17380952
+  3     0e+00  0.5000000  1.0000000  0.00000000
+  3     1e-04  0.7975234  1.0000000  0.00000000
+  3     1e-03  0.8336558  0.9574157  0.17619048
+  3     1e-02  0.8608932  0.9637649  0.19047619
+  3     1e-01  0.8665385  0.9731647  0.22380952
+  5     0e+00  0.5000000  1.0000000  0.00000000
+  5     1e-04  0.8384129  0.9858631  0.04523810
+  5     1e-03  0.8147321  0.9606151  0.18809524
+  5     1e-02  0.8398148  0.9558532  0.19047619
+  5     1e-01  0.8523963  0.9700149  0.23809524
+  7     0e+00  0.5429705  1.0000000  0.00000000
+  7     1e-04  0.8097352  0.9733135  0.06190476
+  7     1e-03  0.8446694  0.9622272  0.29761905
+  7     1e-02  0.8478039  0.9559028  0.21904762
+  7     1e-01  0.8547442  0.9637401  0.20714286
+  9     0e+00  0.5000000  1.0000000  0.00000000
+  9     1e-04  0.8195555  0.9591022  0.16190476
+  9     1e-03  0.8259425  0.9542907  0.15714286
+  9     1e-02  0.8234895  0.9574405  0.21904762
+  9     1e-01  0.8527961  0.9622024  0.22142857
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 3, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 30.30251 secs
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8665385 0.9731647 0.2238095 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   258   25
+  True     13    3
+
+F-measure = 0.931407942238267
+
+G-mean = 0.319379340109488
+
+Matthews phi = 0.0766001236714803
+
+Balance = 0.367744100670413
+
+===============================
+
+Seed:
+849
+avNNet_run# 1
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 215047, 215049, 215048, 215047, 215048, 215047, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec       
+  1     0e+00  0.5000000  1.0000000  0.000000000
+  1     1e-04  0.6762545  1.0000000  0.000000000
+  1     1e-03  0.7887334  1.0000000  0.000000000
+  1     1e-02  0.8105163  0.9962078  0.042698519
+  1     1e-01  0.8089149  0.9891776  0.113820691
+  3     0e+00  0.5000000  1.0000000  0.000000000
+  3     1e-04  0.8118866  1.0000000  0.000000000
+  3     1e-03  0.8110741  0.9993033  0.010539258
+  3     1e-02  0.8125229  0.9823484  0.168798436
+  3     1e-01  0.8141601  0.9830745  0.169966179
+  5     0e+00  0.5000000  1.0000000  0.000000000
+  5     1e-04  0.8140608  0.9999951  0.000000000
+  5     1e-03  0.8119519  0.9952854  0.049590080
+  5     1e-02  0.8136015  0.9877253  0.122429580
+  5     1e-01  0.8148967  0.9825938  0.172016398
+  7     0e+00  0.6586453  1.0000000  0.000000000
+  7     1e-04  0.8150207  0.9998675  0.003617203
+  7     1e-03  0.8119927  0.9999313  0.001168083
+  7     1e-02  0.8132277  0.9828342  0.166690767
+  7     1e-01  0.8155314  0.9838006  0.164496710
+  9     0e+00  0.6888736  1.0000000  0.000000000
+  9     1e-04  0.8159702  0.9967915  0.050276396
+  9     1e-03  0.8140104  0.9976697  0.024954636
+  9     1e-02  0.8129829  0.9879756  0.128518299
+  9     1e-01  0.8159128  0.9828783  0.171105058
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 1e-04 and bag
+ = FALSE. 
+
+Elapsed time
+Time difference of 2.329513 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8159702 0.9967915 0.0502764 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 87357 15045
+  True      0     0
+
+F-measure = 0.920715222993376
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
