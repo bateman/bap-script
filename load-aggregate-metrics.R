@@ -61,7 +61,7 @@ sk1 <- SK(
 )
 
 if(!exists("plot_boxplot", mode="function")) 
-  source(paste(getwd(), "plot_boxplot.R", sep="/"))
+  source(paste(getwd(), "lib/plot_boxplot.R", sep="/"))
 
 png(filename="output/plots/box-plot.png")
 # generate box plot from SK test
