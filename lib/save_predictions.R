@@ -9,7 +9,7 @@ save_predictions <- function(outfile="predictions.txt", outdir="output/predictio
     for(i in 1:length(predictions)) {
       out <- capture.output(predictions[[i]])
       title=paste("\n===========", classifiers[[i]], "============\n", sep = "  ")
-      cat(title, out, file=f, sep="\n", append=TRUE)  
+      cat(title, out, file=f, sep="\n", append=ifelse(i==1, FALSE, TRUE))  
     }
 
 }
