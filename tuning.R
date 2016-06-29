@@ -158,7 +158,7 @@ for(i in 1:length(classifiers)){
   out <- capture.output(getTrainPerf(model))
   cat("\nHighest ROC value:", out, file=output_file, sep="\n", append=TRUE)
   
-  predictions <- predict(object=model, testing[,predictorsNames], type='prob')
+  #predictions <- predict(object=model, testing[,predictorsNames], type='prob')
   #head(predictions)
   #auc <- roc(ifelse(testing[,outcomeName]=="True",1,0), predictions[[2]])
   #out <- capture.output(auc$auc)
