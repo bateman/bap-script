@@ -60,13 +60,21 @@ pred3 <- prediction(abs(ROCR.simple$predictions +
                             ROCR.simple$predictions
                           ), 0, 0.11)),
                     ROCR.simple$labels)
+
+if(!exists("save_predictions", mode="function")) 
+  source(paste(getwd(), "lib/save_predictions.R", sep="/"))
+
+preds <- c(pred, pred2, pred3)
+class <- c('gpls', 'rf', 'svmlinear')
+
+save_predictions(outfile = "predictions.txt", outdir = "output/predictions", 
+                 classifiers = class, predictions = preds)
+
 perf <- performance(pred, "tpr", "fpr")
 perf2 <- performance(pred2, "tpr", "fpr")
 perf3 <- performance(pred3, "tpr", "fpr")
 
-preds <- c(pred, pred2, pred3)
 
-class <- c('gpls', 'rf', 'svmlinear')
 line_types <- c(1:length(class))
 g_col <- gray.colors(
   length(class),
@@ -77,7 +85,8 @@ g_col <- gray.colors(
 )
 
 if(!exists("plot_curve", mode="function")) 
-  source(paste(getwd(), "plot_curve.R", sep="/"))
+  source(paste(getwd(), "lib/plot_curve.R", sep="/"))
+
 png(filename="output/plots/roc-curve.png")
 plot_curve(predictions=preds, classifiers=class, 
            colors=g_col, line_type=line_types, 
