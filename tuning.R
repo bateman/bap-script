@@ -163,13 +163,9 @@ for(i in 1:length(classifiers)){
   cat("\nHighest ROC value:", out, file=output_file, sep="\n", append=TRUE)
   
   #predictions <- predict(object=model, testing[,predictorsNames], type='prob')
-  #head(predictions)
-  #auc <- roc(ifelse(testing[,outcomeName]=="True",1,0), predictions[[2]])
-  #out <- capture.output(auc$auc)
-  #cat("", out, file=paste(classifier, "txt", sep="."), sep="\n", append=TRUE)
-  
+
   # computes the scalar metrics
-  predictions <- predict(object=model$finalModel, testing[,predictorsNames], type='raw')
+  predictions <- predict(object=model, testing[,predictorsNames], type='raw')
   CM <- table(data=predictions, reference=testing[,outcomeName])
   out <- capture.output(CM)
   cat("\nConfusion Matrix:\n", out, file=output_file, sep="\n", append=TRUE)
