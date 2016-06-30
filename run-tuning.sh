@@ -9,7 +9,8 @@ if [[ -n "$models_file" && -n "$input_file" ]]; then
     start_time=$(date +"%Y-%m-%d_%H.%M")
     for i in `seq 1 10`;
     do
-        echo " :: Run $i"
+        now=$(date +"%Y-%m-%d %H.%M")
+        echo " :: Run $i -- started at $now"
         time Rscript tuning.R $i $start_time $models_file $input_file
     done   
 

@@ -61,10 +61,12 @@ sk1 <- SK(
 )
 
 if(!exists("plot_boxplot", mode="function")) 
-  source(paste(getwd(), "plot_boxplot.R", sep="/"))
+  source(paste(getwd(), "lib/plot_boxplot.R", sep="/"))
 
+png(filename="output/plots/box-plot.png")
 # generate box plot from SK test
 plot_boxplot(bx_model=sk1$av$model, x_lab="Classifiers", y_lab="AUC")
+dev.off()
 
 #library(lattice)
 #lattice::bwplot(x ~ y ,data=sk1$av$model, main="AUC values of classification techniques",
