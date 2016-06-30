@@ -1,0 +1,650 @@
+
+===============================
+
+Seed:
+849
+avNNet_run# 1
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107615, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec       
+  1     0e+00  0.5000000  1.0000000  0.000000000
+  1     1e-04  0.6791584  1.0000000  0.000000000
+  1     1e-03  0.8014412  1.0000000  0.000000000
+  1     1e-02  0.8164684  0.9979101  0.029677170
+  1     1e-01  0.8165749  0.9909789  0.111571658
+  3     0e+00  0.5000000  1.0000000  0.000000000
+  3     1e-04  0.8154383  1.0000000  0.000000000
+  3     1e-03  0.8178075  0.9989550  0.013695937
+  3     1e-02  0.8201462  0.9885535  0.136868606
+  3     1e-01  0.8218526  0.9873168  0.147678785
+  5     0e+00  0.5000000  1.0000000  0.000000000
+  5     1e-04  0.8009604  1.0000000  0.000000000
+  5     1e-03  0.8189034  0.9963667  0.050377521
+  5     1e-02  0.8205872  0.9876427  0.138371523
+  5     1e-01  0.8232537  0.9876523  0.146432627
+  7     0e+00  0.5643047  1.0000000  0.000000000
+  7     1e-04  0.8195335  0.9999137  0.002293535
+  7     1e-03  0.8191819  0.9991180  0.013630406
+  7     1e-02  0.8214659  0.9890712  0.132804538
+  7     1e-01  0.8229355  0.9877865  0.145187155
+  9     0e+00  0.5319215  1.0000000  0.000000000
+  9     1e-04  0.8213481  0.9996453  0.011402359
+  9     1e-03  0.8194142  0.9991180  0.019920419
+  9     1e-02  0.8210257  0.9878249  0.141450741
+  9     1e-01  0.8239339  0.9880741  0.143093045
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.152074 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8239339 0.9880741  0.143093 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44153  5564
+  True    551   976
+
+F-measure = 0.935236864680527
+
+G-mean = 0.383921957356405
+
+Matthews phi = NA
+
+Balance = 0.398355504842163
+
+===============================
+
+Seed:
+342
+avNNet_run# 2
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec        
+  1     0e+00  0.5000000  1.0000000  0.0000000000
+  1     1e-04  0.5851405  1.0000000  0.0000000000
+  1     1e-03  0.8172755  1.0000000  0.0000655308
+  1     1e-02  0.8176671  0.9979772  0.0313129506
+  1     1e-01  0.8175172  0.9890519  0.1301833918
+  3     0e+00  0.5000000  1.0000000  0.0000000000
+  3     1e-04  0.8141335  1.0000000  0.0000000000
+  3     1e-03  0.8193328  0.9995974  0.0074658763
+  3     1e-02  0.8208470  0.9888506  0.1319495477
+  3     1e-01  0.8227922  0.9870387  0.1521971915
+  5     0e+00  0.5000000  1.0000000  0.0000000000
+  5     1e-04  0.8181516  1.0000000  0.0000000000
+  5     1e-03  0.8201818  0.9988783  0.0186719435
+  5     1e-02  0.8217888  0.9886301  0.1377833767
+  5     1e-01  0.8234021  0.9867128  0.1557367988
+  7     0e+00  0.5000000  1.0000000  0.0000000000
+  7     1e-04  0.8202158  0.9996740  0.0050458716
+  7     1e-03  0.8189972  0.9988304  0.0205642687
+  7     1e-02  0.8221837  0.9872976  0.1489233551
+  7     1e-01  0.8241235  0.9866265  0.1556055226
+  9     0e+00  0.5641250  1.0000000  0.0000000000
+  9     1e-04  0.8217485  0.9997316  0.0058322412
+  9     1e-03  0.8214200  0.9988592  0.0197882415
+  9     1e-02  0.8220695  0.9874222  0.1499686722
+  9     1e-01  0.8244932  0.9876044  0.1502331128
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.116462 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8244932 0.9876044 0.1502331 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44138  5601
+  True    566   939
+
+F-measure = 0.934701354256006
+
+G-mean = 0.37651046771011
+
+Matthews phi = NA
+
+Balance = 0.394352009853169
+
+===============================
+
+Seed:
+112
+avNNet_run# 3
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec       
+  1     0e+00  0.5000000  1.0000000  0.000000000
+  1     1e-04  0.6526521  1.0000000  0.000000000
+  1     1e-03  0.8175387  1.0000000  0.000000000
+  1     1e-02  0.8187013  0.9936057  0.083205405
+  1     1e-01  0.8183247  0.9916116  0.102399792
+  3     0e+00  0.5000000  1.0000000  0.000000000
+  3     1e-04  0.8069677  1.0000000  0.000000000
+  3     1e-03  0.8189519  0.9991084  0.016444411
+  3     1e-02  0.8220502  0.9886206  0.140796549
+  3     1e-01  0.8237459  0.9873647  0.149642434
+  5     0e+00  0.5000000  1.0000000  0.000000000
+  5     1e-04  0.8035808  1.0000000  0.000000000
+  5     1e-03  0.8204457  0.9972103  0.041665272
+  5     1e-02  0.8220526  0.9874127  0.146371688
+  5     1e-01  0.8243921  0.9874126  0.152066001
+  7     0e+00  0.5000000  1.0000000  0.000000000
+  7     1e-04  0.8200209  0.9999617  0.001769332
+  7     1e-03  0.8219110  0.9980827  0.033349856
+  7     1e-02  0.8224139  0.9877673  0.144270196
+  7     1e-01  0.8252692  0.9871538  0.151609174
+  9     0e+00  0.6276236  1.0000000  0.000000000
+  9     1e-04  0.8228903  0.9997124  0.006159895
+  9     1e-03  0.8219373  0.9978813  0.037345518
+  9     1e-02  0.8225603  0.9872113  0.146103213
+  9     1e-01  0.8245306  0.9871730  0.151936442
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 7, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.129382 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8252692 0.9871538 0.1516092 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44083  5503
+  True    621  1037
+
+F-measure = 0.935051437055891
+
+G-mean = 0.395423870583575
+
+Matthews phi = NA
+
+Balance = 0.404932896625156
+
+===============================
+
+Seed:
+345
+avNNet_run# 4
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107617, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec       
+  1     0e+00  0.5000000  1.0000000  0.000000000
+  1     1e-04  0.5882609  1.0000000  0.000000000
+  1     1e-03  0.8154299  1.0000000  0.000000000
+  1     1e-02  0.8162737  0.9966351  0.043053735
+  1     1e-01  0.8167596  0.9910939  0.107507890
+  3     0e+00  0.5000000  1.0000000  0.000000000
+  3     1e-04  0.8164672  1.0000000  0.000000000
+  3     1e-03  0.8170323  0.9983223  0.025945691
+  3     1e-02  0.8192256  0.9896847  0.122253350
+  3     1e-01  0.8215029  0.9867704  0.151672902
+  5     0e+00  0.5000000  1.0000000  0.000000000
+  5     1e-04  0.7805437  0.9999712  0.001245085
+  5     1e-03  0.8180918  0.9981593  0.026994055
+  5     1e-02  0.8202946  0.9886781  0.137060821
+  5     1e-01  0.8231152  0.9874797  0.148593298
+  7     0e+00  0.5000000  1.0000000  0.000000000
+  7     1e-04  0.8199780  1.0000000  0.000000000
+  7     1e-03  0.8192343  0.9987633  0.022273648
+  7     1e-02  0.8202968  0.9892054  0.134444525
+  7     1e-01  0.8233192  0.9872401  0.151476267
+  9     0e+00  0.5646586  1.0000000  0.000000000
+  9     1e-04  0.8209745  0.9991947  0.012844037
+  9     1e-03  0.8188993  0.9998754  0.002293578
+  9     1e-02  0.8216176  0.9891287  0.134180470
+  9     1e-01  0.8237360  0.9875660  0.148265129
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.101269 hours
+
+Highest ROC value:
+  TrainROC TrainSens TrainSpec method
+1 0.823736  0.987566 0.1482651 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44218  5608
+  True    486   932
+
+F-measure = 0.935533693007511
+
+G-mean = 0.375444232763474
+
+Matthews phi = NA
+
+Balance = 0.393612612195973
+
+===============================
+
+Seed:
+355
+avNNet_run# 5
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107616, 107617, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec      
+  1     0e+00  0.5000000  1.0000000  0.00000000
+  1     1e-04  0.5904054  1.0000000  0.00000000
+  1     1e-03  0.8160954  1.0000000  0.00000000
+  1     1e-02  0.8184345  0.9990317  0.01178859
+  1     1e-01  0.8178957  0.9912760  0.10424586
+  3     0e+00  0.5000000  1.0000000  0.00000000
+  3     1e-04  0.7763847  1.0000000  0.00000000
+  3     1e-03  0.8193957  0.9971144  0.03361730
+  3     1e-02  0.8214344  0.9892246  0.12513739
+  3     1e-01  0.8226834  0.9874510  0.14925071
+  5     0e+00  0.5641099  1.0000000  0.00000000
+  5     1e-04  0.8196793  0.9990221  0.01204977
+  5     1e-03  0.8194370  0.9983798  0.02470412
+  5     1e-02  0.8218139  0.9889849  0.13516815
+  5     1e-01  0.8240815  0.9878632  0.14558120
+  7     0e+00  0.5000000  1.0000000  0.00000000
+  7     1e-04  0.8218089  0.9992810  0.01343381
+  7     1e-03  0.8188644  0.9991468  0.01303934
+  7     1e-02  0.8215762  0.9885343  0.13817729
+  7     1e-01  0.8243413  0.9877098  0.14748065
+  9     0e+00  0.5637196  1.0000000  0.00000000
+  9     1e-04  0.8239279  0.9987825  0.02535651
+  9     1e-03  0.8208951  0.9989743  0.02017718
+  9     1e-02  0.8225238  0.9876332  0.14472780
+  9     1e-01  0.8243522  0.9872688  0.14970805
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.148492 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8243522 0.9872688 0.1497081 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44205  5630
+  True    499   910
+
+F-measure = 0.935169612540856
+
+G-mean = 0.370932022257854
+
+Matthews phi = NA
+
+Balance = 0.391231524599552
+
+===============================
+
+Seed:
+977
+avNNet_run# 6
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107617, 107617, 107615, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec       
+  1     0e+00  0.5000000  1.0000000  0.000000000
+  1     1e-04  0.5622874  1.0000000  0.000000000
+  1     1e-03  0.8135847  1.0000000  0.000000000
+  1     1e-02  0.8159922  0.9970090  0.037798354
+  1     1e-01  0.8155325  0.9916212  0.103846834
+  3     0e+00  0.5000000  1.0000000  0.000000000
+  3     1e-04  0.7732522  0.9999521  0.001638270
+  3     1e-03  0.8170005  0.9981881  0.023454748
+  3     1e-02  0.8195623  0.9897518  0.125925134
+  3     1e-01  0.8207959  0.9877003  0.146368126
+  5     0e+00  0.5000000  1.0000000  0.000000000
+  5     1e-04  0.8193938  1.0000000  0.000000000
+  5     1e-03  0.8173505  0.9992043  0.013494409
+  5     1e-02  0.8202650  0.9879783  0.141783631
+  5     1e-01  0.8220211  0.9876044  0.147284828
+  7     0e+00  0.5647935  1.0000000  0.000000000
+  7     1e-04  0.8198664  0.9999425  0.001703801
+  7     1e-03  0.8181592  0.9987730  0.020897416
+  7     1e-02  0.8205540  0.9883714  0.139224539
+  7     1e-01  0.8234509  0.9873168  0.149773067
+  9     0e+00  0.5061732  1.0000000  0.000000000
+  9     1e-04  0.8201991  0.9989742  0.014087663
+  9     1e-03  0.8184140  0.9987633  0.018019682
+  9     1e-02  0.8197273  0.9907872  0.114455914
+  9     1e-01  0.8225357  0.9875564  0.150494936
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 7, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.127363 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8234509 0.9873168 0.1497731 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44182  5579
+  True    522   961
+
+F-measure = 0.935415233155137
+
+G-mean = 0.381085402238204
+
+Matthews phi = NA
+
+Balance = 0.39674032266758
+
+===============================
+
+Seed:
+122
+avNNet_run# 7
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec        
+  1     0e+00  0.5000000  1.0000000  0.0000000000
+  1     1e-04  0.6480402  1.0000000  0.0000000000
+  1     1e-03  0.8149260  1.0000000  0.0000000000
+  1     1e-02  0.8191254  0.9973541  0.0353100718
+  1     1e-01  0.8192751  0.9900969  0.1176031091
+  3     0e+00  0.5000000  1.0000000  0.0000000000
+  3     1e-04  0.8093461  0.9999808  0.0007203667
+  3     1e-03  0.8215881  0.9974499  0.0340007004
+  3     1e-02  0.8229275  0.9888890  0.1373888187
+  3     1e-01  0.8241808  0.9867991  0.1512790737
+  5     0e+00  0.5324099  1.0000000  0.0000000000
+  5     1e-04  0.8204190  0.9998083  0.0051114024
+  5     1e-03  0.8214309  0.9974116  0.0449439147
+  5     1e-02  0.8237680  0.9875373  0.1485275096
+  5     1e-01  0.8253131  0.9872497  0.1515420981
+  7     0e+00  0.5000000  1.0000000  0.0000000000
+  7     1e-04  0.8199643  0.9993385  0.0106815203
+  7     1e-03  0.8213717  0.9983511  0.0224017059
+  7     1e-02  0.8236493  0.9865307  0.1524586281
+  7     1e-01  0.8259915  0.9877769  0.1484620647
+  9     0e+00  0.5639903  1.0000000  0.0000000000
+  9     1e-04  0.8226263  0.9991852  0.0112057238
+  9     1e-03  0.8219775  0.9988304  0.0216251638
+  9     1e-02  0.8237541  0.9901353  0.1257330480
+  9     1e-01  0.8265157  0.9873935  0.1503617283
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.132941 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8265157 0.9873935 0.1503617 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44163  5612
+  True    541   928
+
+F-measure = 0.934874416537008
+
+G-mean = 0.374404625452619
+
+Matthews phi = NA
+
+Balance = 0.393168521331572
+
+===============================
+
+Seed:
+156
+avNNet_run# 8
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107616, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec        
+  1     0e+00  0.5000000  1.0000000  0.0000000000
+  1     1e-04  0.6143009  1.0000000  0.0000000000
+  1     1e-03  0.8154259  0.9992139  0.0083224115
+  1     1e-02  0.8158197  0.9972678  0.0385894442
+  1     1e-01  0.8151879  0.9918800  0.0980100438
+  3     0e+00  0.5000000  1.0000000  0.0000000000
+  3     1e-04  0.8086795  1.0000000  0.0000000000
+  3     1e-03  0.8170000  0.9991468  0.0157902190
+  3     1e-02  0.8188228  0.9880550  0.1383719952
+  3     1e-01  0.8210724  0.9880070  0.1436826078
+  5     0e+00  0.5000000  1.0000000  0.0000000000
+  5     1e-04  0.8170316  0.9999425  0.0022935780
+  5     1e-03  0.8160790  0.9987825  0.0205052609
+  5     1e-02  0.8203552  0.9881508  0.1396209427
+  5     1e-01  0.8211563  0.9878345  0.1445334782
+  7     0e+00  0.5645314  1.0000000  0.0000000000
+  7     1e-04  0.8173991  0.9999904  0.0001964637
+  7     1e-03  0.8185711  0.9974596  0.0378678758
+  7     1e-02  0.8191209  0.9887835  0.1354250404
+  7     1e-01  0.8215032  0.9881604  0.1454497078
+  9     0e+00  0.5315678  1.0000000  0.0000000000
+  9     1e-04  0.8199989  0.9999808  0.0000655308
+  9     1e-03  0.8182789  0.9984469  0.0244995498
+  9     1e-02  0.8199904  0.9868662  0.1493155100
+  9     1e-01  0.8228272  0.9878345  0.1461045008
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.118398 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8228272 0.9878345 0.1461045 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44454  5885
+  True    250   655
+
+F-measure = 0.935450269877845
+
+G-mean = 0.31558329491244
+
+Matthews phi = NA
+
+Balance = 0.363699729570605
+
+===============================
+
+Seed:
+233
+avNNet_run# 9
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107616, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec       
+  1     0e+00  0.5000000  1.0000000  0.000000000
+  1     1e-04  0.6164120  1.0000000  0.000000000
+  1     1e-03  0.8106045  0.9990030  0.013097577
+  1     1e-02  0.8161163  0.9994152  0.010222805
+  1     1e-01  0.8161203  0.9912665  0.104106597
+  3     0e+00  0.5000000  1.0000000  0.000000000
+  3     1e-04  0.8116709  1.0000000  0.000000000
+  3     1e-03  0.8171026  0.9989646  0.014939949
+  3     1e-02  0.8195519  0.9897326  0.125862007
+  3     1e-01  0.8218689  0.9877674  0.143681621
+  5     0e+00  0.5000000  1.0000000  0.000000000
+  5     1e-04  0.8178824  1.0000000  0.000000000
+  5     1e-03  0.8182672  0.9996932  0.006880519
+  5     1e-02  0.8199276  0.9885343  0.137262392
+  5     1e-01  0.8224763  0.9883521  0.140732864
+  7     0e+00  0.5000000  1.0000000  0.000000000
+  7     1e-04  0.8191653  0.9998754  0.002948886
+  7     1e-03  0.8191580  0.9986099  0.026928438
+  7     1e-02  0.8209479  0.9881987  0.136538377
+  7     1e-01  0.8233543  0.9872592  0.148988285
+  9     0e+00  0.5637524  1.0000000  0.000000000
+  9     1e-04  0.8203127  0.9994536  0.011265719
+  9     1e-03  0.8203052  0.9989071  0.017361070
+  9     1e-02  0.8202960  0.9871346  0.146299505
+  9     1e-01  0.8237323  0.9885247  0.138373926
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.107276 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8237323 0.9885247 0.1383739 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44158  5514
+  True    546  1026
+
+F-measure = 0.9357887598542
+
+G-mean = 0.39365548909316
+
+Matthews phi = NA
+
+Balance = 0.403762098411758
+
+===============================
+
+Seed:
+454
+avNNet_run# 10
+Model Averaged Neural Network 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  decay  ROC        Sens       Spec       
+  1     0e+00  0.5000000  1.0000000  0.000000000
+  1     1e-04  0.6174746  1.0000000  0.000000000
+  1     1e-03  0.8169145  1.0000000  0.000000000
+  1     1e-02  0.8186292  0.9961845  0.055228517
+  1     1e-01  0.8181744  0.9888411  0.131953453
+  3     0e+00  0.5000000  1.0000000  0.000000000
+  3     1e-04  0.8110870  1.0000000  0.000000000
+  3     1e-03  0.8202460  0.9977759  0.033812820
+  3     1e-02  0.8212043  0.9885055  0.138309511
+  3     1e-01  0.8234540  0.9866840  0.155605437
+  5     0e+00  0.5319161  1.0000000  0.000000000
+  5     1e-04  0.8146112  0.9998083  0.006356488
+  5     1e-03  0.8207314  0.9991468  0.015527366
+  5     1e-02  0.8219051  0.9880261  0.141650638
+  5     1e-01  0.8237044  0.9865498  0.157636934
+  7     0e+00  0.5319211  1.0000000  0.000000000
+  7     1e-04  0.8207861  0.9998562  0.005897772
+  7     1e-03  0.8211655  0.9967405  0.044749983
+  7     1e-02  0.8219996  0.9867224  0.152200024
+  7     1e-01  0.8242855  0.9872017  0.151150544
+  9     0e+00  0.5317760  1.0000000  0.000000000
+  9     1e-04  0.8181226  0.9995878  0.008781127
+  9     1e-03  0.8225431  0.9972294  0.034785654
+  9     1e-02  0.8230734  0.9877194  0.147223202
+  9     1e-01  0.8246646  0.9873264  0.149970518
+
+Tuning parameter 'bag' was held constant at a value of FALSE
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were size = 9, decay = 0.1 and bag = FALSE. 
+
+Elapsed time
+Time difference of 1.123626 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8246646 0.9873264 0.1499705 avNNet
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44100  5549
+  True    604   991
+
+F-measure = 0.934787447139996
+
+G-mean = 0.386628670095982
+
+Matthews phi = NA
+
+Balance = 0.399964376343209

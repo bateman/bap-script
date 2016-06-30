@@ -1,0 +1,450 @@
+
+===============================
+
+Seed:
+849
+earth_run# 1
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107616, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6517406  0.9957818  0.07914468
+   5      0.8081938  0.9854282  0.15514728
+   8      0.8144203  0.9861280  0.15573465
+  11      0.8198432  0.9855240  0.16274469
+  15      0.8266634  0.9874126  0.15232770
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 23.37762 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8266634 0.9874126 0.1523277  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44126  5561
+  True    578   979
+
+F-measure = 0.93496201968408
+
+G-mean = 0.384393964325993
+
+Matthews phi = NA
+
+Balance = 0.398673490126528
+
+===============================
+
+Seed:
+342
+earth_run# 2
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107616, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6639813  0.9959065  0.07560752
+   5      0.8037244  0.9850160  0.15632670
+   8      0.8110539  0.9861472  0.15042919
+  11      0.8174728  0.9853419  0.16097712
+  15      0.8244225  0.9871730  0.15193472
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 23.5471 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8244225  0.987173 0.1519347  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44155  5532
+  True    549  1008
+
+F-measure = 0.935576485046244
+
+G-mean = 0.390173836720981
+
+Matthews phi = NA
+
+Balance = 0.401815449480933
+
+===============================
+
+Seed:
+112
+earth_run# 3
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107617, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec     
+   2      0.6363980  0.9956668  0.0758024
+   5      0.8089590  0.9842490  0.1607150
+   8      0.8133807  0.9867128  0.1476104
+  11      0.8176297  0.9857254  0.1575044
+  15      0.8251929  0.9875181  0.1488555
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 23.11763 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8251929 0.9875181 0.1488555  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44180  5572
+  True    524   968
+
+F-measure = 0.935462014059456
+
+G-mean = 0.382462155251811
+
+Matthews phi = NA
+
+Balance = 0.397496659445958
+
+===============================
+
+Seed:
+345
+earth_run# 4
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6657445  0.9956668  0.07600045
+   5      0.8013483  0.9849201  0.15494936
+   8      0.8092620  0.9864348  0.14826590
+  11      0.8163346  0.9858308  0.15671779
+  15      0.8237503  0.9877865  0.15010115
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 22.61806 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8237503 0.9877865 0.1501012  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44139  5558
+  True    565   982
+
+F-measure = 0.935138398957638
+
+G-mean = 0.385039178746587
+
+Matthews phi = NA
+
+Balance = 0.399000906394917
+
+===============================
+
+Seed:
+355
+earth_run# 5
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107616, 107617, 107616, 107616, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6544986  0.9961653  0.06879725
+   5      0.8063877  0.9856487  0.15468783
+   8      0.8125122  0.9866457  0.14970857
+  11      0.8169099  0.9858979  0.15645669
+  15      0.8246805  0.9871346  0.14924972
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 23.39061 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8246805 0.9871346 0.1492497  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44141  5577
+  True    563   963
+
+F-measure = 0.934972781766961
+
+G-mean = 0.381304702271988
+
+Matthews phi = NA
+
+Balance = 0.396947314982983
+
+===============================
+
+Seed:
+977
+earth_run# 6
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107616, 107617, 107616, 107616, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec     
+   2      0.6348433  0.9956189  0.0761313
+   5      0.8090363  0.9869429  0.1457108
+   8      0.8135623  0.9868566  0.1459082
+  11      0.8181281  0.9860705  0.1540319
+  15      0.8254486  0.9878345  0.1457114
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 23.56282 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8254486 0.9878345 0.1457114  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44210  5575
+  True    494   965
+
+F-measure = 0.935770301304914
+
+G-mean = 0.381998667281196
+
+Matthews phi = NA
+
+Balance = 0.397178666821734
+
+===============================
+
+Seed:
+122
+earth_run# 7
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107616, 107617, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6470049  0.9961653  0.06859611
+   5      0.8102353  0.9864252  0.14676230
+   8      0.8146499  0.9872497  0.14754691
+  11      0.8189117  0.9861856  0.15743991
+  15      0.8262105  0.9879495  0.14774311
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 24.03042 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8262105 0.9879495 0.1477431  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44181  5594
+  True    523   946
+
+F-measure = 0.935255453592862
+
+G-mean = 0.378095294595332
+
+Matthews phi = NA
+
+Balance = 0.395118453511367
+
+===============================
+
+Seed:
+156
+earth_run# 8
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107617, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6523437  0.9956860  0.07501843
+   5      0.8063715  0.9859075  0.15134602
+   8      0.8125914  0.9849872  0.15973177
+  11      0.8176277  0.9853419  0.16222229
+  15      0.8242629  0.9865594  0.15488456
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 22.70644 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8242629 0.9865594 0.1548846  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44137  5546
+  True    567   994
+
+F-measure = 0.935234725121044
+
+G-mean = 0.387375840185122
+
+Matthews phi = NA
+
+Balance = 0.400297733999397
+
+===============================
+
+Seed:
+233
+earth_run# 9
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107617, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6366383  0.9956380  0.07685235
+   5      0.8099057  0.9869238  0.14656480
+   8      0.8142489  0.9871730  0.14872629
+  11      0.8179457  0.9862431  0.15744090
+  15      0.8255498  0.9875948  0.15082293
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 15 and degree = 1. 
+
+Elapsed time
+Time difference of 22.84675 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.8255498 0.9875948 0.1508229  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44170  5593
+  True    534   947
+
+F-measure = 0.935141372119364
+
+G-mean = 0.378247984669711
+
+Matthews phi = NA
+
+Balance = 0.395224158665812
+
+===============================
+
+Seed:
+454
+earth_run# 10
+Multivariate Adaptive Regression Spline 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  nprune  ROC        Sens       Spec      
+   2      0.6432470  0.9956093  0.07606581
+   5      0.8075384  0.9838751  0.16150141
+   8      0.8133595  0.9863773  0.14918308
+  11      0.8204194  0.9859459  0.15652145
+  14      0.8252400  0.9869812  0.15003446
+
+Tuning parameter 'degree' was held constant at a value of 1
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were nprune = 14 and degree = 1. 
+
+Elapsed time
+Time difference of 24.15492 mins
+
+Highest ROC value:
+  TrainROC TrainSens TrainSpec method
+1  0.82524 0.9869812 0.1500345  earth
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44159  5567
+  True    545   973
+
+F-measure = 0.935274806735148
+
+G-mean = 0.383357504034609
+
+Matthews phi = NA
+
+Balance = 0.398032544531222

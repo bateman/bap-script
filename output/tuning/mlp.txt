@@ -1,0 +1,440 @@
+
+===============================
+
+Seed:
+849
+mlp_run# 1
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.6697070  0.9912952  0.05923984
+  3     0.7471984  0.9930401  0.05876619
+  5     0.7858342  0.9840289  0.12828969
+  7     0.7669040  0.9985140  0.01756225
+  9     0.7785954  0.9930498  0.05981318
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 5. 
+
+Elapsed time
+Time difference of 4.502824 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7858342 0.9840289 0.1282897    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44704  6540
+  True      0     0
+
+F-measure = 0.931838078959436
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+342
+mlp_run# 2
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107616, 107617, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.7153617  0.9962807  0.02555701
+  3     0.7869460  0.9799541  0.14026754
+  5     0.7870043  0.9927715  0.07258684
+  7     0.7872303  0.9948998  0.05383666
+  9     0.7599853  0.9834054  0.12217499
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 7. 
+
+Elapsed time
+Time difference of 4.416764 hours
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7872303 0.9948998 0.05383666    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44704  6540
+  True      0     0
+
+F-measure = 0.931838078959436
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+112
+mlp_run# 3
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107616, 107616, 107616, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.7364407  1.0000000  0.00000000
+  3     0.7834481  0.9929729  0.07049827
+  5     0.7902428  0.9741450  0.16990926
+  7     0.7952085  0.9906816  0.09544443
+  9     0.7984876  0.9875564  0.11281558
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 9. 
+
+Elapsed time
+Time difference of 4.437481 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7984876 0.9875564 0.1128156    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44702  6536
+  True      2     4
+
+F-measure = 0.931854662191741
+
+G-mean = 0.024730415119281
+
+Matthews phi = NA
+
+Balance = 0.293325699317098
+
+===============================
+
+Seed:
+345
+mlp_run# 4
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107616, 107617, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec        
+  1     0.6916830  0.9948423  0.0406290957
+  3     0.7546982  0.9944205  0.0539216772
+  5     0.7823759  0.9999904  0.0000655308
+  7     0.7783201  0.9881795  0.1122238759
+  9     0.7746059  0.9820349  0.1146653809
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 5. 
+
+Elapsed time
+Time difference of 4.329091 hours
+
+Highest ROC value:
+   TrainROC TrainSens   TrainSpec method
+1 0.7823759 0.9999904 6.55308e-05    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44563  6134
+  True    141   406
+
+F-measure = 0.934225008123605
+
+G-mean = 0.248764360288164
+
+Matthews phi = NA
+
+Balance = 0.336786311787757
+
+===============================
+
+Seed:
+355
+mlp_run# 5
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.7185338  1.0000000  0.00000000
+  3     0.7699879  0.9913048  0.07064220
+  5     0.7810134  0.9880932  0.11825352
+  7     0.7729709  0.9730325  0.19398601
+  9     0.7686112  0.9869332  0.09376058
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 5. 
+
+Elapsed time
+Time difference of 4.389731 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7810134 0.9880932 0.1182535    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44704  6540
+  True      0     0
+
+F-measure = 0.931838078959436
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+977
+mlp_run# 6
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.7333048  1.0000000  0.00000000
+  3     0.7685871  0.9877964  0.10816637
+  5     0.7592987  0.9930208  0.05595369
+  7     0.7675000  0.9870775  0.09186929
+  9     0.7647714  0.9900107  0.09578049
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 3. 
+
+Elapsed time
+Time difference of 4.410457 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7685871 0.9877964 0.1081664    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44704  6540
+  True      0     0
+
+F-measure = 0.931838078959436
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+122
+mlp_run# 7
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec     
+  1     0.6952948  1.0000000  0.0000000
+  3     0.7892712  0.9788899  0.1778260
+  5     0.7834611  0.9715848  0.1829186
+  7     0.7941859  0.9946218  0.0570075
+  9     0.7813193  0.9878441  0.1162954
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 7. 
+
+Elapsed time
+Time difference of 4.42487 hours
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec method
+1 0.7941859 0.9946218 0.0570075    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44374  5842
+  True    330   698
+
+F-measure = 0.934976822587442
+
+G-mean = 0.32548421725123
+
+Matthews phi = NA
+
+Balance = 0.368339622806289
+
+===============================
+
+Seed:
+156
+mlp_run# 8
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107617, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.6799339  1.0000000  0.00000000
+  3     0.7757901  0.9892053  0.09985349
+  5     0.7612678  0.9846036  0.08436917
+  7     0.7667578  0.9981593  0.02495805
+  9     0.7523724  0.9896185  0.04836173
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 3. 
+
+Elapsed time
+Time difference of 4.468337 hours
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7757901 0.9892053 0.09985349    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 43771  5335
+  True    933  1205
+
+F-measure = 0.933184095512206
+
+G-mean = 0.424741495082207
+
+Matthews phi = NA
+
+Balance = 0.42298942913836
+
+===============================
+
+Seed:
+233
+mlp_run# 9
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107615, 107616, 107616, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.7219947  1.0000000  0.00000000
+  3     0.7752076  0.9850542  0.11419740
+  5     0.7657883  0.9908447  0.07666430
+  7     0.7977660  0.9969514  0.04226689
+  9     0.7751080  0.9837216  0.11820220
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 7. 
+
+Elapsed time
+Time difference of 4.352918 hours
+
+Highest ROC value:
+  TrainROC TrainSens  TrainSpec method
+1 0.797766 0.9969514 0.04226689    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44602  6250
+  True    102   290
+
+F-measure = 0.933525890577253
+
+G-mean = 0.21033623666248
+
+Matthews phi = NA
+
+Balance = 0.324246180649107
+
+===============================
+
+Seed:
+454
+mlp_run# 10
+Multi-Layer Perceptron 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107616, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  size  ROC        Sens       Spec      
+  1     0.7016685  0.9929633  0.05031418
+  3     0.7526889  0.9900777  0.09527200
+  5     0.7908157  0.9965679  0.03210438
+  7     0.7796662  0.9789090  0.15666560
+  9     0.7872726  0.9658997  0.17794912
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was size = 5. 
+
+Elapsed time
+Time difference of 4.46366 hours
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec method
+1 0.7908157 0.9965679 0.03210438    mlp
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 40683  3733
+  True   4021  2807
+
+F-measure = 0.912993716337522
+
+G-mean = 0.624979288499892
+
+Matthews phi = NA
+
+Balance = 0.591406342134916
