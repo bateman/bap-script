@@ -75,9 +75,8 @@ if(choice == "test") {
   testing <- temp[[1]]
   predictorsNames <- temp[[2]]
 } else if(choice == "yahoo") { 
-  library(foreign)
-  arff_file <- ifelse(is.na(args[3]), "input/yahoo.arff", args[3])
-  temp <- read.arff(arff_file)
+  csv_file <- ifelse(is.na(args[3]), "input/yahoo.arff", args[3])
+  temp <- read.csv(csv_file, header = TRUE, sep=",")
   temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%d/%m/%y %H:%M")
   testing <- temp[[1]]
@@ -94,7 +93,8 @@ if(choice == "test") {
         Format: Rscript test.R path/to/trainingset.csv testset-name path/to/testset.csv")
   #q(save = "no", status = 1)
 }
-
+# remove large unused objects from memory
+rm(csv_file)
 rm(temp)
 # garbage collection
 gc()
@@ -142,7 +142,7 @@ for(i in 1:length(classifiers)){
 if(!exists("save_predictions", mode="function")) 
   source(paste(getwd(), "lib/save_predictions.R", sep="/"))
 
-save_predictions(outfile = "predictions.txt", outdir = "output/predictions", 
+save_predictions(outfile = paste(choice, "txt", sep="."), outdir = "output/predictions", 
                  classifiers = classifiers, predictions = predictions)
 
 
