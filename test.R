@@ -109,6 +109,7 @@ set.seed(875)
 # modelX <- classifier(solution ~ ., data = training, parameters...)
 # modelX.pred <- predict(modelX, testing)
 library(caret)
+library(ROCR)
 # load all the classifiers to tune
 
 #classifiers <- c("nb")
@@ -135,6 +136,7 @@ for(i in 1:length(classifiers)){
   pred <- predict(model, testing, type = 'prob')
   model.prediction <- prediction(pred[,2], testing$solution)
   predictions <- c(predictions, model.prediction)
+  cm <- caret::confusionMatrix(pred[,2])
 }
 
 # finally, save all models predictions to text file ... 
@@ -159,6 +161,9 @@ g_col <- gray.colors(
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))
+
+if(!dir.exists("output/plots"))
+  dir.create("output/plots", showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
 png(filename="output/plots/roc-curve.png")
 plot_curve(predictions=predictions, classifiers=classifiers, 
