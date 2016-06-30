@@ -1,3 +1,2 @@
 mlp:RSNNS
-mlpWeightDecay:RSNNS
 multinom:nnet
