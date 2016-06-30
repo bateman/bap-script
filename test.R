@@ -5,6 +5,11 @@
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 
+if(!exists("save_results", mode="function")) 
+  source(paste(getwd(), "lib/save_results.R", sep="/"))
+if(!exists("scalar_metrics", mode="function")) 
+  source(paste(getwd(), "lib/scalar_metrics.R", sep="/"))
+
 
 setup_dataframe <- function(dataframe, outcomeName, excluded_predictors, time_format="%Y-%m-%d %H:%M:%S", 
                             normalize=TRUE, na_omit=TRUE) {
@@ -43,56 +48,52 @@ outcomeName <- "solution"
 excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
                          "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
-csv_file <- ifelse(is.na(args[1]), "input/so_features.csv", args[1])
+csv_file <- ifelse(is.na(args[1]), "input/test.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                                          time_format="%Y-%m-%d %H:%M:%S")
+                        time_format="%Y-%m-%d %H:%M:%S")
 SO <- temp[[1]]
 predictorsNames <- temp[[2]]
+rm(temp)
+gc()
 
-choice <- ifelse(is.na(args[2]), "dwolla", args[2])
+choice <- ifelse(is.na(args[2]), "error", args[2])
+choice <- "docusign"
 
 if(choice == "test") {
-  csv_file <- ifelse(is.na(args[3]), "input/test.csv", args[3])
-  temp <- read.csv(csv_file, header = TRUE, sep=",")
-  temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                             time_format="%Y-%m-%d %H:%M:%S")
-  
-  testing <- temp[[1]]
-  predictorsNames <- temp[[2]]
+  f <- "input/head.csv"
+  sep <- ","
+  time_format <- "%Y-%m-%d %H:%M:%S"
 } else if(choice == "docusign") { 
-  csv_file <- ifelse(is.na(args[3]), "input/docusing.csv", args[3])
-  temp <- read.csv(csv_file, header = TRUE, sep=",")
-  temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                              time_format="%d/%m/%Y %H:%M:%S")
-  testing <- temp[[1]]
-  predictorsNames <- temp[[2]]
+  f <- "input/docusing.csv"
+  sep <- ","
+  time_format <- "%d/%m/%Y %H:%M:%S"
 } else if(choice == "dwolla") { 
-  csv_file <- ifelse(is.na(args[3]), "input/dwolla.csv", args[3])
-  temp  <- read.csv(csv_file, header = TRUE, sep=",")
-  temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                            time_format="%d/%m/%y %H:%M")
-  testing <- temp[[1]]
-  predictorsNames <- temp[[2]]
+  f <- "input/dwolla.csv"
+  sep <- ","
+  time_format <- "%d/%m/%y %H:%M"
 } else if(choice == "yahoo") { 
-  csv_file <- ifelse(is.na(args[3]), "input/yahoo.arff", args[3])
-  temp <- read.csv(csv_file, header = TRUE, sep=",")
-  temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                        time_format="%d/%m/%y %H:%M")
-  testing <- temp[[1]]
-  predictorsNames <- temp[[2]]
+  f <- "input/yahoo.csv"
+  sep <- ";"
+  time_format <- "%Y-%m-%d %H:%M:%S"
 } else if(choice == "scn") {
-  csv_file <- ifelse(is.na(args[3]), "input/scn.csv", args[3])
-  temp <- read.csv(csv_file, header = TRUE, sep=",")
-  temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                         time_format="%Y-%m-%d %H:%M:%S")
-  testing <- temp[[1]]
-  predictorsNames <- temp[[2]]
+  f <- "input/scn.csv"
+  sep <- ","
+  time_format <- "%Y-%m-%d %H:%M:%S"
 } else {
   print("Error: no correct testset name provided.
         Format: Rscript test.R path/to/trainingset.csv testset-name path/to/testset.csv")
   #q(save = "no", status = 1)
 }
+
+# load testing file and predictors
+csv_file <- ifelse(is.na(args[3]), f, args[3])
+temp <- read.csv(csv_file, header = TRUE, sep=sep)
+temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
+                        time_format=time_format)
+testing <- temp[[1]]
+predictorsNames <- temp[[2]]
+
 # remove large unused objects from memory
 rm(csv_file)
 rm(temp)
@@ -119,7 +120,7 @@ for(i in 1:length(classifiers)){
   nline <- strsplit(classifiers[i], ":")[[1]]
   classifier <- nline[1]
   classifiers[i] <- classifier
-
+  
   print(paste("Testing performance of classifier", classifier))
   if(classifier == "nb") {
     grid <- data.frame(fL=0, usekernel=FALSE, adjust=1)
@@ -127,29 +128,29 @@ for(i in 1:length(classifiers)){
   if(classifier == "rf") {
     grid <- data.frame(mtry=1)
   }
-
+  
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
                         trControl = trainControl(method="none", classProbs = TRUE), #summaryFunction=twoClassSummary, 
                         tuneGrid = grid)
-
-  pred_prob <- predict(model$finalModel, testing[,predictorsNames], type = 'prob')
+  
+  pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
   model.prediction_prob <- prediction(pred_prob[,2], testing[,outcomeName])
   predictions <- c(predictions, model.prediction_prob)
-  
-  pred <- predict(model$finalModel, testing[,predictorsNames], type = 'response')
+
+  pred <- predict(model, testing[,predictorsNames])
   cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
-  cmatrices <- c(cmatrices, cm)
+  # save cm to text file
+  save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", choice, sep="/"), 
+               classifiers = c(classifier), results = cm, expanded = TRUE)
+  scalar_metrics(predictions=pred, truth=testing[,outcomeName], 
+                 outdir=paste("output/scalar", choice, sep="/"), outfile=paste(classifier, "txt", sep = "."))
 }
 
 # finally, save all models predictions to text file ... 
-
-if(!exists("save_predictions", mode="function")) 
-  source(paste(getwd(), "lib/save_predictions.R", sep="/"))
-
-save_predictions(outfile = paste(choice, "txt", sep="."), outdir = "output/predictions", 
-                 classifiers = classifiers, predictions = predictions)
+save_results(outfile = paste(choice, "txt", sep="."), outdir = "output/predictions", 
+             classifiers = classifiers, results = predictions, expanded = FALSE)
 
 
 # and plot ROC and PR curves
@@ -166,18 +167,20 @@ g_col <- gray.colors(
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))
 
-if(!dir.exists("output/plots"))
-  dir.create("output/plots", showWarnings = FALSE, recursive = TRUE, mode = "0777")
+op <- par(no.readonly=TRUE) #this is done to save the default settings
+plot_dir <- paste("output/plots", choice, sep = "/")
+if(!dir.exists(plot_dir))
+  dir.create(plot_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
-png(filename="output/plots/roc-curve.png")
+png(filename=paste(plot_dir, "roc-curve.png", sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers, 
-          colors=g_col, line_type=line_types, 
-          x_label="fpr", y_label="tpr")
+           colors=g_col, line_type=line_types, 
+           x_label="fpr", y_label="tpr", plot_abline=TRUE)
 dev.off()
 
-png(filename="output/plots/pr-curve.png")
+png(filename=paste(plot_dir, "pr-curve.png", sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
-           x_label="rec", y_label="prec", leg_pos="bottomleft")
+           x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE)
 dev.off()
-
+par(op) #re-set the plot to the default settings
