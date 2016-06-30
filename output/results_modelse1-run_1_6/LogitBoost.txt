@@ -1,0 +1,264 @@
+
+===============================
+
+Seed:
+849
+LogitBoost_run# 1
+Boosted Logistic Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107613, 107614, 107613, 107613, 107613, 107612, ... 
+Resampling results across tuning parameters:
+
+  nIter  ROC        Sens       Spec     
+  11     0.7442127  0.9823118  0.1376504
+  21     0.7304411  0.9850922  0.1252011
+  31     0.7422133  0.9808835  0.1450547
+  41     0.7423368  0.9774705  0.1571124
+  51     0.7374786  0.9783044  0.1498398
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was nIter = 11. 
+
+Elapsed time
+Time difference of 1.974323 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec     method
+1 0.7442127 0.9823118 0.1376504 LogitBoost
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 43706  5529
+  True    997  1011
+
+F-measure = 0.93052864655411
+
+G-mean = 0.38876655809625
+
+Matthews phi = NA
+
+Balance = 0.401994862193407
+
+===============================
+
+Seed:
+342
+LogitBoost_run# 2
+Boosted Logistic Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107613, 107613, 107613, 107613, 107613, 107613, ... 
+Resampling results across tuning parameters:
+
+  nIter  ROC        Sens       Spec     
+  11     0.7504238  0.9859455  0.1218665
+  21     0.7406942  0.9770678  0.1571132
+  31     0.7437053  0.9842198  0.1301866
+  41     0.7467175  0.9788991  0.1465028
+  51     0.7407816  0.9820915  0.1362813
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was nIter = 11. 
+
+Elapsed time
+Time difference of 1.99698 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec     method
+1 0.7504238 0.9859455 0.1218665 LogitBoost
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44467  5993
+  True    236   547
+
+F-measure = 0.934543887855574
+
+G-mean = 0.288439922036647
+
+Matthews phi = NA
+
+Balance = 0.352024271372244
+
+===============================
+
+Seed:
+112
+LogitBoost_run# 3
+Boosted Logistic Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107613, 107613, 107612, 107613, 107614, 107614, ... 
+Resampling results across tuning parameters:
+
+  nIter  ROC        Sens       Spec     
+  11     0.7436401  0.9801643  0.1514783
+  21     0.7348958  0.9819762  0.1410619
+  31     0.7321856  0.9774125  0.1461107
+  41     0.7445062  0.9787836  0.1507636
+  51     0.7409120  0.9734339  0.1645881
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was nIter = 41. 
+
+Elapsed time
+Time difference of 2.113224 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec     method
+1 0.7445062 0.9787836 0.1507636 LogitBoost
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44073  5915
+  True    630   625
+
+F-measure = 0.930880442703108
+
+G-mean = 0.306951038121602
+
+Matthews phi = NA
+
+Balance = 0.360390772816503
+
+===============================
+
+Seed:
+345
+LogitBoost_run# 4
+Boosted Logistic Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107613, 107613, 107613, 107614, 107613, 107613, ... 
+Resampling results across tuning parameters:
+
+  nIter  ROC        Sens       Spec     
+  11     0.7460094  0.9833761  0.1343102
+  21     0.7291037  0.9792246  0.1416519
+  31     0.7341704  0.9814969  0.1317616
+  41     0.7432671  0.9742204  0.1701560
+  51     0.7323952  0.9757447  0.1577053
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was nIter = 11. 
+
+Elapsed time
+Time difference of 2.161127 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec     method
+1 0.7460094 0.9833761 0.1343102 LogitBoost
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 43808  5583
+  True    895   957
+
+F-measure = 0.931153952430548
+
+G-mean = 0.378682707209888
+
+Matthews phi = NA
+
+Balance = 0.396198360163287
+
+===============================
+
+Seed:
+355
+LogitBoost_run# 5
+Boosted Logistic Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107614, 107614, 107612, 107613, 107614, 107612, ... 
+Resampling results across tuning parameters:
+
+  nIter  ROC        Sens       Spec      
+  11     0.7455529  0.9918127  0.09533083
+  21     0.7354171  0.9695417  0.17632493
+  31     0.7388584  0.9750830  0.16079293
+  41     0.7360966  0.9748910  0.16236721
+  51     0.7398566  0.9753417  0.15259720
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was nIter = 11. 
+
+Elapsed time
+Time difference of 2.728034 mins
+
+Highest ROC value:
+   TrainROC TrainSens  TrainSpec     method
+1 0.7455529 0.9918127 0.09533083 LogitBoost
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44512  6001
+  True    191   539
+
+F-measure = 0.934968912787767
+
+G-mean = 0.286467743977592
+
+Matthews phi = NA
+
+Balance = 0.35116302813027
+
+===============================
+
+Seed:
+977
+LogitBoost_run# 6
+Boosted Logistic Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107613, 107612, 107613, 107613, 107614, 107612, ... 
+Resampling results across tuning parameters:
+
+  nIter  ROC        Sens       Spec     
+  11     0.7469642  0.9817558  0.1402070
+  21     0.7251346  0.9801545  0.1387036
+  31     0.7167216  0.9716607  0.1462391
+  41     0.7371684  0.9721304  0.1588815
+  51     0.7419127  0.9724659  0.1704816
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was nIter = 11. 
+
+Elapsed time
+Time difference of 1.934737 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec     method
+1 0.7469642 0.9817558  0.140207 LogitBoost
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 43831  5584
+  True    872   956
+
+F-measure = 0.931405257230285
+
+G-mean = 0.378584149323997
+
+Matthews phi = NA
+
+Balance = 0.396098688607895
