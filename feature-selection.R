@@ -2,7 +2,7 @@
 args<-commandArgs(TRUE)
 # files with features
 feat_file <- args[1]
-feat_file <- ifelse(is.na(feat_file),"features/test.csv", feat_file)
+feat_file <- ifelse(is.na(feat_file),"input/test.csv", feat_file)
 # best k features to select, default 10
 k <- args[2]
 k <- ifelse(is.na(k), 10, k)
@@ -20,8 +20,11 @@ dfm$date_time <- as.numeric(as.POSIXct(strptime(dfm$date_time, tz="CET", "%Y-%m-
 # exclude rows with NaN (missing values)
 dfm <- na.omit(dfm)
 
-# output file for the classifier at nad
-output_file <- paste("output", "feature-subset.txt", sep = "/")
+# output file for the classifier at hand
+output_dir <- "output/feature-selection"
+if(!dir.exists(output_dir))
+  dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
+output_file <- paste(output_dir, "feature-subset.txt", sep = "/")
 
 # feature selection through Wrapper algorithm
 library("Boruta")
