@@ -76,6 +76,10 @@ splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
 training <- SO[splitIndex, ]
 testing <- SO[-splitIndex, ]
 
+# remove the large object
+rm(SO)
+gc()
+
 # 10-fold CV repetitions
 fitControl <- trainControl(
   method = "cv",
@@ -103,8 +107,8 @@ for(i in 1:length(classifiers)){
 
   if(classifier == "gamboost") {
     ## quick fix, has_links predictor causes error
-    predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
-    SO <- SO[ , !(names(SO) %in% c("has_links"))]
+    #predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
+    #SO <- SO[ , !(names(SO) %in% c("has_links"))]
     training <- training[ , !(names(training) %in% c("has_links"))]
     testing <- testing[ , !(names(testing) %in% c("has_links"))]
   } 
@@ -159,11 +163,7 @@ for(i in 1:length(classifiers)){
   cat("\nHighest ROC value:", out, file=output_file, sep="\n", append=TRUE)
   
   #predictions <- predict(object=model, testing[,predictorsNames], type='prob')
-  #head(predictions)
-  #auc <- roc(ifelse(testing[,outcomeName]=="True",1,0), predictions[[2]])
-  #out <- capture.output(auc$auc)
-  #cat("", out, file=paste(classifier, "txt", sep="."), sep="\n", append=TRUE)
-  
+
   # computes the scalar metrics
   predictions <- predict(object=model, testing[,predictorsNames], type='raw')
   CM <- table(data=predictions, reference=testing[,outcomeName])

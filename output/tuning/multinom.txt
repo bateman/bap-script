@@ -1,0 +1,440 @@
+
+===============================
+
+Seed:
+849
+multinom_run# 1
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107617, 107617, 107615, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8243647  0.9901640  0.1201596
+  1e-04  0.8242788  0.9901640  0.1204872
+  1e-03  0.8235402  0.9899819  0.1223872
+  1e-02  0.8209371  0.9894258  0.1244184
+  1e-01  0.8194657  0.9892437  0.1256632
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.638309 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8243647  0.990164 0.1201596 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44275  5777
+  True    429   763
+
+F-measure = 0.934505466672295
+
+G-mean = 0.339922167639143
+
+Matthews phi = NA
+
+Balance = 0.375352151304899
+
+===============================
+
+Seed:
+342
+multinom_run# 2
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107616, 107616, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8244411  0.9900107  0.1167539
+  1e-04  0.8243630  0.9900202  0.1172127
+  1e-03  0.8236980  0.9897710  0.1185231
+  1e-02  0.8212681  0.9893300  0.1206849
+  1e-01  0.8198824  0.9890807  0.1223885
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.257881 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8244411 0.9900107 0.1167539 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44276  5760
+  True    428   780
+
+F-measure = 0.934684399408908
+
+G-mean = 0.343692000807931
+
+Matthews phi = NA
+
+Balance = 0.377190259813375
+
+===============================
+
+Seed:
+112
+multinom_run# 3
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107615, 107617, 107616, 107617, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8238954  0.9902599  0.1173429
+  1e-04  0.8238250  0.9902791  0.1178015
+  1e-03  0.8231455  0.9900298  0.1200946
+  1e-02  0.8206877  0.9894642  0.1225190
+  1e-01  0.8192839  0.9891766  0.1235676
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.622301 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8238954 0.9902599 0.1173429 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44256  5768
+  True    448   772
+
+F-measure = 0.934380542183937
+
+G-mean = 0.341847700592337
+
+Matthews phi = NA
+
+Balance = 0.376321834256586
+
+===============================
+
+Seed:
+345
+multinom_run# 4
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107617, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8227882  0.9906146  0.1160966
+  1e-04  0.8227122  0.9905667  0.1162932
+  1e-03  0.8219855  0.9903654  0.1173415
+  1e-02  0.8193724  0.9897326  0.1200928
+  1e-01  0.8178807  0.9896368  0.1211411
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.395517 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8227882 0.9906146 0.1160966 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44288  5783
+  True    416   757
+
+F-measure = 0.934592455816407
+
+G-mean = 0.338632711097246
+
+Matthews phi = NA
+
+Balance = 0.374705665394561
+
+===============================
+
+Seed:
+355
+multinom_run# 5
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107617, 107617, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8249712  0.9899819  0.1238955
+  1e-04  0.8248956  0.9899531  0.1237645
+  1e-03  0.8242320  0.9896943  0.1250750
+  1e-02  0.8218416  0.9893108  0.1272372
+  1e-01  0.8205077  0.9889753  0.1275648
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.583335 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8249712 0.9899819 0.1238955 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44254  5793
+  True    450   747
+
+F-measure = 0.934111513334952
+
+G-mean = 0.33625945154668
+
+Matthews phi = NA
+
+Balance = 0.373618641723095
+
+===============================
+
+Seed:
+977
+multinom_run# 6
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107617, 107617, 107616, 107616, 107616, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8246927  0.9904133  0.1164243
+  1e-04  0.8246202  0.9903558  0.1167518
+  1e-03  0.8238942  0.9900106  0.1192414
+  1e-02  0.8213029  0.9893875  0.1223206
+  1e-01  0.8198270  0.9891478  0.1240899
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.248503 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8246927 0.9904133 0.1164243 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44251  5753
+  True    453   787
+
+F-measure = 0.934472272669679
+
+G-mean = 0.345133284553079
+
+Matthews phi = NA
+
+Balance = 0.377942627874168
+
+===============================
+
+Seed:
+122
+multinom_run# 7
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107616, 107617, 107616, 107616, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8226535  0.9906146  0.1147218
+  1e-04  0.8225749  0.9905571  0.1154425
+  1e-03  0.8218541  0.9901736  0.1172774
+  1e-02  0.8192282  0.9894642  0.1198325
+  1e-01  0.8177337  0.9893204  0.1205531
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.403854 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8226535 0.9906146 0.1147218 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44277  5789
+  True    427   751
+
+F-measure = 0.934409623298512
+
+G-mean = 0.337246146417124
+
+Matthews phi = NA
+
+Balance = 0.374055126217995
+
+===============================
+
+Seed:
+156
+multinom_run# 8
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107616, 107616, 107617, 107616, 107616, 107617, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8237593  0.9905859  0.1210114
+  1e-04  0.8236807  0.9905859  0.1210767
+  1e-03  0.8229915  0.9903558  0.1217316
+  1e-02  0.8205569  0.9898285  0.1241554
+  1e-01  0.8191769  0.9895888  0.1255969
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.11147 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8237593 0.9905859 0.1210114 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44233  5803
+  True    471   737
+
+F-measure = 0.933776651889381
+
+G-mean = 0.333921878775556
+
+Matthews phi = NA
+
+Balance = 0.372533652382876
+
+===============================
+
+Seed:
+233
+multinom_run# 9
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107617, 107617, 107617, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8230026  0.9904325  0.1162282
+  1e-04  0.8229304  0.9903845  0.1166869
+  1e-03  0.8222999  0.9901065  0.1183903
+  1e-02  0.8199519  0.9896463  0.1209457
+  1e-01  0.8186139  0.9895121  0.1221252
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.196692 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8230026 0.9904325 0.1162282 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44296  5783
+  True    408   757
+
+F-measure = 0.934682379751643
+
+G-mean = 0.338663294317999
+
+Matthews phi = NA
+
+Balance = 0.374706984199007
+
+===============================
+
+Seed:
+454
+multinom_run# 10
+Penalized Multinomial Regression 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107617, 107616, 107617, 107617, 107617, 107616, ... 
+Resampling results across tuning parameters:
+
+  decay  ROC        Sens       Spec     
+  0e+00  0.8247956  0.9900873  0.1166880
+  1e-04  0.8247129  0.9900777  0.1168191
+  1e-03  0.8239649  0.9898764  0.1185882
+  1e-02  0.8213619  0.9893012  0.1214708
+  1e-01  0.8199049  0.9890040  0.1233054
+
+ROC was used to select the optimal model using  the largest value.
+The final value used for the model was decay = 0. 
+
+Elapsed time
+Time difference of 6.2606 mins
+
+Highest ROC value:
+   TrainROC TrainSens TrainSpec   method
+1 0.8247956 0.9900873  0.116688 multinom
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 44256  5723
+  True    448   817
+
+F-measure = 0.934824625328729
+
+G-mean = 0.351669773004225
+
+Matthews phi = NA
+
+Balance = 0.38118693135695

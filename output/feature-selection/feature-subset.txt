@@ -61,3 +61,35 @@ has_links                         0.01045949
  [1] "upvotes_rank"          "upvotes"               "time_difference_rank"  "time_difference"      
  [5] "date_time"             "wordcount_rank"        "len_rank"              "sentences_rank"       
  [9] "answers_count"         "longest_sentence_rank"
+
+F-measure = 0.912779850746269
+
+G-mean = 0.374281996017508
+
+Matthews phi = NA
+
+Balance = 0.397981957374622
+
+F-measure = 0.837932764676367
+
+G-mean = 0.411524406529706
+
+Matthews phi = NA
+
+Balance = 0.424980270795394
+
+F-measure = 0.947637576431351
+
+G-mean = 0.0460287308949162
+
+Matthews phi = NA
+
+Balance = 0.294391326400712
+
+F-measure = 0.947637576431351
+
+G-mean = 0.0460287308949162
+
+Matthews phi = NA
+
+Balance = 0.294391326400712

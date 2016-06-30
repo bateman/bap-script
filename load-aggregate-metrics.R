@@ -1,7 +1,7 @@
 # enable commandline arguments from script launched using Rscript
 args <- commandArgs(TRUE)
 fxlsx <- args[1]
-fxlsx <- ifelse(is.na(fxlsx), "output/test/aggregate-metrics.xlsx", fxlsx)
+fxlsx <- ifelse(is.na(fxlsx), "output/scalar/aggregate-metrics.xlsx", fxlsx)
 
 library("xlsx")
 
@@ -67,10 +67,3 @@ png(filename="output/plots/box-plot.png")
 # generate box plot from SK test
 plot_boxplot(bx_model=sk1$av$model, x_lab="Classifiers", y_lab="AUC")
 dev.off()
-
-#library(lattice)
-#lattice::bwplot(x ~ y ,data=sk1$av$model, main="AUC values of classification techniques",
-#       ylab='Classifiers', xlab='AUC', groups = sk1$groups, scales=list(cex=.8, tck=0.9, y = list(at=seq(29))))
-
-#boxplot(y ~ x,data=sk1$av$model, main="AUC values of classification techniques",
-#                xlab='Classifiers', ylab='AUC', groups = sk1$groups, las=3, rl=TRUE,lty=1, tck=0.5) 

@@ -1,0 +1,29 @@
+
+===========  rf  ============
+
+Confusion Matrix and Statistics
+
+       reference
+data    False True
+  False  4262  471
+  True      0    1
+                                          
+               Accuracy : 0.9005          
+                 95% CI : (0.8916, 0.9089)
+    No Information Rate : 0.9003          
+    P-Value [Acc > NIR] : 0.4929          
+                                          
+                  Kappa : 0.0038          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 1.000000        
+            Specificity : 0.002119        
+         Pos Pred Value : 0.900486        
+         Neg Pred Value : 1.000000        
+             Prevalence : 0.900296        
+         Detection Rate : 0.900296        
+   Detection Prevalence : 0.999789        
+      Balanced Accuracy : 0.501059        
+                                          
+       'Positive' Class : False           
+                                          
