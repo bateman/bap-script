@@ -102,6 +102,7 @@ gc()
 models_file <- ifelse(is.na(args[4]), "models/models1.txt", args[4])
 classifiers <- readLines(models_file)
 predictions <- c()
+cmatrices <- c()
 
 # for model: XYZ
 set.seed(875)
@@ -133,10 +134,13 @@ for(i in 1:length(classifiers)){
                         trControl = trainControl(method="none", classProbs = TRUE), #summaryFunction=twoClassSummary, 
                         tuneGrid = grid)
 
-  pred <- predict(model, testing, type = 'prob')
-  model.prediction <- prediction(pred[,2], testing$solution)
-  predictions <- c(predictions, model.prediction)
-  cm <- caret::confusionMatrix(pred[,2])
+  pred_prob <- predict(model$finalModel, testing[,predictorsNames], type = 'prob')
+  model.prediction_prob <- prediction(pred_prob[,2], testing[,outcomeName])
+  predictions <- c(predictions, model.prediction_prob)
+  
+  pred <- predict(model$finalModel, testing[,predictorsNames], type = 'response')
+  cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
+  cmatrices <- c(cmatrices, cm)
 }
 
 # finally, save all models predictions to text file ... 
