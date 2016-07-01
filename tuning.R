@@ -33,16 +33,17 @@ options(error=log.error)
 library(caret) # for param tuning
 library(e1071) # for normality adjustment
 
-# enables multicore parallel processing on unix-like systems only
-#if(.Platform$OS.type != "windows") {
-#  library(doMC)
-#  library(parallel)
-  # reads the number of cores
-#  c <- detectCores()
-#  registerDoMC(cores = c)
-#} else {
-#  print("Multicore parellel processing not available on Winodws")
-#}
+# enables multicore parallel processing 
+# if(.Platform$OS.type != "windows") { # on unix-like systems
+#   library(doMC)
+#   #reads the number of cores
+#   c <- detectCores()
+#   registerDoMC(cores = c)
+# } else { # on windows systems
+#   library(doparallel)
+#   cl <- makeCluster(detectCores(), type='PSOCK')
+#   registerDoParallel(cl)
+# }
 
 # comma delimiter
 SO <- read.csv(csv_file, header = TRUE, sep=",")
@@ -84,7 +85,7 @@ gc()
 fitControl <- trainControl(
   method = "cv",
   number = 10,
-  ## repeated ten times, works only with method="repeatedcv"
+  ## repeated ten times, works only with method="repeatedcv", otherwise 1
   repeats = 10,
   #verboseIter = TRUE,
   #savePredictions = TRUE,
@@ -103,6 +104,8 @@ for(i in 1:length(classifiers)){
   nline <- strsplit(classifiers[i], ":")[[1]]
   classifier <- nline[1]
   cpackage <- nline[2]
+  # RWeka packages does need parallel computing to be off
+  fitControl$allowParallel <- ifelse(!is.na(cpackage) && cpackage == "RWeka", FALSE, TRUE)
   print(paste("Building model for classifier", classifier))
 
   if(classifier == "gamboost") {
