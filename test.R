@@ -57,14 +57,10 @@ predictorsNames <- temp[[2]]
 rm(temp)
 gc()
 
-choice <- ifelse(is.na(args[2]), "error", args[2])
+choice <- ifelse(is.na(args[2]), "test", args[2])
 #choice <- "docusign"
 
-if(choice == "test") {
-  csv_file <- "input/head.csv"
-  sep <- ","
-  time_format <- "%Y-%m-%d %H:%M:%S"
-} else if(choice == "docusign") { 
+if(choice == "docusign") { 
   csv_file <- "input/docusing.csv"
   sep <- ","
   time_format <- "%d/%m/%Y %H:%M:%S"
@@ -80,10 +76,10 @@ if(choice == "test") {
   csv_file <- "input/scn.csv"
   sep <- ","
   time_format <- "%Y-%m-%d %H:%M:%S"
-} else {
-  print("Error: no correct testset name provided.
-        Format: Rscript test.R path/to/trainingset.csv testset-name path/to/testset.csv")
-  #q(save = "no", status = 1)
+} else { ## assume a test is run without param from command line
+  csv_file <- "input/head.csv"
+  sep <- ","
+  time_format <- "%Y-%m-%d %H:%M:%S"
 }
 
 # load testing file and predictors
@@ -153,14 +149,15 @@ save_results(outfile = paste(choice, "txt", sep="."), outdir = "output/predictio
 
 # and plot ROC and PR curves
 
-line_types <- c(1:length(classifiers))
+line_types <- 1:length(classifiers)
 g_col <- gray.colors(
   length(class),
-  start = 0.1,
-  end = 0.8,
+  start = 0.3,
+  end = 0.9,
   gamma = 2.2,
   alpha = NULL
 )
+# g_col <- 1:length(classifiers)
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))
@@ -173,13 +170,14 @@ if(!dir.exists(plot_dir))
 png(filename=paste(plot_dir, "roc-curve.png", sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers, 
            colors=g_col, line_type=line_types, 
-           x_label="fpr", y_label="tpr", plot_abline=TRUE, leg_title="", main_title=choice)
+           x_label="fpr", y_label="tpr", leg_pos="bottom", plot_abline=TRUE, 
+           leg_title="", main_title=choice)
 dev.off()
 
 png(filename=paste(plot_dir, "pr-curve.png", sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
-           x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
+           x_label="rec", y_label="prec", leg_pos="bottom", plot_abline=FALSE,
            leg_title="", main_title=choice)
 dev.off()
 par(op) #re-set the plot to the default settings
