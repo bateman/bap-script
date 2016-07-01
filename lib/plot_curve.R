@@ -3,7 +3,7 @@
 library(ROCR)  # for plotting ROC curves
 
 plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widths=1, x_label="fpr", y_label="tpr",
-                       leg_pos="bottomright", leg_title="Models", plot_abline=TRUE){
+                       leg_pos="bottomright", leg_title="Models", plot_abline=TRUE, main_title=""){
   par(
     mar = c(5, 5, 2, 2),
     xaxs = "i",

@@ -173,12 +173,13 @@ if(!dir.exists(plot_dir))
 png(filename=paste(plot_dir, "roc-curve.png", sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers, 
            colors=g_col, line_type=line_types, 
-           x_label="fpr", y_label="tpr", plot_abline=TRUE, leg_title="")
+           x_label="fpr", y_label="tpr", plot_abline=TRUE, leg_title="", main_title=choice)
 dev.off()
 
 png(filename=paste(plot_dir, "pr-curve.png", sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
-           x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE, leg_title="")
+           x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
+           leg_title="", main_title=choice)
 dev.off()
 par(op) #re-set the plot to the default settings
