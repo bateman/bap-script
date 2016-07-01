@@ -107,7 +107,7 @@ for(i in 1:length(classifiers)){
 
   if(classifier == "gamboost") {
     ## quick fix, has_links predictor causes error
-    #predictorsNames <- names(SO[,!(names(SO)  %in% c("has_links"))]) 
+    predictorsNames <- predictorsNames[predictorsNames  != "has_links"] 
     #SO <- SO[ , !(names(SO) %in% c("has_links"))]
     training <- training[ , !(names(training) %in% c("has_links"))]
     testing <- testing[ , !(names(testing) %in% c("has_links"))]
