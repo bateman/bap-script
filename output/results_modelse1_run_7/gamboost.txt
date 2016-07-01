@@ -1,0 +1,30 @@
+
+===============================
+
+Seed:
+122
+gamboost_run# 7
+Boosted Generalized Additive Model 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 107612, 107613, 107613, 107614, 107613, 107612, ... 
+Resampling results across tuning parameters:
+
+  mstop  ROC        Sens       Spec      
+   50    0.8117545  0.9975265  0.06106346
+  100    0.8188142  0.9942573  0.09906394
+  150    0.8213928  0.9917167  0.12114302
+  200    0.8226411  0.9899623  0.13404958
+  250    0.8233810  0.9887735  0.14269814
+
+Tuning parameter 'prune' was held constant at a value of no
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were mstop = 250 and prune = no. 
+
+Elapsed time
+Time difference of 12.66821 mins
+
+Highest ROC value:
+  TrainROC TrainSens TrainSpec   method
+1 0.823381 0.9887735 0.1426981 gamboost
