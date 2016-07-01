@@ -134,6 +134,12 @@ for(i in 1:length(classifiers)){
   predictions <- c(predictions, model.prediction_prob)
 
   pred <- predict(model, testing[,predictorsNames])
+  errors <- which(pred != testing[,outcomeName])
+  
+  # save errors to text file
+  save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/misclassifications", choice, sep="/"), 
+               classifiers = c(classifier), results = errors, expanded = TRUE)
+  
   cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
   # save cm to text file
   save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", choice, sep="/"), 
