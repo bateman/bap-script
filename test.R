@@ -173,14 +173,14 @@ plot_dir <- paste("output/plots", choice, sep = "/")
 if(!dir.exists(plot_dir))
   dir.create(plot_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 
-png(filename=paste(plot_dir, "roc-curve.png", sep = "/"))
+png(filename=paste(plot_dir, paste(choice, "roc_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers, 
            colors=g_col, line_type=line_types, 
            x_label="fpr", y_label="tpr", leg_pos="bottom", plot_abline=TRUE, 
            leg_title="", main_title=choice)
 dev.off()
 
-png(filename=paste(plot_dir, "pr-curve.png", sep = "/"))
+png(filename=paste(plot_dir, paste(choice, "pr_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
            x_label="rec", y_label="prec", leg_pos="bottom", plot_abline=FALSE,
