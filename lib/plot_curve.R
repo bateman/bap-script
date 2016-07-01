@@ -3,7 +3,8 @@
 library(ROCR)  # for plotting ROC curves
 
 plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widths=1, x_label="fpr", y_label="tpr",
-                       leg_pos="bottomright", leg_title="Models", plot_abline=TRUE, main_title=""){
+                       leg_pos="bottomright", leg_title="Models", leg_horiz=TRUE, leg_frame='n',
+                       plot_abline=TRUE, main_title=""){
   par(
     mar = c(5, 5, 2, 2),
     xaxs = "i",
@@ -29,11 +30,13 @@ plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widt
     inset = c(0,0),
     classifiers,
     title = leg_title,
-    horiz = TRUE,
+    horiz = leg_horiz,
     lty = c(1:length(classifiers)),
     lwd = 2.5,
     col = colors,
-    cex=0.9, pt.cex = 1, bty = 'n' #box.col = "grey"
+    cex=0.9, pt.cex = 1, 
+    bty = leg_frame,
+    box.col = "grey"
   )
 
   # and random guess line
