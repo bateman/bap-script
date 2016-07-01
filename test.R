@@ -58,26 +58,26 @@ rm(temp)
 gc()
 
 choice <- ifelse(is.na(args[2]), "error", args[2])
-choice <- "docusign"
+#choice <- "docusign"
 
 if(choice == "test") {
-  f <- "input/head.csv"
+  csv_file <- "input/head.csv"
   sep <- ","
   time_format <- "%Y-%m-%d %H:%M:%S"
 } else if(choice == "docusign") { 
-  f <- "input/docusing.csv"
+  csv_file <- "input/docusing.csv"
   sep <- ","
   time_format <- "%d/%m/%Y %H:%M:%S"
 } else if(choice == "dwolla") { 
-  f <- "input/dwolla.csv"
+  csv_file <- "input/dwolla.csv"
   sep <- ","
   time_format <- "%d/%m/%y %H:%M"
 } else if(choice == "yahoo") { 
-  f <- "input/yahoo.csv"
+  csv_file <- "input/yahoo.csv"
   sep <- ";"
   time_format <- "%Y-%m-%d %H:%M:%S"
 } else if(choice == "scn") {
-  f <- "input/scn.csv"
+  csv_file <- "input/scn.csv"
   sep <- ","
   time_format <- "%Y-%m-%d %H:%M:%S"
 } else {
@@ -87,12 +87,12 @@ if(choice == "test") {
 }
 
 # load testing file and predictors
-csv_file <- ifelse(is.na(args[3]), f, args[3])
+#csv_file <- ifelse(is.na(args[3]), f, args[3])
 temp <- read.csv(csv_file, header = TRUE, sep=sep)
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format=time_format)
 testing <- temp[[1]]
-predictorsNames <- temp[[2]]
+#predictorsNames <- temp[[2]]
 
 # remove large unused objects from memory
 rm(csv_file)
@@ -100,7 +100,7 @@ rm(temp)
 # garbage collection
 gc()
 
-models_file <- ifelse(is.na(args[4]), "models/models1.txt", args[4])
+models_file <- ifelse(is.na(args[3]), "models/models1.txt", args[3])
 classifiers <- readLines(models_file)
 predictions <- c()
 cmatrices <- c()
@@ -113,8 +113,6 @@ set.seed(875)
 library(caret)
 library(ROCR)
 # load all the classifiers to tune
-
-#classifiers <- c("nb")
 
 for(i in 1:length(classifiers)){
   nline <- strsplit(classifiers[i], ":")[[1]]
