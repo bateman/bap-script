@@ -34,16 +34,16 @@ library(caret) # for param tuning
 library(e1071) # for normality adjustment
 
 # enables multicore parallel processing 
-# if(.Platform$OS.type != "windows") { # on unix-like systems
-#   library(doMC)
-#   #reads the number of cores
-#   c <- detectCores()
-#   registerDoMC(cores = c)
-# } else { # on windows systems
-#   library(doparallel)
-#   cl <- makeCluster(detectCores(), type='PSOCK')
-#   registerDoParallel(cl)
-# }
+if(.Platform$OS.type != "windows") { # on unix-like systems
+  library(doMC)
+  #reads the number of cores
+  c <- detectCores()
+  registerDoMC(cores = c)
+} else { # on windows systems
+  library(doParallel)
+  cl <- makeCluster(detectCores(), type='PSOCK')
+  registerDoParallel(cl)
+}
 
 # comma delimiter
 SO <- read.csv(csv_file, header = TRUE, sep=",")
