@@ -5,8 +5,11 @@ if(.Platform$OS.type == "unix") {
   if(!require("doMC", quietly = TRUE)){
     install.packages(c("doMC"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
   }
-} 
-
+} else if (.Platform$OS.type == "windows") {
+  if(!require("doParallel", quietly = TRUE)){
+    install.packages(c("doParallel"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+  }
+}
 
 # checks if RJava is present
 # if not, it has to be installed manually , depending on OS
