@@ -1,0 +1,2 @@
+svmLinear2:e1071
+svmRadialSigma:kernlab
