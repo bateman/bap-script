@@ -170,10 +170,11 @@ class ComputeMetrics(object):
         for model in self.models:
             descriptive_stats = dict()
             for nmetric in self.metric_names:
+                stats = dict()
                 if nmetric is not 'parameters':
                     mList = self.metrics[model][nmetric]
                     try:
-                        if(nmetric is 'time'):
+                        if nmetric is 'time':
                             newList = list()
                             time_unit = ''
                             for elem in mList:
@@ -185,6 +186,8 @@ class ComputeMetrics(object):
                             mean = repr(numpy.mean(mList)) + ' ' + time_unit
                             median = repr(numpy.median(mList)) + ' ' + time_unit
                             stdev = repr(numpy.std(mList)) + ' ' + time_unit
+                            sum = repr(numpy.sum(mList)) + ' ' + time_unit
+                            stats['total'] = sum
                         else:
                             mList = numpy.asarray(mList).astype(numpy.float)
                             min = numpy.amin(mList)
@@ -198,7 +201,7 @@ class ComputeMetrics(object):
                         mean = 'N/A'
                         median = 'N/A'
                         stdev = 'N/A'
-                    stats = dict()
+
                     stats['min'] = min
                     stats['max'] = max
                     stats['mean'] = mean
