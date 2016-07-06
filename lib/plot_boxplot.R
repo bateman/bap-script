@@ -1,8 +1,9 @@
 # Plot black & white boxplot with errorbar
 library(ggplot2)
 
-plot_boxplot <- function(bx_model, x_lab="Classifiers", y_lab="AUC"){
-  colfunc <- colorRampPalette(c("black", "white"))
+plot_boxplot <- function(bx_model, x_lab="Classifiers", y_lab="AUC", 
+                         colors=c("black", "white")){
+  colfunc <- colorRampPalette(colors)
   # col=colfunc(10),
   ggplot(bx_model, aes(x = x, y = y)) +
     # plot the boxplots
