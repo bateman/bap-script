@@ -96,9 +96,8 @@ fitControl <- trainControl(
   classProbs = TRUE,
   # enable parallel computing if avail
   allowParallel = TRUE,
-  returnData = FALSE,
-  #sampling = "smote",
-  preProcess = c("center") #, "scale"),
+  returnData = FALSE
+  #sampling = "smote"
 )
 
 # load all the classifiers to tune
@@ -135,7 +134,8 @@ for(i in 1:length(classifiers)){
                           method = classifier,
                           trControl = fitControl,
                           tuneGrid = xgb_grid,
-                          metric = "ROC"
+                          metric = "ROC",
+                          preProcess = c("center") #, "scale")
     )
     time.end <- Sys.time()
   } 
@@ -146,6 +146,7 @@ for(i in 1:length(classifiers)){
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
+                          preProcess = c("center") , #"scale")
                           tuneLength = 5 # five values per param
     )
     time.end <- Sys.time()
