@@ -1,0 +1,400 @@
+
+===============================
+
+Seed:
+849
+svmLinear_run# 1
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53479, 53478, 53477, 53478, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6503066  0.9994264  0.0008436843
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.725249 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6503066 0.9994264 0.0008436843 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22416  3048
+  True      0     0
+
+F-measure = 0.936340852130326
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+849
+svmLinear_run# 2
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53479, 53478, 53477, 53478, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6503066  0.9994264  0.0008436843
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.725249 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6503066 0.9994264 0.0008436843 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22416  3048
+  True      0     0
+
+F-measure = 0.936340852130326
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+849
+svmLinear_run# 3
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53479, 53478, 53477, 53478, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6503066  0.9994264  0.0008436843
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.725249 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6503066 0.9994264 0.0008436843 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22416  3048
+  True      0     0
+
+F-measure = 0.936340852130326
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+849
+svmLinear_run# 4
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53479, 53478, 53477, 53478, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6503066  0.9994264  0.0008436843
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.725249 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6503066 0.9994264 0.0008436843 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22416  3048
+  True      0     0
+
+F-measure = 0.936340852130326
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+849
+svmLinear_run# 5
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53479, 53478, 53477, 53478, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6503066  0.9994264  0.0008436843
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.725249 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6503066 0.9994264 0.0008436843 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22416  3048
+  True      0     0
+
+F-measure = 0.936340852130326
+
+G-mean = 0
+
+Matthews phi = NA
+
+Balance = 0.292893218813453
+
+===============================
+
+Seed:
+233
+svmLinear_run# 6
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53477, 53478, 53479, 53479, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6195779  0.9996176  0.0007028398
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.639378 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6195779 0.9996176 0.0007028398 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22415  3046
+  True      1     2
+
+F-measure = 0.936357750067882
+
+G-mean = 0.0256152045999649
+
+Matthews phi = NA
+
+Balance = 0.29335719893692
+
+===============================
+
+Seed:
+233
+svmLinear_run# 7
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53477, 53478, 53479, 53479, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6195779  0.9996176  0.0007028398
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.639378 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6195779 0.9996176 0.0007028398 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22415  3046
+  True      1     2
+
+F-measure = 0.936357750067882
+
+G-mean = 0.0256152045999649
+
+Matthews phi = NA
+
+Balance = 0.29335719893692
+
+===============================
+
+Seed:
+233
+svmLinear_run# 8
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53477, 53478, 53479, 53479, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6195779  0.9996176  0.0007028398
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.639378 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6195779 0.9996176 0.0007028398 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22415  3046
+  True      1     2
+
+F-measure = 0.936357750067882
+
+G-mean = 0.0256152045999649
+
+Matthews phi = NA
+
+Balance = 0.29335719893692
+
+===============================
+
+Seed:
+233
+svmLinear_run# 9
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53477, 53478, 53479, 53479, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6195779  0.9996176  0.0007028398
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.639378 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6195779 0.9996176 0.0007028398 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22415  3046
+  True      1     2
+
+F-measure = 0.936357750067882
+
+G-mean = 0.0256152045999649
+
+Matthews phi = NA
+
+Balance = 0.29335719893692
+
+===============================
+
+Seed:
+233
+svmLinear_run# 10
+Support Vector Machines with Linear Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53477, 53478, 53479, 53479, 53478, ... 
+Resampling results:
+
+  ROC        Sens       Spec        
+  0.6195779  0.9996176  0.0007028398
+
+Tuning parameter 'C' was held constant at a value of 1
+ 
+
+Elapsed time
+Time difference of 1.639378 hours
+
+Highest ROC value:
+   TrainROC TrainSens    TrainSpec    method
+1 0.6195779 0.9996176 0.0007028398 svmLinear
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22415  3046
+  True      1     2
+
+F-measure = 0.936357750067882
+
+G-mean = 0.0256152045999649
+
+Matthews phi = NA
+
+Balance = 0.29335719893692
