@@ -117,7 +117,7 @@ class ComputeMetrics(object):
 
         pParams = re.compile("The final values* used for the model (was|were) (.*\n*.*)\.")
         Params_vals = list()
-        pTime = re.compile("Time difference of (.*) \w+")
+        pTime = re.compile("Time difference of (.* \w+)")
         Time_vals = list()
         pHighROC = re.compile(".*TrainSpec\s+method\n1\s+(\d.\d+)")
         HighROC_vals = list()
@@ -173,12 +173,25 @@ class ComputeMetrics(object):
                 if nmetric is not 'parameters':
                     mList = self.metrics[model][nmetric]
                     try:
-                        mList = numpy.asarray(mList).astype(numpy.float)
-                        min = numpy.amin(mList)
-                        max = numpy.amax(mList)
-                        mean = numpy.mean(mList)
-                        median = numpy.median(mList)
-                        stdev = numpy.std(mList)
+                        if(nmetric is 'time'):
+                            newList = list()
+                            time_unit = ''
+                            for elem in mList:
+                                i, time_unit = string.split(elem, sep=" ")
+                                newList.append(i)
+                            mList = numpy.asarray(newList).astype(numpy.float)
+                            min = repr(numpy.amin(mList)) + ' ' + time_unit
+                            max = repr(numpy.amax(mList)) + ' ' + time_unit
+                            mean = repr(numpy.mean(mList)) + ' ' + time_unit
+                            median = repr(numpy.median(mList)) + ' ' + time_unit
+                            stdev = repr(numpy.std(mList)) + ' ' + time_unit
+                        else:
+                            mList = numpy.asarray(mList).astype(numpy.float)
+                            min = numpy.amin(mList)
+                            max = numpy.amax(mList)
+                            mean = numpy.mean(mList)
+                            median = numpy.median(mList)
+                            stdev = numpy.std(mList)
                     except ValueError:
                         min = 'N/A'
                         max = 'N/A'
