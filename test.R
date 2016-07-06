@@ -48,7 +48,7 @@ outcomeName <- "solution"
 excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
                          "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
-csv_file <- ifelse(is.na(args[1]), "input/test.csv", args[1])
+csv_file <- ifelse(is.na(args[1]), "input/esej_features_171k.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%Y-%m-%d %H:%M:%S")
@@ -57,7 +57,7 @@ predictorsNames <- temp[[2]]
 rm(temp)
 gc()
 
-choice <- ifelse(is.na(args[2]), "test", args[2])
+choice <- ifelse(is.na(args[2]), "so", args[2])
 #choice <- "docusign"
 
 if(choice == "so") {
