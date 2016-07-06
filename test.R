@@ -102,7 +102,7 @@ rm(temp)
 # garbage collection
 gc()
 
-models_file <- ifelse(is.na(args[3]), "models/models1.txt", args[3])
+models_file <- ifelse(is.na(args[3]), "models/top-models.txt", args[3])
 classifiers <- readLines(models_file)
 predictions <- c()
 cmatrices <- c()
@@ -149,8 +149,8 @@ for(i in 1:length(classifiers)){
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
-                        trControl = trainControl(method="none", classProbs = TRUE, 
-                                                 sampling = "smote"), #summaryFunction=twoClassSummary, 
+                        trControl = trainControl(method="none", classProbs = TRUE), 
+                                                 #,sampling = "smote"), #summaryFunction=twoClassSummary, 
                         tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
@@ -180,14 +180,14 @@ save_results(outfile = paste(choice, "txt", sep="."), outdir = "output/predictio
 # and plot ROC and PR curves
 
 line_types <- 1:length(classifiers)
-# g_col <- gray.colors(
-#   length(class),
-#   start = 0.3,
-#   end = 0.9,
-#   gamma = 2.2,
-#   alpha = NULL
-# )
-g_col <- rainbow(length(classifiers))
+g_col <- gray.colors(
+  n = length(classifiers),
+  start = 0.3,
+  end = 0.8,
+  gamma = 2.2,
+  alpha = NULL
+)
+#g_col <- rainbow(length(classifiers))
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))
@@ -200,14 +200,14 @@ if(!dir.exists(plot_dir))
 png(filename=paste(plot_dir, paste(choice, "roc_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers, 
            colors=g_col, line_type=line_types, 
-           x_label="fpr", y_label="tpr", leg_pos="bottom", plot_abline=TRUE, 
-           leg_title="", main_title="")
+           x_label="fpr", y_label="tpr", leg_pos="bottomright", plot_abline=TRUE, 
+           leg_title="", main_title="", leg_horiz=FALSE)
 dev.off()
 
 png(filename=paste(plot_dir, paste(choice, "pr_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
-           x_label="rec", y_label="prec", leg_pos="bottom", plot_abline=FALSE,
-           leg_title="", main_title="")
+           x_label="rec", y_label="prec", leg_pos="topright", plot_abline=FALSE,
+           leg_title="", main_title="", leg_horiz=FALSE)
 dev.off()
 par(op) #re-set the plot to the default settings
