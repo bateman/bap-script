@@ -58,7 +58,7 @@ class ComputeMetrics(object):
     metric_names = ['AUROC', 'F1', 'G-mean', 'Phi', 'Balance', 'time', 'parameters']
 
     descriptive_stats = None
-    descriptive_stats_names = ['min', 'max', 'mean', 'median', 'stdev']
+    descriptive_stats_names = ['min', 'max', 'mean', 'median', 'stdev', 'total']
 
     def __init__(self, infolder, outfile, sep=';', ext='txt', runs=10):
         self.log = logging.getLogger('ComputeMetrics script')
@@ -73,7 +73,7 @@ class ComputeMetrics(object):
         self.classification_res = dict()
         self.metrics = dict()
         self.descriptive_stats = dict()
-        self.models = self.__readmodels('models.txt')
+        self.models = self.__readmodels('models/models.txt')
 
     def main(self):
         self.__getfiles()
@@ -117,7 +117,7 @@ class ComputeMetrics(object):
 
         pParams = re.compile("The final values* used for the model (was|were) (.*\n*.*)\.")
         Params_vals = list()
-        pTime = re.compile("Time difference of (.*) \w+")
+        pTime = re.compile("Time difference of (.* \w+)")
         Time_vals = list()
         pHighROC = re.compile(".*TrainSpec\s+method\n1\s+(\d.\d+)")
         HighROC_vals = list()
@@ -170,15 +170,38 @@ class ComputeMetrics(object):
         for model in self.models:
             descriptive_stats = dict()
             for nmetric in self.metric_names:
+                stats = dict()
                 if nmetric is not 'parameters':
                     mList = self.metrics[model][nmetric]
-                    mList = numpy.asarray(mList).astype(numpy.float)
-                    min = numpy.amin(mList)
-                    max = numpy.amax(mList)
-                    mean = numpy.mean(mList)
-                    median = numpy.median(mList)
-                    stdev = numpy.std(mList)
-                    stats = dict()
+                    try:
+                        if nmetric is 'time':
+                            newList = list()
+                            time_unit = ''
+                            for elem in mList:
+                                i, time_unit = string.split(elem, sep=" ")
+                                newList.append(i)
+                            mList = numpy.asarray(newList).astype(numpy.float)
+                            min = repr(numpy.amin(mList)) + ' ' + time_unit
+                            max = repr(numpy.amax(mList)) + ' ' + time_unit
+                            mean = repr(numpy.mean(mList)) + ' ' + time_unit
+                            median = repr(numpy.median(mList)) + ' ' + time_unit
+                            stdev = repr(numpy.std(mList)) + ' ' + time_unit
+                            sum = repr(numpy.sum(mList)) + ' ' + time_unit
+                            stats['total'] = sum
+                        else:
+                            mList = numpy.asarray(mList).astype(numpy.float)
+                            min = numpy.amin(mList)
+                            max = numpy.amax(mList)
+                            mean = numpy.mean(mList)
+                            median = numpy.median(mList)
+                            stdev = numpy.std(mList)
+                    except ValueError:
+                        min = 'N/A'
+                        max = 'N/A'
+                        mean = 'N/A'
+                        median = 'N/A'
+                        stdev = 'N/A'
+
                     stats['min'] = min
                     stats['max'] = max
                     stats['mean'] = mean
@@ -209,14 +232,19 @@ class ComputeMetrics(object):
                         ws.set_cell_value(i + 1, j + 1, self.metrics[model][self.metric_names[j - 1]][i - 1])
                     except IndexError:
                         ws.set_cell_value(i + 1, j + 1, '')
+                    except KeyError:
+                        pass
 
             # after the last run row plus one empty row
             offset = self.runs + 3
             for i in range(0, len(self.descriptive_stats_names)):
                 ws.set_cell_value(i + offset, 1, self.descriptive_stats_names[i])
                 for j in range(0, len(self.metric_names) - 1):
-                    ws.set_cell_value(i + offset, j + 2, self.descriptive_stats[model][self.metric_names[j]][
-                        self.descriptive_stats_names[i]])
+                    try:
+                        ws.set_cell_value(i + offset, j + 2, self.descriptive_stats[model][self.metric_names[j]][
+                            self.descriptive_stats_names[i]])
+                    except KeyError:
+                        pass
 
         wb.save(self.outfile)
 

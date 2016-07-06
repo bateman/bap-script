@@ -2,7 +2,7 @@
 args<-commandArgs(TRUE)
 # files with features
 feat_file <- args[1]
-feat_file <- ifelse(is.na(feat_file),"input/test.csv", feat_file)
+feat_file <- ifelse(is.na(feat_file),"input/esej_features_aa_al.csv", feat_file)
 # best k features to select, default 10
 k <- args[2]
 k <- ifelse(is.na(k), 10, k)

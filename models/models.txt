@@ -1,12 +1,10 @@
 nb:klaR
 knn
-gpls:gpls
 earth:earth
 glm
 nnet:nnet
 avNNet:nnet
 pcaNNet:nnet
-rbfDDA:RSNNS
 mlp:RSNNS
 mlpWeightDecay:RSNNS
 multinom:nnet
@@ -18,7 +16,6 @@ J48:RWeka
 LMT:RWeka
 rpart:rpart
 svmLinear:kernlab
-svmRadial:kernlab
 rf:randomForest
 treebag:ipred
 gbm:gbm

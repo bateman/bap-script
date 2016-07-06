@@ -1,7 +1,7 @@
 # enable commandline arguments from script launched using Rscript
 args <- commandArgs(TRUE)
 fxlsx <- args[1]
-fxlsx <- ifelse(is.na(fxlsx), "output/scalar/aggregate-metrics.xlsx", fxlsx)
+fxlsx <- ifelse(is.na(fxlsx), "output/tuning/aggregate-metrics.xlsx", fxlsx)
 
 library("xlsx")
 
@@ -34,11 +34,12 @@ dfm <-
              y = numeric())
 
 for (i in 1:length(classifiers)) {
-  r <- c(r, seq_runs)
-  
   nline <- strsplit(classifiers[i], ":")[[1]]
   classifier <- nline[1]
-  x <- c(x, classifier)
+  r <- c(r, seq_runs)
+  
+  for(j in 1:runs)
+    x <- c(x, classifier)
   
   dat <- read.xlsx(fxlsx, sheetName = classifier)
   dat <- subset(dat, select = AUROC:time)
@@ -48,6 +49,7 @@ for (i in 1:length(classifiers)) {
   y <- c(y, AUROCs)
 }
 
+#dfm <- adjust_dataframe(classifiers, x,r,y)
 dfm <- data.frame(x, as.numeric(r), y)
 
 library(ScottKnott)
@@ -57,13 +59,28 @@ sk1 <- SK(
   y = dfm$y,
   model = 'y ~ x',
   which = 'x',
-  dispersion = 'se'
+  dispersion = 'se',
+  sig.level=.01
 )
+
+out <- capture.output(sk1$groups)
+cat("*******  Scott-Knott clusters  *******", out, file="output/sk-clusters.txt", sep="\n", append=FALSE)
+out <- capture.output(sk1$m.inf)
+cat("", out, file="output/sk-clusters.txt", sep="\n", append=TRUE)
+
+png(filename="output/plots/sk-clusters.png")
+plot(sk1,
+     #col=grey.colors(n = max(sk1$groups)),
+     col=rainbow(max(sk1$groups)),
+     mm.lty=3,
+     las=2,
+     rl=FALSE, xlab="", ylab = "mean AUC", title = "", ylim = c(0,1))
+dev.off()
 
 if(!exists("plot_boxplot", mode="function")) 
   source(paste(getwd(), "lib/plot_boxplot.R", sep="/"))
 
 png(filename="output/plots/box-plot.png")
 # generate box plot from SK test
-plot_boxplot(bx_model=sk1$av$model, x_lab="Classifiers", y_lab="AUC")
+plot_boxplot(bx_model=sk1$av$model, x_lab="", y_lab="AUC")
 dev.off()

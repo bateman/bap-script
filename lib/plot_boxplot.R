@@ -16,7 +16,7 @@ plot_boxplot <- function(bx_model, x_lab="Classifiers", y_lab="AUC"){
     coord_flip() +
     theme_bw() +
     theme(
-      panel.grid.major = element_blank(),
+      #panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
       axis.line = element_line(colour = "black")
     )
