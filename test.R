@@ -60,39 +60,41 @@ gc()
 choice <- ifelse(is.na(args[2]), "test", args[2])
 #choice <- "docusign"
 
-if(choice == "so") { 
-  csv_file <- "input/esej_features_171k.csv"
-  sep <- ","
-  time_format <- "%Y-%m-%d %H:%M:%S"
-} else if(choice == "docusign") { 
-  csv_file <- "input/docusing.csv"
-  sep <- ","
-  time_format <- "%d/%m/%Y %H:%M:%S"
-} else if(choice == "dwolla") { 
-  csv_file <- "input/dwolla.csv"
-  sep <- ","
-  time_format <- "%d/%m/%y %H:%M"
-} else if(choice == "yahoo") { 
-  csv_file <- "input/yahoo.csv"
-  sep <- ";"
-  time_format <- "%Y-%m-%d %H:%M:%S"
-} else if(choice == "scn") {
-  csv_file <- "input/scn.csv"
-  sep <- ","
-  time_format <- "%Y-%m-%d %H:%M:%S"
-} else { ## assume a test is run without param from command line
-  csv_file <- "input/head.csv"
-  sep <- ","
-  time_format <- "%Y-%m-%d %H:%M:%S"
-}
+if(choice == "so") {
+  seeds <- readLines("seeds.txt")
+  set.seed(seeds[length(seeds)])
+  splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
+  testing <- SO[-splitIndex, ]
+  SO <- SO[splitIndex, ]
+} else {
+  if(choice == "docusign") { 
+    csv_file <- "input/docusing.csv"
+    sep <- ","
+    time_format <- "%d/%m/%Y %H:%M:%S"
+  } else if(choice == "dwolla") { 
+    csv_file <- "input/dwolla.csv"
+    sep <- ","
+    time_format <- "%d/%m/%y %H:%M"
+  } else if(choice == "yahoo") { 
+    csv_file <- "input/yahoo.csv"
+    sep <- ";"
+    time_format <- "%Y-%m-%d %H:%M:%S"
+  } else if(choice == "scn") {
+    csv_file <- "input/scn.csv"
+    sep <- ","
+    time_format <- "%Y-%m-%d %H:%M:%S"
+  } else { ## assume a test is run without param from command line
+    csv_file <- "input/head.csv"
+    sep <- ","
+    time_format <- "%Y-%m-%d %H:%M:%S"
+  }
 
-# load testing file and predictors
-#csv_file <- ifelse(is.na(args[3]), f, args[3])
-temp <- read.csv(csv_file, header = TRUE, sep=sep)
-temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                        time_format=time_format)
-testing <- temp[[1]]
-#predictorsNames <- temp[[2]]
+  # load testing file and predictors
+  temp <- read.csv(csv_file, header = TRUE, sep=sep)
+  temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
+                          time_format=time_format)
+  testing <- temp[[1]]
+}
 
 # remove large unused objects from memory
 rm(csv_file)
