@@ -77,7 +77,7 @@ splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
 training <- SO[splitIndex, ]
 testing <- SO[-splitIndex, ]
 
-smote_train <- SMOTE(solution ~ ., data  = training)
+#smote_train <- SMOTE(solution ~ ., data  = training)
 
 # remove the large object
 rm(SO)
