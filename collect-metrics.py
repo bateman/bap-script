@@ -58,7 +58,7 @@ class ComputeMetrics(object):
     metric_names = ['AUROC', 'F1', 'G-mean', 'Phi', 'Balance', 'time', 'parameters']
 
     descriptive_stats = None
-    descriptive_stats_names = ['min', 'max', 'mean', 'median', 'stdev']
+    descriptive_stats_names = ['min', 'max', 'mean', 'median', 'stdev', 'total']
 
     def __init__(self, infolder, outfile, sep=';', ext='txt', runs=10):
         self.log = logging.getLogger('ComputeMetrics script')
@@ -232,14 +232,19 @@ class ComputeMetrics(object):
                         ws.set_cell_value(i + 1, j + 1, self.metrics[model][self.metric_names[j - 1]][i - 1])
                     except IndexError:
                         ws.set_cell_value(i + 1, j + 1, '')
+                    except KeyError:
+                        pass
 
             # after the last run row plus one empty row
             offset = self.runs + 3
             for i in range(0, len(self.descriptive_stats_names)):
                 ws.set_cell_value(i + offset, 1, self.descriptive_stats_names[i])
                 for j in range(0, len(self.metric_names) - 1):
-                    ws.set_cell_value(i + offset, j + 2, self.descriptive_stats[model][self.metric_names[j]][
-                        self.descriptive_stats_names[i]])
+                    try:
+                        ws.set_cell_value(i + offset, j + 2, self.descriptive_stats[model][self.metric_names[j]][
+                            self.descriptive_stats_names[i]])
+                    except KeyError:
+                        pass
 
         wb.save(self.outfile)
 
