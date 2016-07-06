@@ -1,12 +1,10 @@
 nb:klaR
 knn
-gpls:gpls
 earth:earth
 glm
 nnet:nnet
 avNNet:nnet
 pcaNNet:nnet
-rbfDDA:RSNNS
 mlp:RSNNS
 mlpWeightDecay:RSNNS
 multinom:nnet
