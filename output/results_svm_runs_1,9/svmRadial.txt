@@ -88,3 +88,48 @@ G-mean = 0.341867144840415
 Matthews phi = NA
 
 Balance = 0.376153907665982
+
+===============================
+
+Seed:
+342
+svmRadial_run# 2
+Support Vector Machines with Radial Basis Function Kernel 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 53478, 53479, 53478, 53478, 53477, 53479, ... 
+Resampling results across tuning parameters:
+
+  C     ROC        Sens       Spec     
+  0.25  0.7185673  0.9875543  0.1493033
+  0.50  0.7219758  0.9898250  0.1385504
+  1.00  0.7239629  0.9914353  0.1265284
+  2.00  0.7296237  0.9925440  0.1185592
+  4.00  0.7340850  0.9917795  0.1134969
+
+Tuning parameter 'sigma' was held constant at a value of 0.05797701
+ROC was used to select the optimal model using  the largest value.
+The final values used for the model were sigma = 0.05797701 and C = 4. 
+
+Elapsed time
+Time difference of 20.96776 hours
+
+Highest ROC value:
+  TrainROC TrainSens TrainSpec    method
+1 0.734085 0.9917795 0.1134969 svmRadial
+
+Confusion Matrix:
+
+       reference
+data    False  True
+  False 22241  2714
+  True    175   334
+
+F-measure = 0.93901332038589
+
+G-mean = 0.32973408891513
+
+Matthews phi = NA
+
+Balance = 0.37035381722189
