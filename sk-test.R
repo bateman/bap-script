@@ -59,7 +59,7 @@ sk1 <- SK(
   y = dfm$y,
   model = 'y ~ x',
   which = 'x',
-  dispersion = 'mm',
+  dispersion = 'se',
   sig.level=.01
 )
 
@@ -82,5 +82,5 @@ if(!exists("plot_boxplot", mode="function"))
 
 png(filename="output/plots/box-plot.png")
 # generate box plot from SK test
-plot_boxplot(bx_model=sk1$av$model, x_lab="Models", y_lab="AUC")
+plot_boxplot(bx_model=sk1$av$model, x_lab="", y_lab="AUC")
 dev.off()
