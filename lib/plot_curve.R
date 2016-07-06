@@ -18,7 +18,7 @@ plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widt
   for(i in 1:length(predictions)) {
     adding <- ifelse(i == 1, FALSE, TRUE)
     perf <- performance(predictions[[i]], y_label, x_label)
-    plot(main=main_title, perf, col = colors, 
+    plot(main=main_title, perf, add=adding, col = colors[i], 
          lty = line_types[i], lwd = line_widths, xlim=range, ylim=range)
   }
   
