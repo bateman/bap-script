@@ -66,7 +66,7 @@ if(choice == "so") {
   splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
   testing <- SO[-splitIndex, ]
   library(DMwR)
-  SO <- SMOTe(solution ~ ., data=SO[splitIndex, ], perc.over = 700)
+  SO <- SMOTE(solution ~ ., data=SO[splitIndex, ], perc.over = 700)
 } else {
   if(choice == "docusign") { 
     csv_file <- "input/docusing.csv"
