@@ -102,7 +102,7 @@ rm(temp)
 # garbage collection
 gc()
 
-models_file <- ifelse(is.na(args[3]), "models/models1.txt", args[3])
+models_file <- ifelse(is.na(args[3]), "models/top-models.txt", args[3])
 classifiers <- readLines(models_file)
 predictions <- c()
 cmatrices <- c()
@@ -141,9 +141,6 @@ for(i in 1:length(classifiers)){
   }
   else if(classifier == "earth") {
     grid <- data.frame(nprune = 15, degree = 1)
-  }
-  else if(classifier == "gamboost") {
-    grid <- data.frame(mstop = 250, prune = "no")
   }
   
   model <- caret::train(solution ~ ., 
