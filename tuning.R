@@ -173,10 +173,10 @@ for(i in 1:length(classifiers)){
   out <- capture.output(CM)
   cat("\nConfusion Matrix:\n", out, file=output_file, sep="\n", append=TRUE)
   
-  TP <- CM[1]
-  FP <- CM[3]
-  FN <- CM[2]
-  TN <- CM[4]
+  TN <- CM[1] # was TP
+  FN <- CM[3] # was FP
+  FP <- CM[2] # was FN
+  TP <- CM[4] # was TN
   precision <- posPredValue(predictions, testing[,outcomeName])
   recall <- sensitivity(predictions, testing[,outcomeName])
   TNr <- specificity(predictions, testing[,outcomeName])
