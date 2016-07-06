@@ -41,6 +41,10 @@ if(!require("ROCR", quietly = TRUE)){
   install.packages("ROCR", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
+if(!require("DMwR", quietly = TRUE)){
+  install.packages("DMwR", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+}
+
 # gpls is not available anymore in CRAN as of R 3.3.0
 if(!require("gpls", quietly = TRUE)){
   source("https://bioconductor.org/biocLite.R")
