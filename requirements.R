@@ -42,7 +42,7 @@ if(!require("ROCR", quietly = TRUE)){
 }
 
 if(!require("DMwR", quietly = TRUE)){
-  install.packages("DMwR", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+  install.packages(c("TTR", "DMwR"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
 # gpls is not available anymore in CRAN as of R 3.3.0
