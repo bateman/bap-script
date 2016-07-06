@@ -1,5 +1,9 @@
-gpls:gpls
-rbfDDA:RSNNS
-mlpWeightDecay:RSNNS
-svmLinear:kernlab
-svmRadial:kernlab
+gpls:gpls ^
+rbfDDA:RSNNS^
+mlpWeightDecay:RSNNS *
+svmLinear:kernlab^
+svmRadial:kernlab*
+
+
+* with reduced dataset
+^ abandoned
