@@ -60,7 +60,11 @@ gc()
 choice <- ifelse(is.na(args[2]), "test", args[2])
 #choice <- "docusign"
 
-if(choice == "docusign") { 
+if(choice == "so") { 
+  csv_file <- "input/esej_features_171k.csv"
+  sep <- ","
+  time_format <- "%Y-%m-%d %H:%M:%S"
+} else if(choice == "docusign") { 
   csv_file <- "input/docusing.csv"
   sep <- ","
   time_format <- "%d/%m/%Y %H:%M:%S"
@@ -116,18 +120,35 @@ for(i in 1:length(classifiers)){
   classifiers[i] <- classifier
   
   print(paste("Testing performance of classifier", classifier))
-  if(classifier == "nb") {
-    grid <- data.frame(fL=0, usekernel=FALSE, adjust=1)
+  if(classifier == "xgbTree") {
+    grid <- data.frame(nrounds = 200, 
+                       max_depth = 4, 
+                       eta = 0.1, 
+                       gamma = 0, 
+                       colsample_bytree = 1, 
+                       min_child_weight = 1)
   }
-  if(classifier == "rf") {
-    grid <- data.frame(mtry=1)
+  else if(classifier == "gbm") {
+    grid <- data.frame(n.trees = 250, 
+                       interaction.depth = 3, 
+                       shrinkage = 0.1,
+                       n.minobsinnode = 10)
+  }
+  else if(classifier == "pcaNNet") {
+    grid <- data.frame(size = 7, decay = 0.1)
+  }
+  else if(classifier == "earth") {
+    grid <- data.frame(nprune = 15, degree = 1)
+  }
+  else if(classifier == "gamboost") {
+    grid <- data.frame(mstop = 250, prune = no)
   }
   
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
                         trControl = trainControl(method="none", classProbs = TRUE), #summaryFunction=twoClassSummary, 
-                        tuneGrid = grid)
+                        tuneGrid = grid,  preProcess = c("center")) #, "scale")
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
   model.prediction_prob <- prediction(pred_prob[,2], testing[,outcomeName])
