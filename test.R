@@ -149,7 +149,8 @@ for(i in 1:length(classifiers)){
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
-                        trControl = trainControl(method="none", classProbs = TRUE), #summaryFunction=twoClassSummary, 
+                        trControl = trainControl(method="none", classProbs = TRUE, 
+                                                 sampling = "smote"), #summaryFunction=twoClassSummary, 
                         tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
