@@ -73,7 +73,7 @@ class ComputeMetrics(object):
         self.classification_res = dict()
         self.metrics = dict()
         self.descriptive_stats = dict()
-        self.models = self.__readmodels('models.txt')
+        self.models = self.__readmodels('models/models.txt')
 
     def main(self):
         self.__getfiles()
@@ -172,12 +172,19 @@ class ComputeMetrics(object):
             for nmetric in self.metric_names:
                 if nmetric is not 'parameters':
                     mList = self.metrics[model][nmetric]
-                    mList = numpy.asarray(mList).astype(numpy.float)
-                    min = numpy.amin(mList)
-                    max = numpy.amax(mList)
-                    mean = numpy.mean(mList)
-                    median = numpy.median(mList)
-                    stdev = numpy.std(mList)
+                    try:
+                        mList = numpy.asarray(mList).astype(numpy.float)
+                        min = numpy.amin(mList)
+                        max = numpy.amax(mList)
+                        mean = numpy.mean(mList)
+                        median = numpy.median(mList)
+                        stdev = numpy.std(mList)
+                    except ValueError:
+                        min = 'N/A'
+                        max = 'N/A'
+                        mean = 'N/A'
+                        median = 'N/A'
+                        stdev = 'N/A'
                     stats = dict()
                     stats['min'] = min
                     stats['max'] = max
