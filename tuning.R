@@ -77,6 +77,8 @@ splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
 training <- SO[splitIndex, ]
 testing <- SO[-splitIndex, ]
 
+smote_train <- SMOTE(solution ~ ., data  = training)
+
 # remove the large object
 rm(SO)
 gc()
@@ -94,7 +96,9 @@ fitControl <- trainControl(
   classProbs = TRUE,
   # enable parallel computing if avail
   allowParallel = TRUE,
-  returnData = FALSE
+  returnData = FALSE,
+  #sampling = "smote",
+  preProcess = c("center") #, "scale"),
 )
 
 # load all the classifiers to tune
