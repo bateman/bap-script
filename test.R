@@ -143,14 +143,14 @@ for(i in 1:length(classifiers)){
     grid <- data.frame(nprune = 15, degree = 1)
   }
   else if(classifier == "gamboost") {
-    grid <- data.frame(mstop = 250, prune = no)
+    grid <- data.frame(mstop = 250, prune = "no")
   }
   
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
                         trControl = trainControl(method="none", classProbs = TRUE), #summaryFunction=twoClassSummary, 
-                        tuneGrid = grid,  preProcess = c("center")) #, "scale")
+                        tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
   model.prediction_prob <- prediction(pred_prob[,2], testing[,outcomeName])
@@ -179,14 +179,14 @@ save_results(outfile = paste(choice, "txt", sep="."), outdir = "output/predictio
 # and plot ROC and PR curves
 
 line_types <- 1:length(classifiers)
-g_col <- gray.colors(
-  length(class),
-  start = 0.3,
-  end = 0.9,
-  gamma = 2.2,
-  alpha = NULL
-)
-# g_col <- 1:length(classifiers)
+# g_col <- gray.colors(
+#   length(class),
+#   start = 0.3,
+#   end = 0.9,
+#   gamma = 2.2,
+#   alpha = NULL
+# )
+g_col <- rainbow(length(classifiers))
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))
@@ -200,13 +200,13 @@ png(filename=paste(plot_dir, paste(choice, "roc_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers, 
            colors=g_col, line_type=line_types, 
            x_label="fpr", y_label="tpr", leg_pos="bottom", plot_abline=TRUE, 
-           leg_title="", main_title=choice)
+           leg_title="", main_title="")
 dev.off()
 
 png(filename=paste(plot_dir, paste(choice, "pr_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
            x_label="rec", y_label="prec", leg_pos="bottom", plot_abline=FALSE,
-           leg_title="", main_title=choice)
+           leg_title="", main_title="")
 dev.off()
 par(op) #re-set the plot to the default settings
