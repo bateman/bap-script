@@ -1,95 +1,70 @@
+
 *******  BORUTA  *******
-Boruta performed 12 iterations in 4.947672 mins.
- 22 attributes confirmed important: answers_count, avg_chars_per_word,
-avg_chars_per_word_rank, avg_words_per_sentence, avg_words_per_sentence_rank and 17 more.
- 1 attributes confirmed unimportant: has_links.
-*******  CFS Pearson’s correlation  *******
+Boruta performed 12 iterations in 2.48011 hours.
+ 23 attributes confirmed important: answers_count, avg_chars_per_word,
+avg_chars_per_word_rank, avg_words_per_sentence,
+avg_words_per_sentence_rank and 18 more.
+ No attributes deemed unimportant.
+
+*******  CFS Pearson's correlation  *******
                              attr_importance
-answers_count                    0.147477855
-date_time                        0.157961369
-time_difference                  0.157985013
-time_difference_rank             0.146908107
-len                              0.108728488
-len_rank                         0.137005332
-wordcount                        0.118036529
-wordcount_rank                   0.137937158
-avg_chars_per_word               0.024585048
-avg_chars_per_word_rank          0.123314749
-sentences                        0.110155513
-sentences_rank                   0.142965621
-avg_words_per_sentence           0.002071283
-avg_words_per_sentence_rank      0.125431115
-longest_sentence                 0.047150490
-longest_sentence_rank            0.131940038
-loglikelihood                    0.092995148
-loglikelihood_ascending_rank     0.085516910
-F.K                              0.118122957
-F.K_ascending_rank               0.106418736
-upvotes                          0.221035139
-upvotes_rank                     0.164544809
-has_links                        0.010459487
+answers_count                    0.096013635
+date_time                        0.165461128
+time_difference                  0.166259447
+time_difference_rank             0.097976437
+len                              0.067787248
+len_rank                         0.093351710
+wordcount                        0.076514938
+wordcount_rank                   0.093395542
+avg_chars_per_word               0.026993629
+avg_chars_per_word_rank          0.084631305
+sentences                        0.052880088
+sentences_rank                   0.101653106
+avg_words_per_sentence           0.011594330
+avg_words_per_sentence_rank      0.084524503
+longest_sentence                 0.038716546
+longest_sentence_rank            0.089219693
+loglikelihood                    0.010221088
+loglikelihood_ascending_rank     0.002114208
+F.K                              0.077378730
+F.K_ascending_rank               0.069490558
+upvotes                          0.131308806
+upvotes_rank                     0.112779568
+has_links                        0.017919505
 
- [1] "upvotes"               "upvotes_rank"          "time_difference"       "date_time"            
- [5] "answers_count"         "time_difference_rank"  "sentences_rank"        "wordcount_rank"       
- [9] "len_rank"              "longest_sentence_rank"
-*******  CFS Spearman’s ro correlation  *******
+ [1] "time_difference"       "date_time"             "upvotes"              
+ [4] "upvotes_rank"          "sentences_rank"        "time_difference_rank" 
+ [7] "answers_count"         "wordcount_rank"        "len_rank"             
+[10] "longest_sentence_rank"
+
+*******  CFS Spearmanâ€™s ro correlation  *******
                              attr_importance
-answers_count                     0.26494506
-date_time                         0.28354676
-time_difference                   0.29826465
-time_difference_rank              0.33578578
-len                               0.11510343
-len_rank                          0.27815528
-wordcount                         0.10864426
-wordcount_rank                    0.28191965
-avg_chars_per_word                0.04565369
-avg_chars_per_word_rank           0.20588436
-sentences                         0.10226031
-sentences_rank                    0.27533271
-avg_words_per_sentence            0.03897286
-avg_words_per_sentence_rank       0.20987248
-longest_sentence                  0.08231104
-longest_sentence_rank             0.24680319
-loglikelihood                     0.11066676
-loglikelihood_ascending_rank      0.06495314
-F.K                               0.11250686
-F.K_ascending_rank                0.13723678
-upvotes                           0.33986491
-upvotes_rank                      0.46752253
-has_links                         0.01045949
+answers_count                     0.27586109
+date_time                         0.15912501
+time_difference                   0.20035605
+time_difference_rank              0.29439147
+len                               0.09322946
+len_rank                          0.27642007
+wordcount                         0.08378566
+wordcount_rank                    0.27418846
+avg_chars_per_word                0.06189449
+avg_chars_per_word_rank           0.21806376
+sentences                         0.07625312
+sentences_rank                    0.26520051
+avg_words_per_sentence            0.03124204
+avg_words_per_sentence_rank       0.21561651
+longest_sentence                  0.06194784
+longest_sentence_rank             0.24676602
+loglikelihood                     0.04934658
+loglikelihood_ascending_rank      0.04524391
+F.K                               0.09042826
+F.K_ascending_rank                0.13182483
+upvotes                           0.31331201
+upvotes_rank                      0.48175238
+has_links                         0.01791950
 
- [1] "upvotes_rank"          "upvotes"               "time_difference_rank"  "time_difference"      
- [5] "date_time"             "wordcount_rank"        "len_rank"              "sentences_rank"       
- [9] "answers_count"         "longest_sentence_rank"
-
-F-measure = 0.912779850746269
-
-G-mean = 0.374281996017508
-
-Matthews phi = NA
-
-Balance = 0.397981957374622
-
-F-measure = 0.837932764676367
-
-G-mean = 0.411524406529706
-
-Matthews phi = NA
-
-Balance = 0.424980270795394
-
-F-measure = 0.947637576431351
-
-G-mean = 0.0460287308949162
-
-Matthews phi = NA
-
-Balance = 0.294391326400712
-
-F-measure = 0.947637576431351
-
-G-mean = 0.0460287308949162
-
-Matthews phi = NA
-
-Balance = 0.294391326400712
+ [1] "upvotes_rank"                "upvotes"                    
+ [3] "time_difference_rank"        "len_rank"                   
+ [5] "answers_count"               "wordcount_rank"             
+ [7] "sentences_rank"              "longest_sentence_rank"      
+ [9] "avg_chars_per_word_rank"     "avg_words_per_sentence_rank"
