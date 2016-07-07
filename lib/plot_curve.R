@@ -4,7 +4,7 @@ library(ROCR)  # for plotting ROC curves
 
 plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widths=1, x_label="fpr", y_label="tpr",
                        leg_pos="bottomright", leg_title="Models", leg_horiz=TRUE, leg_frame='n',
-                       plot_abline=TRUE, main_title=""){
+                       plot_abline=TRUE, main_title="", aucs=NULL){
   par(
     mar = c(5, 5, 2, 2),
     xaxs = "i",
@@ -20,6 +20,12 @@ plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widt
     perf <- performance(predictions[[i]], y_label, x_label)
     plot(main=main_title, perf, add=adding, col = colors[i], 
          lty = line_types[i], lwd = line_widths, xlim=range, ylim=range)
+  }
+  
+  if(!is.null(aucs)) {
+    for (i in 1:length(classifiers)) {
+      classifiers[i] <- paste(classifiers[i], " (AUC=", aucs[i] , ")", sep="")
+    }
   }
   
   # Add a legend

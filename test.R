@@ -45,17 +45,17 @@ setup_dataframe <- function(dataframe, outcomeName, excluded_predictors, time_fo
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
+excluded_predictors <- c("resolved", "answer_uid", "question_uid",
                          "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
+#excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
+#                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
 csv_file <- ifelse(is.na(args[1]), "input/esej_features_171k.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                        time_format="%Y-%m-%d %H:%M:%S")
+                        time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
 SO <- temp[[1]]
 predictorsNames <- temp[[2]]
-rm(temp)
-gc()
 
 choice <- ifelse(is.na(args[2]), "so", args[2])
 #choice <- "docusign"
@@ -66,7 +66,8 @@ if(choice == "so") {
   splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
   testing <- SO[-splitIndex, ]
   library(DMwR)
-  SO <- SMOTE(solution ~ ., data=SO[splitIndex, ], perc.over = 700)
+  SO <- SMOTE(solution ~ ., data=SO[splitIndex, ], perc.under = 100, perc.over = 700)
+  #summary(SO$solution)
 } else {
   if(choice == "docusign") { 
     csv_file <- "input/docusing.csv"
@@ -107,6 +108,7 @@ models_file <- ifelse(is.na(args[3]), "models/top-models.txt", args[3])
 classifiers <- readLines(models_file)
 predictions <- c()
 cmatrices <- c()
+aucs <- c()
 
 # for model: XYZ
 set.seed(875)
@@ -115,6 +117,7 @@ set.seed(875)
 # modelX.pred <- predict(modelX, testing)
 library(caret)
 library(ROCR)
+library(pROC)
 # load all the classifiers to tune
 
 for(i in 1:length(classifiers)){
@@ -147,17 +150,18 @@ for(i in 1:length(classifiers)){
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
-                        trControl = trainControl(method="none", classProbs = TRUE), 
-                                                 #,sampling = "smote"), #summaryFunction=twoClassSummary, 
+                        trControl = trainControl(method="none", classProbs = TRUE), #sampling = "smote"),  
                         tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
   model.prediction_prob <- prediction(pred_prob[,2], testing[,outcomeName])
   predictions <- c(predictions, model.prediction_prob)
-
+  aucs <- c(aucs, roc(as.numeric(testing[,outcomeName])-1, pred_prob[,2])$auc)
+  aucs <- round(aucs, digits = 2)
+  
   pred <- predict(model, testing[,predictorsNames])
   errors <- which(pred != testing[,outcomeName])
-  
+
   # save errors to text file
   save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/misclassifications", choice, sep="/"), 
                classifiers = c(classifier), results = errors, expanded = TRUE)
@@ -178,14 +182,14 @@ save_results(outfile = paste(choice, "txt", sep="."), outdir = "output/predictio
 # and plot ROC and PR curves
 
 line_types <- 1:length(classifiers)
-g_col <- gray.colors(
-  n = length(classifiers),
-  start = 0.3,
-  end = 0.8,
-  gamma = 2.2,
-  alpha = NULL
-)
-#g_col <- rainbow(length(classifiers))
+# g_col <- gray.colors(
+#   n = length(classifiers),
+#   start = 0.3,
+#   end = 0.8,
+#   gamma = 2.2,
+#   alpha = NULL
+# )
+g_col <- rainbow(length(classifiers))
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))
@@ -199,13 +203,13 @@ png(filename=paste(plot_dir, paste(choice, "roc_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers, 
            colors=g_col, line_type=line_types, 
            x_label="fpr", y_label="tpr", leg_pos="bottomright", plot_abline=TRUE, 
-           leg_title="", main_title="", leg_horiz=FALSE)
+           leg_title="", main_title="", leg_horiz=FALSE, aucs=aucs)
 dev.off()
 
 png(filename=paste(plot_dir, paste(choice, "pr_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
-           x_label="rec", y_label="prec", leg_pos="topright", plot_abline=FALSE,
+           x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
            leg_title="", main_title="", leg_horiz=FALSE)
 dev.off()
 par(op) #re-set the plot to the default settings
