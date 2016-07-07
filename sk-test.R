@@ -59,14 +59,14 @@ sk1 <- SK(
   y = dfm$y,
   model = 'y ~ x',
   which = 'x',
-  dispersion = 'se',
+  dispersion = 's',
   sig.level=.01
 )
 
 out <- capture.output(sk1$groups)
 cat("*******  Scott-Knott clusters  *******", out, file="output/sk-clusters.txt", sep="\n", append=FALSE)
 out <- capture.output(sk1$m.inf)
-cat("", out, file="output/sk-clusters.txt", sep="\n", append=TRUE)
+cat("", out, file="output/tuning/sk-clusters.txt", sep="\n", append=TRUE)
 
 png(filename="output/plots/sk-clusters.png")
 plot(sk1,
