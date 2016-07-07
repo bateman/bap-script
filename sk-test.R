@@ -74,7 +74,7 @@ plot(sk1,
      col=rainbow(max(sk1$groups)),
      mm.lty=3,
      las=2,
-     rl=FALSE, xlab="", ylab = "mean AUC", title = "", ylim = c(0,1))
+     rl=FALSE, xlab="", ylab = "AUC", title = "", ylim = c(0,1))
 dev.off()
 
 if(!exists("plot_boxplot", mode="function")) 
