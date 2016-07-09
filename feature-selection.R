@@ -7,18 +7,20 @@ feat_file <- ifelse(is.na(feat_file),"input/esej_features_85k.csv", feat_file)
 k <- args[2]
 k <- ifelse(is.na(k), 10, k)
 
-# load the feature file into dataframe dfm 
-dfm <- read.csv(feat_file, header = TRUE)
+# name of outcome var to be predicted
+outcomeName <- "solution"
+# list of predictor vars by name
+excluded_predictors <- c("resolved", "answer_uid", "question_uid",
+                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
-# convert boolean factors 
-dfm$has_links<- as.integer(as.logical(dfm$has_links))
-dfm$solution<- as.integer(as.logical(dfm$solution))
-# remove answer id (useless)
-dfm <- dfm[ , !(names(dfm) %in% c("answer_uid"))]
-# first convert timestamps into POSIX std time values, then to equivalent number
-dfm$date_time <- as.numeric(as.POSIXct(strptime(dfm$date_time, tz="CET", "%Y-%m-%d %H:%M:%S")))
-# exclude rows with NaN (missing values)
-dfm <- na.omit(dfm)
+if(!exists("setup_dataframe", mode="function")) 
+  source(paste(getwd(), "lib/setup_dataframe.R", sep="/"))
+# load the feature file into dataframe dfm 
+temp <- read.csv(feat_file, header = TRUE, sep=",")
+temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
+                        time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
+dfm <- temp[[1]]
+predictorsNames <- temp[[2]]
 
 library(DMwR)
 dfm <- SMOTE(solution ~ ., data=dfm, perc.under = 100, perc.over = 700)
