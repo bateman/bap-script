@@ -1,8 +1,11 @@
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
+# shows error line no.
+options(show.error.locations=TRUE)
+
 # files with features
 feat_file <- args[1]
-feat_file <- ifelse(is.na(feat_file),"input/esej_features_85k.csv", feat_file)
+feat_file <- ifelse(is.na(feat_file),"input/head.csv", feat_file)
 # best k features to select, default 10
 k <- args[2]
 k <- ifelse(is.na(k), 10, k)
@@ -24,6 +27,8 @@ predictorsNames <- temp[[2]]
 
 library(DMwR)
 dfm <- SMOTE(solution ~ ., data=dfm, perc.under = 100, perc.over = 700)
+
+dfm$solution<- as.integer(as.logical(dfm$solution))
 
 # output file for the classifier at hand
 output_dir <- "output/feature-selection"
@@ -65,7 +70,7 @@ cat("", out, file=output_file, sep="\n", append=TRUE)
 # use Spearman's ro correlation, requires all data to be continous
 weights <- rank.correlation(solution~., data=dfm)
 out <- capture.output(weights)
-cat("\n*******  Spearman’s ro correlation filter *******", out, file=output_file, sep="\n", append=TRUE)
+cat("\n*******  Spearman's ro correlation filter *******", out, file=output_file, sep="\n", append=TRUE)
 # select K best attributes
 subset <- cutoff.k(weights, k)
 out <- capture.output(subset)
