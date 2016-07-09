@@ -1,0 +1,29 @@
+
+===========  earth  ============
+
+Confusion Matrix and Statistics
+
+       reference
+data    False True
+  False   177   24
+  True    147   26
+                                          
+               Accuracy : 0.5428          
+                 95% CI : (0.4908, 0.5941)
+    No Information Rate : 0.8663          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.0325          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.5463          
+            Specificity : 0.5200          
+         Pos Pred Value : 0.8806          
+         Neg Pred Value : 0.1503          
+             Prevalence : 0.8663          
+         Detection Rate : 0.4733          
+   Detection Prevalence : 0.5374          
+      Balanced Accuracy : 0.5331          
+                                          
+       'Positive' Class : False           
+                                          

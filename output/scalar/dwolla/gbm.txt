@@ -1,0 +1,15 @@
+
+Confusion Matrix:
+
+       reference
+data    False True
+  False   207   20
+  True    117   30
+
+F-measure = 0.751361161524501
+
+G-mean = 0.61913918736689
+
+Matthews phi = 0.166449257342474
+
+Balance = 0.618948012360583

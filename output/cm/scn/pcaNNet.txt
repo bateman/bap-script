@@ -1,0 +1,29 @@
+
+===========  pcaNNet  ============
+
+Confusion Matrix and Statistics
+
+       reference
+data     False   True
+  False    244     23
+  True  130417   9649
+                                          
+               Accuracy : 0.0705          
+                 95% CI : (0.0692, 0.0718)
+    No Information Rate : 0.9311          
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : -1e-04          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.001867        
+            Specificity : 0.997622        
+         Pos Pred Value : 0.913858        
+         Neg Pred Value : 0.068889        
+             Prevalence : 0.931078        
+         Detection Rate : 0.001739        
+   Detection Prevalence : 0.001903        
+      Balanced Accuracy : 0.499745        
+                                          
+       'Positive' Class : False           
+                                          
