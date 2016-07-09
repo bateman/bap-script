@@ -2,7 +2,7 @@
 args<-commandArgs(TRUE)
 # files with features
 feat_file <- args[1]
-feat_file <- ifelse(is.na(feat_file),"input/esej_features_aa_al.csv", feat_file)
+feat_file <- ifelse(is.na(feat_file),"input/esej_features_85k.csv", feat_file)
 # best k features to select, default 10
 k <- args[2]
 k <- ifelse(is.na(k), 10, k)
@@ -19,6 +19,9 @@ dfm <- dfm[ , !(names(dfm) %in% c("answer_uid"))]
 dfm$date_time <- as.numeric(as.POSIXct(strptime(dfm$date_time, tz="CET", "%Y-%m-%d %H:%M:%S")))
 # exclude rows with NaN (missing values)
 dfm <- na.omit(dfm)
+
+library(DMwR)
+dfm <- SMOTE(solution ~ ., data=dfm, perc.under = 100, perc.over = 700)
 
 # output file for the classifier at hand
 output_dir <- "output/feature-selection"
