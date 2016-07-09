@@ -32,7 +32,9 @@ library("Boruta")
 # try to reduce maxRuns if it takes too long
 b.fs <- Boruta(solution~., data=dfm, maxRuns = 100, doTrace = 2, holdHistory = TRUE)
 out <- capture.output(b.fs)
-cat("*******  BORUTA  *******", out, file=output_file, sep="\n", append=TRUE)
+cat("*******  BORUTA  *******", out, file=output_file, sep="\n", append=FALSE)
+out <- capture.output(attStats(b.fs))
+cat("", out, file=output_file, sep="\n", append=TRUE)
 #plot(b.fs, sort=TRUE)
 #plotImpHistory(b.fs)
 
