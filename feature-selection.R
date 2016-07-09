@@ -47,10 +47,15 @@ cat("", out, file=output_file, sep="\n", append=TRUE)
 # feature selection through CFS - Correlation Feature Selection
 library("FSelector")
 
+subset <- cfs(solution~., dfm)
+f <- as.simple.formula(subset, outcomeName)
+out <- capture.output(f)
+cat("\n*******  CFS  *******", out, file=output_file, sep="\n", append=TRUE)
+
 # use Pearson's correlation, requires all data to be continous
 weights <- linear.correlation(solution~., data=dfm)
 out <- capture.output(weights)
-cat("\n*******  CFS Pearson's correlation  *******", out, file=output_file, sep="\n", append=TRUE)
+cat("\n*******  Pearson's correlation filter *******", out, file=output_file, sep="\n", append=TRUE)
 # select K best attributes
 subset <- cutoff.k(weights, k)
 out <- capture.output(subset)
@@ -60,7 +65,7 @@ cat("", out, file=output_file, sep="\n", append=TRUE)
 # use Spearman's ro correlation, requires all data to be continous
 weights <- rank.correlation(solution~., data=dfm)
 out <- capture.output(weights)
-cat("\n*******  CFS Spearman’s ro correlation  *******", out, file=output_file, sep="\n", append=TRUE)
+cat("\n*******  Spearman’s ro correlation filter *******", out, file=output_file, sep="\n", append=TRUE)
 # select K best attributes
 subset <- cutoff.k(weights, k)
 out <- capture.output(subset)
