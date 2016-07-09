@@ -1,0 +1,123 @@
+*******  BORUTA  *******
+Boruta performed 12 iterations in 1.104116 hours.
+ 23 attributes confirmed important: answers_count, avg_chars_per_word,
+avg_chars_per_word_rank, avg_words_per_sentence,
+avg_words_per_sentence_rank and 18 more.
+ No attributes deemed unimportant.
+
+                               meanImp medianImp    minImp    maxImp normHits
+answers_count                 38.63453  38.32154  34.98199  42.27480        1
+date_time                     67.67979  67.86434  63.73780  72.06770        1
+time_difference               74.96059  75.97030  67.34000  78.89038        1
+time_difference_rank          57.11121  56.34027  54.91712  60.61125        1
+len                           38.64026  39.08913  35.20804  43.63604        1
+len_rank                      38.49305  38.75319  36.41264  39.92721        1
+wordcount                     42.97558  42.78340  39.34381  46.98689        1
+wordcount_rank                40.05507  39.99315  37.15342  43.92578        1
+avg_chars_per_word            64.87150  64.31266  59.62418  69.28906        1
+avg_chars_per_word_rank       36.77789  36.53604  34.14769  40.04138        1
+sentences                     49.33579  49.08747  45.56644  52.31613        1
+sentences_rank                41.77028  41.55544  39.95659  43.83127        1
+avg_words_per_sentence        54.85202  55.17485  48.47650  62.88417        1
+avg_words_per_sentence_rank   42.26914  42.50547  38.72397  44.75138        1
+longest_sentence              52.04071  51.85368  43.64034  62.50136        1
+longest_sentence_rank         38.21244  37.99281  35.95781  41.29010        1
+loglikelihood                 12.13739  12.00278  10.33256  14.31773        1
+loglikelihood_ascending_rank  13.35957  13.71928  10.60729  15.21302        1
+F.K                           39.54677  39.81197  33.89118  42.99154        1
+F.K_ascending_rank            48.26868  47.62928  45.46490  53.90217        1
+upvotes                      118.23578 118.08941 115.61764 121.76302        1
+upvotes_rank                 134.82661 134.13568 131.52044 139.06015        1
+has_links                     20.14359  18.92144  15.42735  25.63589        1
+                              decision
+answers_count                Confirmed
+date_time                    Confirmed
+time_difference              Confirmed
+time_difference_rank         Confirmed
+len                          Confirmed
+len_rank                     Confirmed
+wordcount                    Confirmed
+wordcount_rank               Confirmed
+avg_chars_per_word           Confirmed
+avg_chars_per_word_rank      Confirmed
+sentences                    Confirmed
+sentences_rank               Confirmed
+avg_words_per_sentence       Confirmed
+avg_words_per_sentence_rank  Confirmed
+longest_sentence             Confirmed
+longest_sentence_rank        Confirmed
+loglikelihood                Confirmed
+loglikelihood_ascending_rank Confirmed
+F.K                          Confirmed
+F.K_ascending_rank           Confirmed
+upvotes                      Confirmed
+upvotes_rank                 Confirmed
+has_links                    Confirmed
+
+*******  CFS  *******
+solution ~ F.K + upvotes
+<environment: 0x4fdc670>
+
+*******  Pearson's correlation filter *******
+                             attr_importance
+answers_count                    0.233770638
+date_time                        0.318226820
+time_difference                  0.318811417
+time_difference_rank             0.238832723
+len                              0.097380325
+len_rank                         0.227577877
+wordcount                        0.106273929
+wordcount_rank                   0.227525344
+avg_chars_per_word               0.037183427
+avg_chars_per_word_rank          0.203582585
+sentences                        0.076257050
+sentences_rank                   0.230208622
+avg_words_per_sentence           0.005937790
+avg_words_per_sentence_rank      0.206706742
+longest_sentence                 0.048324095
+longest_sentence_rank            0.218114375
+loglikelihood                    0.031182489
+loglikelihood_ascending_rank     0.004231695
+F.K                              0.107543522
+F.K_ascending_rank               0.166452681
+upvotes                          0.119931197
+upvotes_rank                     0.276152386
+has_links                        0.038274783
+
+ [1] "time_difference"             "date_time"                  
+ [3] "upvotes_rank"                "time_difference_rank"       
+ [5] "answers_count"               "sentences_rank"             
+ [7] "len_rank"                    "wordcount_rank"             
+ [9] "longest_sentence_rank"       "avg_words_per_sentence_rank"
+
+*******  Spearman's ro correlation filter *******
+                             attr_importance
+answers_count                     0.42514268
+date_time                         0.32010190
+time_difference                   0.25073072
+time_difference_rank              0.45200087
+len                               0.14248472
+len_rank                          0.42318810
+wordcount                         0.13040883
+wordcount_rank                    0.42009337
+avg_chars_per_word                0.08545080
+avg_chars_per_word_rank           0.32827625
+sentences                         0.12502031
+sentences_rank                    0.40600824
+avg_words_per_sentence            0.05533412
+avg_words_per_sentence_rank       0.32774202
+longest_sentence                  0.09536710
+longest_sentence_rank             0.37454304
+loglikelihood                     0.07315578
+loglikelihood_ascending_rank      0.07060246
+F.K                               0.14088614
+F.K_ascending_rank                0.20227128
+upvotes                           0.51643159
+upvotes_rank                      0.76951718
+has_links                         0.03830534
+
+ [1] "upvotes_rank"                "upvotes"                    
+ [3] "time_difference_rank"        "answers_count"              
+ [5] "len_rank"                    "wordcount_rank"             
+ [7] "sentences_rank"              "longest_sentence_rank"      
+ [9] "avg_chars_per_word_rank"     "avg_words_per_sentence_rank"
