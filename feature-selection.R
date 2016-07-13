@@ -50,6 +50,7 @@ dfm <- temp[[1]]
 predictorsNames <- temp[[2]]
 
 library(DMwR)
+print("SMOTE'ing")
 dfm <- SMOTE(solution ~ ., data=dfm, perc.under = 100, perc.over = 700)
 
 dfm$solution<- as.integer(as.logical(dfm$solution))
@@ -62,6 +63,7 @@ output_file <- paste(output_dir, "feature-subset.txt", sep = "/")
 
 # feature selection through Wrapper algorithm
 library("Boruta")
+print("Boruta")
 # default pValue = 0.01 is used
 # try to reduce maxRuns if it takes too long
 b.fs <- Boruta(solution~., data=dfm, maxRuns = 100, doTrace = 2, holdHistory = TRUE)
@@ -76,6 +78,7 @@ cat("", out, file=output_file, sep="\n", append=TRUE)
 # feature selection through CFS - Correlation Feature Selection
 library("FSelector")
 
+print("CFS")
 subset <- cfs(solution~., dfm)
 f <- as.simple.formula(subset, outcomeName)
 out <- capture.output(f)
