@@ -32,7 +32,7 @@ temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
 so <- temp[[1]]
-predictorsNames <- temp[[2]]
+soPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(so[,outcomeName], p = .70, list = FALSE)
 soTraining <- so[splitIndex, ]
 soTesting <- so[-splitIndex, ]
@@ -93,7 +93,7 @@ for(j in 1:length(dataset)) {
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          preProcess = c("center") , #"scale")
+                          #preProcess = c("center") , #"scale")
                           tuneLength = 1 # values per param
     )
     
