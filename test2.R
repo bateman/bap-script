@@ -22,8 +22,7 @@ if(!exists("setup_dataframe", mode="function"))
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid", "views", "views_rank",
-                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
+excluded_predictors <- c("resolved", "answer_uid", "question_uid")
 #excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
@@ -32,7 +31,7 @@ temp <- read.csv("input/docusing.csv", header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%d/%m/%Y %H:%M:%S", normalize = FALSE)
 docusign <- temp[[1]]
-predictorsNames <- temp[[2]]
+docusignPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(docusign[,outcomeName], p = .70, list = FALSE)
 docusignTraining <- docusign[splitIndex, ]
 docusignTesting <- docusign[-splitIndex, ]
@@ -42,7 +41,7 @@ temp <- read.csv("input/dwolla.csv", header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                    time_format="%d/%m/%y %H:%M", normalize = FALSE)
 dwolla <- temp[[1]]
-predictorsNamesDwolla <- temp[[2]]
+dwollaPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(dwolla[,outcomeName], p = .70, list = FALSE)
 dwollaTraining <- dwolla[splitIndex, ]
 dwollaTesting <- dwolla[-splitIndex, ]
@@ -52,7 +51,7 @@ temp <- read.csv("input/yahoo.csv", header = TRUE, sep=";")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                             time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
 yahoo <- temp[[1]]
-predictorsNames <- temp[[2]]
+yahooPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(yahoo[,outcomeName], p = .70, list = FALSE)
 yahooTraining <- yahoo[splitIndex, ]
 yahooTesting <- yahoo[-splitIndex, ]
@@ -62,7 +61,7 @@ temp <- read.csv("input/scn.csv", header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                           time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
 scn <- temp[[1]]
-predictorsNames <- temp[[2]]
+scnPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(scn[,outcomeName], p = .70, list = FALSE)
 scnTraining <- scn[splitIndex, ]
 scnTesting <- scn[-splitIndex, ]
@@ -73,7 +72,7 @@ rm(temp)
 # garbage collection
 gc()
 
-models_file <- ifelse(is.na(args[1]), "models/top-models1.txt", args[1])
+models_file <- ifelse(is.na(args[1]), "models/top-models.txt", args[1])
 classifiers <- readLines(models_file)
 
 
@@ -106,6 +105,8 @@ for(j in 1:length(testsets)) {
   training <- eval(parse(text=training))
   testing <- paste(testsets[j], "Testing", sep = "")
   testing <- eval(parse(text=testing))
+  predictorsNames <- paste(testsets[j], "PredictorsNames", sep = "")
+  predictorsNames <- eval(parse(text=predictorsNames))
   
   print(paste("Opened test set", testsets[j]))
   
