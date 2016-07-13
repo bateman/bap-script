@@ -5,7 +5,21 @@ setup_dataframe <- function(dataframe, outcomeName, excluded_predictors, time_fo
   predictorsNames <- names(dataframe[,!(names(dataframe)  %in% c(outcomeName))]) # removes the var to be predicted from the test set
   
   # convert boolean factors 
-  dataframe$has_links<- as.integer(as.logical(dataframe$has_links))
+  tryCatch({
+    dataframe$has_links<- as.integer(as.logical(dataframe$has_links))
+  }, error = function(e) {
+    # ignore
+  })
+  tryCatch({
+    dataframe$has_code_snippet<- as.integer(as.logical(dataframe$has_code_snippet))
+  }, error = function(e) {
+    # ignore
+  })
+  tryCatch({
+    dataframe$has_tags<- as.integer(as.logical(dataframe$has_tags))
+  }, error = function(e) {
+    # ignore
+  })
   
   # first check whether thera are leading and trailing apostrophes around the date_time field
   dataframe$date_time <- gsub("'", '', dataframe$date_time)
