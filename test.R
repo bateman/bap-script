@@ -21,7 +21,7 @@ excluded_predictors <- c("resolved", "answer_uid", "question_uid",
 #excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
-csv_file <- ifelse(is.na(args[1]), "input/esej_features_171k.csv", args[1])
+csv_file <- ifelse(is.na(args[1]), "input/so_features.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
@@ -34,6 +34,7 @@ choice <- ifelse(is.na(args[2]), "so", args[2])
 if(choice == "so") {
   seeds <- readLines("seeds.txt")
   set.seed(seeds[length(seeds)])
+  library(caret)
   splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
   testing <- SO[-splitIndex, ]
   library(DMwR)
@@ -65,7 +66,7 @@ if(choice == "so") {
   # load testing file and predictors
   temp <- read.csv(csv_file, header = TRUE, sep=sep)
   temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                          time_format=time_format)
+                          time_format=time_format, normalize = FALSE)
   testing <- temp[[1]]
 }
 
