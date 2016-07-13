@@ -1,0 +1,157 @@
+*******  BORUTA  *******
+Boruta performed 12 iterations in 2.752598 mins.
+ 29 attributes confirmed important: answers_count, avg_chars_per_word,
+avg_chars_per_word_rank, avg_words_per_sentence,
+avg_words_per_sentence_rank and 24 more.
+ No attributes deemed unimportant.
+
+                               meanImp medianImp    minImp   maxImp normHits
+answers_count                 27.00593  27.19081 25.664953 28.24738        1
+date_time                     45.97616  46.38780 43.530816 47.20385        1
+time_difference               46.81271  46.82106 44.113598 49.62076        1
+time_difference_rank          33.93151  34.08630 32.175525 36.19537        1
+len                           33.92420  34.08122 30.664197 36.39248        1
+len_rank                      22.71848  22.53513 21.481070 24.75690        1
+wordcount                     32.71012  32.64164 30.465119 35.07036        1
+wordcount_rank                22.75409  22.54711 21.635997 24.04880        1
+avg_chars_per_word            36.21576  36.10591 34.002251 37.66547        1
+avg_chars_per_word_rank       29.76363  29.50031 28.211334 31.48042        1
+sentences                     36.00447  36.35019 32.561540 38.17566        1
+sentences_rank                22.97869  22.95586 21.715043 23.69811        1
+avg_words_per_sentence        33.87899  34.57802 29.121804 36.20024        1
+avg_words_per_sentence_rank   27.99435  28.35279 26.231258 29.20569        1
+longest_sentence              34.99836  34.93863 32.341887 36.76358        1
+longest_sentence_rank         24.97177  24.95124 24.407668 25.58583        1
+views                         44.69462  44.77446 42.680072 46.13693        1
+views_rank                    25.48873  25.49683 24.173159 27.86310        1
+loglikelihood                 31.01046  31.01421 28.269542 32.90312        1
+loglikelihood_ascending_rank  29.95258  29.89096 28.141907 32.24806        1
+loglikelihood_descending_rank 19.78915  19.57879 19.147569 21.00718        1
+F.K                           34.42040  34.66400 31.996597 37.20619        1
+F.K_ascending_rank            30.84127  31.03494 28.970752 32.22816        1
+F.K_descending_rank           22.85361  22.90575 21.701956 23.66697        1
+upvotes                       41.32450  40.69647 39.858936 44.36778        1
+upvotes_rank                  29.27486  29.05693 28.675471 30.56030        1
+has_links                     13.20811  13.10561  9.999189 16.88464        1
+has_code_snippet              22.78256  22.83231 20.717685 24.63358        1
+has_tags                      14.93887  15.05674 12.642067 16.27465        1
+                               decision
+answers_count                 Confirmed
+date_time                     Confirmed
+time_difference               Confirmed
+time_difference_rank          Confirmed
+len                           Confirmed
+len_rank                      Confirmed
+wordcount                     Confirmed
+wordcount_rank                Confirmed
+avg_chars_per_word            Confirmed
+avg_chars_per_word_rank       Confirmed
+sentences                     Confirmed
+sentences_rank                Confirmed
+avg_words_per_sentence        Confirmed
+avg_words_per_sentence_rank   Confirmed
+longest_sentence              Confirmed
+longest_sentence_rank         Confirmed
+views                         Confirmed
+views_rank                    Confirmed
+loglikelihood                 Confirmed
+loglikelihood_ascending_rank  Confirmed
+loglikelihood_descending_rank Confirmed
+F.K                           Confirmed
+F.K_ascending_rank            Confirmed
+F.K_descending_rank           Confirmed
+upvotes                       Confirmed
+upvotes_rank                  Confirmed
+has_links                     Confirmed
+has_code_snippet              Confirmed
+has_tags                      Confirmed
+
+*******  CFS  *******
+solution ~ upvotes
+<environment: 0x7fedbd223408>
+
+*******  Pearson's correlation filter *******
+                              attr_importance
+answers_count                     0.332725744
+date_time                         0.056485395
+time_difference                   0.181611662
+time_difference_rank              0.210131314
+len                               0.005858218
+len_rank                          0.293491698
+wordcount                         0.044421948
+wordcount_rank                    0.293586306
+avg_chars_per_word                0.024060369
+avg_chars_per_word_rank           0.297400130
+sentences                         0.031395357
+sentences_rank                    0.275293676
+avg_words_per_sentence            0.003579136
+avg_words_per_sentence_rank       0.248788366
+longest_sentence                  0.005847070
+longest_sentence_rank             0.286138577
+views                             0.052501895
+views_rank                        0.232287711
+loglikelihood                     0.032291764
+loglikelihood_ascending_rank      0.211785879
+loglikelihood_descending_rank     0.286717422
+F.K                               0.008795988
+F.K_ascending_rank                0.218800372
+F.K_descending_rank               0.296777903
+upvotes                           0.268926665
+upvotes_rank                      0.243286019
+has_links                         0.055676633
+has_code_snippet                  0.001395721
+has_tags                          0.033161672
+
+ [1] "answers_count"                 "avg_chars_per_word_rank"      
+ [3] "F.K_descending_rank"           "wordcount_rank"               
+ [5] "len_rank"                      "loglikelihood_descending_rank"
+ [7] "longest_sentence_rank"         "sentences_rank"               
+ [9] "upvotes"                       "avg_words_per_sentence_rank"  
+[11] "upvotes_rank"                  "views_rank"                   
+[13] "F.K_ascending_rank"            "loglikelihood_ascending_rank" 
+[15] "time_difference_rank"          "time_difference"              
+[17] "date_time"                     "has_links"                    
+[19] "views"                         "wordcount"                    
+
+*******  Spearman's ro correlation filter *******
+                              attr_importance
+answers_count                    0.3298995102
+date_time                        0.0450414972
+time_difference                  0.0903743242
+time_difference_rank             0.1886517787
+len                              0.0819453786
+len_rank                         0.3237890329
+wordcount                        0.0707193381
+wordcount_rank                   0.3164667531
+avg_chars_per_word               0.1504380667
+avg_chars_per_word_rank          0.2727090708
+sentences                        0.0513496509
+sentences_rank                   0.2826451056
+avg_words_per_sentence           0.0759789537
+avg_words_per_sentence_rank      0.1935106066
+longest_sentence                 0.0638073990
+longest_sentence_rank            0.2998306642
+views                            0.0423990287
+views_rank                       0.2319614728
+loglikelihood                    0.0871675387
+loglikelihood_ascending_rank     0.1368224492
+loglikelihood_descending_rank    0.3005036735
+F.K                              0.0854365636
+F.K_ascending_rank               0.1302577894
+F.K_descending_rank              0.3210775960
+upvotes                          0.3266275976
+upvotes_rank                     0.2706534936
+has_links                        0.0577213381
+has_code_snippet                 0.0001247868
+has_tags                         0.0290500692
+
+ [1] "answers_count"                 "upvotes"                      
+ [3] "len_rank"                      "F.K_descending_rank"          
+ [5] "wordcount_rank"                "loglikelihood_descending_rank"
+ [7] "longest_sentence_rank"         "sentences_rank"               
+ [9] "avg_chars_per_word_rank"       "upvotes_rank"                 
+[11] "views_rank"                    "avg_words_per_sentence_rank"  
+[13] "time_difference_rank"          "avg_chars_per_word"           
+[15] "loglikelihood_ascending_rank"  "F.K_ascending_rank"           
+[17] "time_difference"               "loglikelihood"                
+[19] "F.K"                           "len"                          

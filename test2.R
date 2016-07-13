@@ -76,7 +76,7 @@ models_file <- ifelse(is.na(args[1]), "models/top-models.txt", args[1])
 classifiers <- readLines(models_file)
 
 
-testsets <- c("dwolla", "docusign", "scn", "yahoo")
+datasets <- c("dwolla", "docusign", "scn", "yahoo")
 
 # 10-fold CV repetitions
 fitControl <- trainControl(
@@ -96,19 +96,19 @@ fitControl <- trainControl(
   preProcOptions = c("center", "scale")
 )
 
-for(j in 1:length(testsets)) {
+for(j in 1:length(datasets)) {
   predictions <- c()
   cmatrices <- c()
   aucs <- c()
 
-  training <- paste(testsets[j], "Training", sep = "")
+  training <- paste(datasets[j], "Training", sep = "")
   training <- eval(parse(text=training))
-  testing <- paste(testsets[j], "Testing", sep = "")
+  testing <- paste(datasets[j], "Testing", sep = "")
   testing <- eval(parse(text=testing))
-  predictorsNames <- paste(testsets[j], "PredictorsNames", sep = "")
+  predictorsNames <- paste(datasets[j], "PredictorsNames", sep = "")
   predictorsNames <- eval(parse(text=predictorsNames))
   
-  print(paste("Opened test set", testsets[j]))
+  print(paste("Opened test set", datasets[j]))
   
   # load all the classifiers to test
   for(i in 1:length(classifiers)){
@@ -137,19 +137,19 @@ for(j in 1:length(testsets)) {
     errors <- which(pred != testing[,outcomeName])
     
     # save errors to text file
-    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/misclassifications", testsets[j], sep="/"), 
+    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/misclassifications", datasets[j], sep="/"), 
                  classifiers = c(classifier), results = errors, expanded = TRUE)
     
     cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
     # save cm to text file
-    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", testsets[j], sep="/"), 
+    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", datasets[j], sep="/"), 
                  classifiers = c(classifier), results = cm, expanded = TRUE)
     scalar_metrics(predictions=pred, truth=testing[,outcomeName], 
-                   outdir=paste("output/scalar", testsets[j], sep="/"), outfile=paste(classifier, "txt", sep = "."))
+                   outdir=paste("output/scalar", datasets[j], sep="/"), outfile=paste(classifier, "txt", sep = "."))
   }
 
   # finally, save all models predictions to text file ... 
-  save_results(outfile = paste(testsets[j], "txt", sep="."), outdir = "output/predictions", 
+  save_results(outfile = paste(datasets[j], "txt", sep="."), outdir = "output/predictions", 
                classifiers = classifiers, results = predictions, expanded = FALSE)
 
 
@@ -169,18 +169,18 @@ for(j in 1:length(testsets)) {
     source(paste(getwd(), "lib/plot_curve.R", sep="/"))
   
   op <- par(no.readonly=TRUE) #this is done to save the default settings
-  plot_dir <- paste("output/plots", testsets[j], sep = "/")
+  plot_dir <- paste("output/plots", datasets[j], sep = "/")
   if(!dir.exists(plot_dir))
     dir.create(plot_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
   
-  png(filename=paste(plot_dir, paste(testsets[j], "roc_plot.png", sep="_"), sep = "/"))
+  png(filename=paste(plot_dir, paste(datasets[j], "roc_plot.png", sep="_"), sep = "/"))
   plot_curve(predictions=predictions, classifiers=classifiers, 
              colors=g_col, line_type=line_types, 
              x_label="fpr", y_label="tpr", leg_pos="bottomright", plot_abline=TRUE, 
              leg_title="", main_title="", leg_horiz=FALSE, aucs=aucs)
   dev.off()
   
-  png(filename=paste(plot_dir, paste(testsets[j], "pr_plot.png", sep="_"), sep = "/"))
+  png(filename=paste(plot_dir, paste(datasets[j], "pr_plot.png", sep="_"), sep = "/"))
   plot_curve(predictions=predictions, classifiers=classifiers,
              colors=g_col, line_type=line_types,
              x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
