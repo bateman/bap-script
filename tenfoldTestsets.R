@@ -9,7 +9,7 @@ library(caret)
 library(ROCR)
 library(pROC)
 
-set.seed(875)
+set.seed(846)
 
 if(!exists("save_results", mode="function")) 
   source(paste(getwd(), "lib/save_results.R", sep="/"))
@@ -123,7 +123,7 @@ for(j in 1:length(datasets)) {
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          preProcess = c("center") , #"scale")
+                          #preProcess = c("center") , #"scale")
                           tuneLength = 1 # values per param
     )
     
