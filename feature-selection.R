@@ -9,19 +9,43 @@ feat_file <- ifelse(is.na(feat_file),"input/head.csv", feat_file)
 # best k features to select, default 10
 k <- args[2]
 k <- ifelse(is.na(k), 10, k)
+# output dir
+choice <- args[3]
+choice <- ifelse(is.na(choice), "so", choice)
+
+if(choice == "so") {
+  sep <- ","
+  time_format <- "%Y-%m-%d %H:%M:%S"  
+} else if(choice == "docusign") { 
+  sep <- ","
+  time_format <- "%d/%m/%Y %H:%M:%S"
+} else if(choice == "dwolla") { 
+  sep <- ","
+  time_format <- "%d/%m/%y %H:%M"
+} else if(choice == "yahoo") { 
+  sep <- ";"
+  time_format <- "%Y-%m-%d %H:%M:%S"
+} else if(choice == "scn") {
+  sep <- ","
+  time_format <- "%Y-%m-%d %H:%M:%S"
+} else { ## assume a test is run without param from command line
+  sep <- ","
+  time_format <- "%Y-%m-%d %H:%M:%S"
+}
 
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid",
-                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
+# excluded_predictors <- c("resolved", "answer_uid", "question_uid",
+#                          "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
+excluded_predictors <- c("resolved", "answer_uid", "question_uid")
 
 if(!exists("setup_dataframe", mode="function")) 
   source(paste(getwd(), "lib/setup_dataframe.R", sep="/"))
 # load the feature file into dataframe dfm 
-temp <- read.csv(feat_file, header = TRUE, sep=",")
+temp <- read.csv(feat_file, header = TRUE, sep=sep)
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                        time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
+                        time_format=time_format, normalize = FALSE)
 dfm <- temp[[1]]
 predictorsNames <- temp[[2]]
 
@@ -31,7 +55,7 @@ dfm <- SMOTE(solution ~ ., data=dfm, perc.under = 100, perc.over = 700)
 dfm$solution<- as.integer(as.logical(dfm$solution))
 
 # output file for the classifier at hand
-output_dir <- "output/feature-selection"
+output_dir <- paste("output/feature-selection", choice, sep = "/")
 if(!dir.exists(output_dir))
   dir.create(output_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
 output_file <- paste(output_dir, "feature-subset.txt", sep = "/")
