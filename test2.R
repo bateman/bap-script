@@ -75,9 +75,7 @@ gc()
 
 models_file <- ifelse(is.na(args[1]), "models/top-models1.txt", args[1])
 classifiers <- readLines(models_file)
-predictions <- c()
-cmatrices <- c()
-aucs <- c()
+
 
 testsets <- c("dwolla", "docusign", "scn", "yahoo")
 
@@ -100,11 +98,16 @@ fitControl <- trainControl(
 )
 
 for(j in 1:length(testsets)) {
+  predictions <- c()
+  cmatrices <- c()
+  aucs <- c()
 
   training <- paste(testsets[j], "Training", sep = "")
   training <- eval(parse(text=training))
   testing <- paste(testsets[j], "Testing", sep = "")
   testing <- eval(parse(text=testing))
+  
+  print(paste("Opened test set", testsets[j]))
   
   # load all the classifiers to test
   for(i in 1:length(classifiers)){
