@@ -51,7 +51,7 @@ dataset <- c("so")
 # 10-fold CV repetitions
 fitControl <- trainControl(
   method = "repeatedcv",
-  number = 2,
+  number = 10,
   ## repeated ten times, works only with method="repeatedcv", otherwise 1
   repeats = 1,
   #verboseIter = TRUE,
@@ -70,6 +70,7 @@ for(j in 1:length(dataset)) {
   predictions <- c()
   cmatrices <- c()
   aucs <- c()
+  prec_rec <- c()
   
   training <- paste(dataset[j], "Training", sep = "")
   training <- eval(parse(text=training))
@@ -98,7 +99,7 @@ for(j in 1:length(dataset)) {
     )
     
     pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
-    model.prediction_prob <- prediction(pred_prob[,2], testing[,outcomeName])
+    model.prediction_prob <- ROCR::prediction(pred_prob[,2], testing[,outcomeName])
     predictions <- c(predictions, model.prediction_prob)
     aucs <- c(aucs, roc(as.numeric(testing[,outcomeName])-1, pred_prob[,2])$auc)
     aucs <- round(aucs, digits = 2)
@@ -111,6 +112,9 @@ for(j in 1:length(dataset)) {
                  classifiers = c(classifier), results = errors, expanded = TRUE)
     
     cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
+    P <- round(cm$byClass['Pos Pred Value'], digits=2)
+    R <- round(cm$byClass['Sensitivity'],  digits=2)
+    prec_rec <- c(prec_rec, paste("P=", P, ", R=", R, sep=""))
     # save cm to text file
     save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", dataset[j], sep="/"), 
                  classifiers = c(classifier), results = cm, expanded = TRUE)
@@ -154,7 +158,7 @@ for(j in 1:length(dataset)) {
   plot_curve(predictions=predictions, classifiers=classifiers,
              colors=g_col, line_type=line_types,
              x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
-             leg_title="", main_title="", leg_horiz=FALSE)
+             leg_title="", main_title="", leg_horiz=FALSE, pr=prec_rec)
   dev.off()
   par(op) #re-set the plot to the default settings
 }

@@ -4,7 +4,7 @@ library(ROCR)  # for plotting ROC curves
 
 plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widths=1, x_label="fpr", y_label="tpr",
                        leg_pos="bottomright", leg_title="Models", leg_horiz=TRUE, leg_frame='n',
-                       plot_abline=TRUE, main_title="", aucs=NULL){
+                       plot_abline=TRUE, main_title="", aucs=NULL, pr=NULL){
   par(
     mar = c(5, 5, 2, 2),
     xaxs = "i",
@@ -25,6 +25,10 @@ plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widt
   if(!is.null(aucs)) {
     for (i in 1:length(classifiers)) {
       classifiers[i] <- paste(classifiers[i], " (AUC=", aucs[i] , ")", sep="")
+    } 
+  } else if(!is.null(pr)) {
+    for (i in 1:length(classifiers)) {
+      classifiers[i] <- paste(classifiers[i], " (", pr[i] , ")", sep="")
     }
   }
   

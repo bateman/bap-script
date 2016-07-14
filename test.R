@@ -81,6 +81,7 @@ classifiers <- readLines(models_file)
 predictions <- c()
 cmatrices <- c()
 aucs <- c()
+prec_rec <- c()
 
 # for model: XYZ
 set.seed(875)
@@ -126,7 +127,7 @@ for(i in 1:length(classifiers)){
                         tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
-  model.prediction_prob <- prediction(pred_prob[,2], testing[,outcomeName])
+  model.prediction_prob <- ROCR::prediction(pred_prob[,2], testing[,outcomeName])
   predictions <- c(predictions, model.prediction_prob)
   aucs <- c(aucs, roc(as.numeric(testing[,outcomeName])-1, pred_prob[,2])$auc)
   aucs <- round(aucs, digits = 2)
@@ -139,6 +140,9 @@ for(i in 1:length(classifiers)){
                classifiers = c(classifier), results = errors, expanded = TRUE)
   
   cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
+  P <- round(cm$byClass['Pos Pred Value'], digits=2)
+  R <- round(cm$byClass['Sensitivity'],  digits=2)
+  prec_rec <- c(prec_rec, paste("P=", P, ", R=", R, sep=""))
   # save cm to text file
   save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", choice, sep="/"), 
                classifiers = c(classifier), results = cm, expanded = TRUE)
@@ -182,6 +186,6 @@ png(filename=paste(plot_dir, paste(choice, "pr_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
            x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
-           leg_title="", main_title="", leg_horiz=FALSE)
+           leg_title="", main_title="", leg_horiz=FALSE, pr=prec_rec)
 dev.off()
 par(op) #re-set the plot to the default settings
