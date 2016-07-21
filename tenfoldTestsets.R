@@ -22,12 +22,12 @@ if(!exists("setup_dataframe", mode="function"))
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("answer_uid", "question_uid")
+excluded_predictors <- c("resolved", "answer_uid", "question_uid")
 #excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
 # load testing files and predictors
-temp <- read.csv("input/docusing_10f.csv", header = TRUE, sep=";")
+temp <- read.csv("input/docusing.csv", header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%d/%m/%Y %H:%M", normalize = FALSE, na_omit = FALSE)
 docusign <- temp[[1]]
@@ -37,7 +37,7 @@ docusignTraining <- docusign[splitIndex, ]
 docusignTesting <- docusign[-splitIndex, ]
 rm(docusign)
 
-temp <- read.csv("input/dwolla_10f.csv", header = TRUE, sep=";")
+temp <- read.csv("input/dwolla.csv", header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                    time_format="%d/%m/%y %H:%M", normalize = FALSE)
 dwolla <- temp[[1]]
@@ -78,14 +78,25 @@ gc()
 models_file <- ifelse(is.na(args[1]), "models/top-models1.txt", args[1])
 classifiers <- readLines(models_file)
 
+# enables multicore parallel processing 
+if(.Platform$OS.type != "windows") { # on unix-like systems
+  library(doMC)
+  #reads the number of cores
+  c <- detectCores()
+  registerDoMC(cores = c)
+} else { # on windows systems
+  library(doParallel)
+  cl <- makeCluster(detectCores(), type='PSOCK')
+  registerDoParallel(cl)
+}
 
 #datasets <- c("dwolla", "docusign", "scn", "yahoo")
-datasets <- c("docusign")
+datasets <- c("scn")
 
 # 10-fold CV repetitions
 fitControl <- trainControl(
   method = "repeatedcv",
-  number = 5,
+  number = 10,
   ## repeated ten times, works only with method="repeatedcv", otherwise 1
   repeats = 1,
   #verboseIter = TRUE,
@@ -95,9 +106,9 @@ fitControl <- trainControl(
   classProbs = TRUE,
   # enable parallel computing if avail
   allowParallel = TRUE,
-  returnData = FALSE
-  #sampling = "down" 
-  #preProcOptions = c("center", "scale")
+  returnData = FALSE,
+  #sampling = "smote"
+  preProcOptions = c("center", "scale")
 )
 
 for(j in 1:length(datasets)) {
@@ -129,7 +140,7 @@ for(j in 1:length(datasets)) {
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          tuneLength = 1 # values per param
+                          tuneLength = 5 # values per param
     )
     
     pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
@@ -192,7 +203,7 @@ for(j in 1:length(datasets)) {
   plot_curve(predictions=predictions, classifiers=classifiers,
              colors=g_col, line_type=line_types,
              x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
-             leg_title="", main_title="", leg_horiz=FALSE, pr=prec_rec)
+             leg_title="", main_title="", leg_horiz=FALSE, pr=NULL)
   dev.off()
   par(op) #re-set the plot to the default settings
 }
