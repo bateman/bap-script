@@ -18,6 +18,9 @@ if(!exists("scalar_metrics", mode="function"))
   source(paste(getwd(), "lib/scalar_metrics.R", sep="/"))
 if(!exists("setup_dataframe", mode="function")) 
   source(paste(getwd(), "lib/setup_dataframe.R", sep="/"))
+# enables multicore parallel processing 
+if(!exists("enable_parallel", mode="function")) 
+  source(paste(getwd(), "lib/enable_parallel.R", sep="/"))
 
 
 # name of outcome var to be predicted
@@ -83,18 +86,6 @@ gc()
 
 models_file <- ifelse(is.na(args[1]), "models/top-models1.txt", args[1])
 classifiers <- readLines(models_file)
-
-# enables multicore parallel processing 
-if(.Platform$OS.type != "windows") { # on unix-like systems
-  library(doMC)
-  #reads the number of cores
-  c <- detectCores()
-  registerDoMC(cores = c)
-} else { # on windows systems
-  library(doParallel)
-  cl <- makeCluster(detectCores(), type='PSOCK')
-  registerDoParallel(cl)
-}
 
 #datasets <- c("dwolla", "docusign", "scn", "yahoo")
 datasets <- c("dwolla")
