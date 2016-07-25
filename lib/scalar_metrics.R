@@ -9,10 +9,10 @@ scalar_metrics <- function(predictions, truth, outdir="output/scalar", outfile) 
   out <- capture.output(CM)
   cat("\nConfusion Matrix:\n", out, file=output_file, sep="\n", append=FALSE)
   
-  TP <- CM[1]
-  FP <- CM[3]
-  FN <- CM[2]
-  TN <- CM[4]
+  TP <- as.numeric(CM[1])
+  FP <- as.numeric(CM[3])
+  FN <- as.numeric(CM[2])
+  TN <- as.numeric(CM[4])
   precision <- posPredValue(predictions, testing[,outcomeName])
   recall <- sensitivity(predictions, testing[,outcomeName])
   TNr <- specificity(predictions, testing[,outcomeName])

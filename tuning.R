@@ -166,33 +166,12 @@ for(i in 1:length(classifiers)){
 
   # computes the scalar metrics
   predictions <- predict(object=model, testing[,predictorsNames], type='raw')
-  CM <- table(data=predictions, reference=testing[,outcomeName])
-  out <- capture.output(CM)
-  cat("\nConfusion Matrix:\n", out, file=output_file, sep="\n", append=TRUE)
   
-  TN <- CM[1] # was TP
-  FN <- CM[3] # was FP
-  FP <- CM[2] # was FN
-  TP <- CM[4] # was TN
-  precision <- posPredValue(predictions, testing[,outcomeName])
-  recall <- sensitivity(predictions, testing[,outcomeName])
-  TNr <- specificity(predictions, testing[,outcomeName])
-  TPr <- recall
-  FPr <- FP / (FP + TN)
+  if(!exists("scalar_metrics", mode="function")) 
+    source(paste(getwd(), "lib/scalar_metrics.R", sep="/"))
+  scalar_metrics(predictions=predictions, truth=testing[,outcomeName], outdir=".", outfile=output_file)
   
-  F1 <- (2 * precision * recall) / (precision + recall)
-  out <- paste("F-measure =", F1)
-  cat("", out, file=output_file, sep="\n", append=TRUE)
-  G <- sqrt(TPr * TNr)
-  out <- paste("G-mean =", G)
-  cat("", out, file=output_file, sep = "\n", append = TRUE)
-  M <- ((TP*TN) - (FP*FN)) / sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
-  out <- paste("Matthews phi =", M)
-  cat("", out, file=output_file, sep = "\n", append = TRUE)
-  B <- 1 - (sqrt((0-FPr)^2 +(1-TPr)^2)/sqrt(2))
-  out <- paste("Balance =", B)
-  cat("", out, file=output_file, sep = "\n", append = TRUE)
-  
+
   ## === cleanup ===
   # deallocate large objects
   rm(model)
@@ -203,5 +182,3 @@ for(i in 1:length(classifiers)){
   # garbage collection
   gc()
 }
-
-# SO[!complete.cases(SO),]
