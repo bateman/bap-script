@@ -5,6 +5,11 @@
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 
+library(caret)
+library(DMwR)
+library(ROCR)
+library(pROC)
+
 if(!exists("save_results", mode="function")) 
   source(paste(getwd(), "lib/save_results.R", sep="/"))
 if(!exists("scalar_metrics", mode="function")) 
@@ -12,16 +17,14 @@ if(!exists("scalar_metrics", mode="function"))
 if(!exists("setup_dataframe", mode="function")) 
   source(paste(getwd(), "lib/setup_dataframe.R", sep="/"))
 
-
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid",
-                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
+excluded_predictors <- c("resolved", "answer_uid", "question_uid")
 #excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
-csv_file <- ifelse(is.na(args[1]), "input/so_features.csv", args[1])
+csv_file <- ifelse(is.na(args[1]), "input/test.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
@@ -29,26 +32,25 @@ SO <- temp[[1]]
 predictorsNames <- temp[[2]]
 
 choice <- ifelse(is.na(args[2]), "so", args[2])
-#choice <- "docusign"
+choice <- "yahoo"
 
 if(choice == "so") {
   seeds <- readLines("seeds.txt")
   set.seed(seeds[length(seeds)])
-  library(caret)
   splitIndex <- createDataPartition(SO[,outcomeName], p = .70, list = FALSE)
   testing <- SO[-splitIndex, ]
-  library(DMwR)
   SO <- SMOTE(solution ~ ., data=SO[splitIndex, ], perc.under = 100, perc.over = 700)
   #summary(SO$solution)
 } else {
+  SO <- SMOTE(solution ~ ., data=SO)#, perc.under = 100, perc.over = 700)
   if(choice == "docusign") { 
     csv_file <- "input/docusing.csv"
     sep <- ","
     time_format <- "%d/%m/%Y %H:%M:%S"
   } else if(choice == "dwolla") { 
     csv_file <- "input/dwolla.csv"
-    sep <- ","
-    time_format <- "%d/%m/%y %H:%M"
+    sep <- ";"
+    time_format <- "%d/%m/%Y %H:%M"
   } else if(choice == "yahoo") { 
     csv_file <- "input/yahoo.csv"
     sep <- ";"
@@ -76,7 +78,7 @@ rm(temp)
 # garbage collection
 gc()
 
-models_file <- ifelse(is.na(args[3]), "models/top-models.txt", args[3])
+models_file <- ifelse(is.na(args[3]), "models/top-models1.txt", args[3])
 classifiers <- readLines(models_file)
 predictions <- c()
 cmatrices <- c()
@@ -88,10 +90,20 @@ set.seed(875)
 # model with optimal parameters.
 # modelX <- classifier(solution ~ ., data = training, parameters...)
 # modelX.pred <- predict(modelX, testing)
-library(caret)
-library(ROCR)
-library(pROC)
+
 # load all the classifiers to tune
+
+# enables multicore parallel processing 
+if(.Platform$OS.type != "windows") { # on unix-like systems
+  library(doMC)
+  #reads the number of cores
+  c <- detectCores()
+  registerDoMC(cores = c)
+} else { # on windows systems
+  library(doParallel)
+  cl <- makeCluster(detectCores(), type='PSOCK')
+  registerDoParallel(cl)
+}
 
 for(i in 1:length(classifiers)){
   nline <- strsplit(classifiers[i], ":")[[1]]
@@ -123,7 +135,7 @@ for(i in 1:length(classifiers)){
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
-                        trControl = trainControl(method="none", classProbs = TRUE), #sampling = "smote"),  
+                        trControl = trainControl(method="none", classProbs = TRUE, sampling = "down"),  
                         tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
@@ -139,7 +151,7 @@ for(i in 1:length(classifiers)){
   save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/misclassifications", choice, sep="/"), 
                classifiers = c(classifier), results = errors, expanded = TRUE)
   
-  cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
+  cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]), positive="True")
   P <- round(cm$byClass['Pos Pred Value'], digits=2)
   R <- round(cm$byClass['Sensitivity'],  digits=2)
   prec_rec <- c(prec_rec, paste("P=", P, ", R=", R, sep=""))
@@ -158,14 +170,14 @@ save_results(outfile = paste(choice, "txt", sep="."), outdir = "output/predictio
 # and plot ROC and PR curves
 
 line_types <- 1:length(classifiers)
-# g_col <- gray.colors(
-#   n = length(classifiers),
-#   start = 0.3,
-#   end = 0.8,
-#   gamma = 2.2,
-#   alpha = NULL
-# )
-g_col <- rainbow(length(classifiers))
+g_col <- gray.colors(
+  n = length(classifiers),
+  start = 0.3,
+  end = 0.8,
+  gamma = 2.2,
+  alpha = NULL
+)
+#g_col <- rainbow(length(classifiers))
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))

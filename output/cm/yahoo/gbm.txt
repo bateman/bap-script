@@ -4,26 +4,26 @@
 Confusion Matrix and Statistics
 
        reference
-data    False  True
-  False 31333  1129
-  True   5160 14544
-                                          
-               Accuracy : 0.8794          
-                 95% CI : (0.8766, 0.8822)
-    No Information Rate : 0.6996          
-    P-Value [Acc > NIR] : < 2.2e-16       
-                                          
-                  Kappa : 0.7328          
- Mcnemar's Test P-Value : < 2.2e-16       
-                                          
-            Sensitivity : 0.8586          
-            Specificity : 0.9280          
-         Pos Pred Value : 0.9652          
-         Neg Pred Value : 0.7381          
-             Prevalence : 0.6996          
-         Detection Rate : 0.6006          
-   Detection Prevalence : 0.6223          
-      Balanced Accuracy : 0.8933          
-                                          
-       'Positive' Class : False           
-                                          
+data     False   True
+  False 102932  37312
+  True   18712  14934
+                                        
+               Accuracy : 0.6778        
+                 95% CI : (0.6756, 0.68)
+    No Information Rate : 0.6995        
+    P-Value [Acc > NIR] : 1             
+                                        
+                  Kappa : 0.1469        
+ Mcnemar's Test P-Value : <2e-16        
+                                        
+            Sensitivity : 0.28584       
+            Specificity : 0.84617       
+         Pos Pred Value : 0.44386       
+         Neg Pred Value : 0.73395       
+             Prevalence : 0.30045       
+         Detection Rate : 0.08588       
+   Detection Prevalence : 0.19349       
+      Balanced Accuracy : 0.56601       
+                                        
+       'Positive' Class : True          
+                                        

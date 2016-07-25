@@ -6,6 +6,7 @@
 args<-commandArgs(TRUE)
 
 library(caret)
+library(DMwR)
 library(ROCR)
 library(pROC)
 
@@ -22,7 +23,8 @@ if(!exists("setup_dataframe", mode="function"))
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid")
+excluded_predictors <- c("resolved", "answer_uid", "question_uid", "views", "views_rank",
+                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 #excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
@@ -32,18 +34,22 @@ temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_pr
                         time_format="%d/%m/%Y %H:%M", normalize = FALSE, na_omit = FALSE)
 docusign <- temp[[1]]
 docusignPredictorsNames <- temp[[2]]
+#docusignPredictorsNames <- c("upvotes")
 splitIndex <- createDataPartition(docusign[,outcomeName], p = .70, list = FALSE)
 docusignTraining <- docusign[splitIndex, ]
 docusignTesting <- docusign[-splitIndex, ]
 rm(docusign)
 
-temp <- read.csv("input/dwolla.csv", header = TRUE, sep=",")
+temp <- read.csv("input/dwolla.csv", header = TRUE, sep=";")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
-                   time_format="%d/%m/%y %H:%M", normalize = FALSE)
+                   time_format="%d/%m/%Y %H:%M", normalize = FALSE)
+#dwolla <- SMOTE(solution ~ ., data=temp[[1]])
 dwolla <- temp[[1]]
-dwollaPredictorsNames <- temp[[2]]
+dwollaPredictorsNames <- temp[[2]] 
+#dwollaPredictorsNames <- c("wordcount", "sentences", "upvotes")  # from CFS
 splitIndex <- createDataPartition(dwolla[,outcomeName], p = .70, list = FALSE)
-dwollaTraining <- dwolla[splitIndex, ]
+#dwollaTraining <- dwolla[splitIndex, ]
+dwollaTraining <- SMOTE(solution ~ ., data=dwolla[splitIndex, ])
 dwollaTesting <- dwolla[-splitIndex, ]
 rm(dwolla)
 # config
@@ -91,14 +97,14 @@ if(.Platform$OS.type != "windows") { # on unix-like systems
 }
 
 #datasets <- c("dwolla", "docusign", "scn", "yahoo")
-datasets <- c("scn")
+datasets <- c("dwolla")
 
 # 10-fold CV repetitions
 fitControl <- trainControl(
   method = "repeatedcv",
   number = 10,
   ## repeated ten times, works only with method="repeatedcv", otherwise 1
-  repeats = 1,
+  repeats = 5,
   #verboseIter = TRUE,
   #savePredictions = TRUE,
   # binary problem
@@ -107,7 +113,7 @@ fitControl <- trainControl(
   # enable parallel computing if avail
   allowParallel = TRUE,
   returnData = FALSE,
-  #sampling = "smote"
+  sampling = "down",
   preProcOptions = c("center", "scale")
 )
 
@@ -153,42 +159,42 @@ for(j in 1:length(datasets)) {
     errors <- which(pred != testing[,outcomeName])
     
     # save errors to text file
-    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/misclassifications", datasets[j], sep="/"), 
+    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cv/misclassifications", datasets[j], sep="/"), 
                  classifiers = c(classifier), results = errors, expanded = TRUE)
     
-    cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
+    cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]), positive="True")
     P <- round(cm$byClass['Pos Pred Value'], digits=2)
     R <- round(cm$byClass['Sensitivity'],  digits=2)
     prec_rec <- c(prec_rec, paste("P=", P, ", R=", R, sep=""))
     # save cm to text file
-    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", datasets[j], sep="/"), 
+    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cv/cm", datasets[j], sep="/"), 
                  classifiers = c(classifier), results = cm, expanded = TRUE)
     scalar_metrics(predictions=pred, truth=testing[,outcomeName], 
-                   outdir=paste("output/scalar", datasets[j], sep="/"), outfile=paste(classifier, "txt", sep = "."))
+                   outdir=paste("output/cv/scalar", datasets[j], sep="/"), outfile=paste(classifier, "txt", sep = "."))
   }
 
   # finally, save all models predictions to text file ... 
-  save_results(outfile = paste(datasets[j], "txt", sep="."), outdir = "output/predictions", 
+  save_results(outfile = paste(datasets[j], "txt", sep="."), outdir = "output/cv/predictions", 
                classifiers = classifiers, results = predictions, expanded = FALSE)
 
 
   # and plot ROC and PR curves
   
   line_types <- 1:length(classifiers)
-  # g_col <- gray.colors(
-  #   n = length(classifiers),
-  #   start = 0.3,
-  #   end = 0.8,
-  #   gamma = 2.2,
-  #   alpha = NULL
-  # )
-  g_col <- rainbow(length(classifiers))
+  g_col <- gray.colors(
+    n = length(classifiers),
+    start = 0.3,
+    end = 0.8,
+    gamma = 2.2,
+    alpha = NULL
+  )
+  #g_col <- rainbow(length(classifiers))
   
   if(!exists("plot_curve", mode="function")) 
     source(paste(getwd(), "lib/plot_curve.R", sep="/"))
   
   op <- par(no.readonly=TRUE) #this is done to save the default settings
-  plot_dir <- paste("output/plots", datasets[j], sep = "/")
+  plot_dir <- paste("output/cv/plots", datasets[j], sep = "/")
   if(!dir.exists(plot_dir))
     dir.create(plot_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
   
@@ -203,7 +209,7 @@ for(j in 1:length(datasets)) {
   plot_curve(predictions=predictions, classifiers=classifiers,
              colors=g_col, line_type=line_types,
              x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
-             leg_title="", main_title="", leg_horiz=FALSE, pr=NULL)
+             leg_title="", main_title="", leg_horiz=FALSE, pr=prec_rec)
   dev.off()
   par(op) #re-set the plot to the default settings
 }

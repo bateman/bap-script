@@ -21,6 +21,12 @@ setup_dataframe <- function(dataframe, outcomeName, excluded_predictors, time_fo
     # ignore
   })
   
+  tryCatch({
+    dataframe$F.K<- numeric(dataframe$F.K)
+  }, error = function(e) {
+    # ignore
+  })
+  
   # first check whether thera are leading and trailing apostrophes around the date_time field
   dataframe$date_time <- gsub("'", '', dataframe$date_time)
   # then convert timestamps into POSIX std time values, then to equivalent numbers

@@ -20,8 +20,8 @@ if(choice == "so") {
   sep <- ","
   time_format <- "%d/%m/%Y %H:%M:%S"
 } else if(choice == "dwolla") { 
-  sep <- ","
-  time_format <- "%d/%m/%y %H:%M"
+  sep <- ";"
+  time_format <- "%d/%m/%Y %H:%M"
 } else if(choice == "yahoo") { 
   sep <- ";"
   time_format <- "%Y-%m-%d %H:%M:%S"

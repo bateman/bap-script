@@ -27,7 +27,7 @@ excluded_predictors <- c("resolved", "answer_uid", "question_uid")
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
 # load dataset
-csv_file <- ifelse(is.na(args[1]), "input/so_features.csv", args[1])
+csv_file <- ifelse(is.na(args[1]), "input/esej_features_85k.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
@@ -36,6 +36,8 @@ soPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(so[,outcomeName], p = .70, list = FALSE)
 soTraining <- so[splitIndex, ]
 soTesting <- so[-splitIndex, ]
+
+#soTesting <- maxDissim(soTraining, soTesting, n = 20)
 
 # remove large unused objects from memory
 rm(so)
@@ -62,7 +64,7 @@ fitControl <- trainControl(
   # enable parallel computing if avail
   allowParallel = TRUE,
   returnData = FALSE,
-  sampling = "smote", 
+  sampling = "down", 
   preProcOptions = c("center", "scale")
 )
 
@@ -108,7 +110,7 @@ for(j in 1:length(dataset)) {
     errors <- which(pred != testing[,outcomeName])
     
     # save errors to text file
-    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/misclassifications", dataset[j], sep="/"), 
+    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cv/misclassifications", dataset[j], sep="/"), 
                  classifiers = c(classifier), results = errors, expanded = TRUE)
     
     cm <- caret::confusionMatrix(table(data=pred, reference=testing[,outcomeName]))
@@ -116,14 +118,14 @@ for(j in 1:length(dataset)) {
     R <- round(cm$byClass['Sensitivity'],  digits=2)
     prec_rec <- c(prec_rec, paste("P=", P, ", R=", R, sep=""))
     # save cm to text file
-    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cm", dataset[j], sep="/"), 
+    save_results(outfile = paste(classifier, "txt", sep="."), outdir = paste("output/cv/cm", dataset[j], sep="/"), 
                  classifiers = c(classifier), results = cm, expanded = TRUE)
     scalar_metrics(predictions=pred, truth=testing[,outcomeName], 
-                   outdir=paste("output/scalar", dataset[j], sep="/"), outfile=paste(classifier, "txt", sep = "."))
+                   outdir=paste("output/cv/scalar", dataset[j], sep="/"), outfile=paste(classifier, "txt", sep = "."))
   }
   
   # finally, save all models predictions to text file ... 
-  save_results(outfile = paste(dataset[j], "txt", sep="."), outdir = "output/predictions", 
+  save_results(outfile = paste(dataset[j], "txt", sep="."), outdir = "output/cv/predictions", 
                classifiers = classifiers, results = predictions, expanded = FALSE)
   
   
@@ -143,7 +145,7 @@ for(j in 1:length(dataset)) {
     source(paste(getwd(), "lib/plot_curve.R", sep="/"))
   
   op <- par(no.readonly=TRUE) #this is done to save the default settings
-  plot_dir <- paste("output/plots", dataset[j], sep = "/")
+  plot_dir <- paste("output/cv/plots", dataset[j], sep = "/")
   if(!dir.exists(plot_dir))
     dir.create(plot_dir, showWarnings = FALSE, recursive = TRUE, mode = "0777")
   

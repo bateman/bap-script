@@ -2,7 +2,7 @@
 
 library(ROCR)  # for plotting ROC curves
 
-plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widths=1, x_label="fpr", y_label="tpr",
+plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widths=1.8, x_label="fpr", y_label="tpr",
                        leg_pos="bottomright", leg_title="Models", leg_horiz=TRUE, leg_frame='n',
                        plot_abline=TRUE, main_title="", aucs=NULL, pr=NULL){
   par(
