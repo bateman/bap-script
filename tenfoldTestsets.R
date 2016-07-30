@@ -26,20 +26,20 @@ if(!exists("enable_parallel", mode="function"))
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid", "views", "views_rank",
+excluded_predictors <- c("resolved", "answer_uid", "question_uid", "views", "views_rank", "answers_count",
                          "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 #excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
 # load testing files and predictors
-temp <- read.csv("input/docusing.csv", header = TRUE, sep=",")
+temp <- read.csv("input/docusing.csv", header = TRUE, sep=";")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%d/%m/%Y %H:%M", normalize = FALSE, na_omit = FALSE)
 docusign <- temp[[1]]
 docusignPredictorsNames <- temp[[2]]
-#docusignPredictorsNames <- c("upvotes")
 splitIndex <- createDataPartition(docusign[,outcomeName], p = .70, list = FALSE)
 docusignTraining <- docusign[splitIndex, ]
+#docusignTraining <- SMOTE(solution ~ ., data=docusign[splitIndex, ], perc.under = 100, perc.over = 700)
 docusignTesting <- docusign[-splitIndex, ]
 rm(docusign)
 
@@ -49,9 +49,8 @@ temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_pr
 #dwolla <- SMOTE(solution ~ ., data=temp[[1]])
 dwolla <- temp[[1]]
 dwollaPredictorsNames <- temp[[2]] 
-#dwollaPredictorsNames <- c("wordcount", "sentences", "upvotes")  # from CFS
 splitIndex <- createDataPartition(dwolla[,outcomeName], p = .70, list = FALSE)
-#dwollaTraining <- dwolla[splitIndex, ]
+dwollaTraining <- dwolla[splitIndex, ]
 dwollaTraining <- SMOTE(solution ~ ., data=dwolla[splitIndex, ])
 dwollaTesting <- dwolla[-splitIndex, ]
 rm(dwolla)
@@ -66,6 +65,7 @@ yahoo <- temp[[1]]
 yahooPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(yahoo[,outcomeName], p = .70, list = FALSE)
 yahooTraining <- yahoo[splitIndex, ]
+#yahooTraining <- SMOTE(solution ~ ., data=yahoo[splitIndex, ])
 yahooTesting <- yahoo[-splitIndex, ]
 rm(yahoo)
 
@@ -95,7 +95,7 @@ fitControl <- trainControl(
   method = "repeatedcv",
   number = 10,
   ## repeated ten times, works only with method="repeatedcv", otherwise 1
-  repeats = 5,
+  repeats = 10,
   #verboseIter = TRUE,
   #savePredictions = TRUE,
   # binary problem
@@ -104,7 +104,7 @@ fitControl <- trainControl(
   # enable parallel computing if avail
   allowParallel = TRUE,
   returnData = FALSE,
-  sampling = "down",
+  sampling = "up",
   preProcOptions = c("center", "scale")
 )
 
@@ -137,7 +137,7 @@ for(j in 1:length(datasets)) {
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          tuneLength = 5 # values per param
+                          tuneLength = 10 # values per param
     )
     
     pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
@@ -200,7 +200,7 @@ for(j in 1:length(datasets)) {
   plot_curve(predictions=predictions, classifiers=classifiers,
              colors=g_col, line_type=line_types,
              x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
-             leg_title="", main_title="", leg_horiz=FALSE, pr=prec_rec)
+             leg_title="", main_title="", leg_horiz=FALSE, pr=NULL)
   dev.off()
   par(op) #re-set the plot to the default settings
 }
