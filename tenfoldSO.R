@@ -25,12 +25,12 @@ if(!exists("enable_parallel", mode="function"))
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid")
-#excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
-#                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
+#excluded_predictors <- c("resolved", "answer_uid", "question_uid", "answers_count")
+excluded_predictors <- c("answer_uid", "question_uid", "answers_count", "views", "views_rank",
+                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
 # load dataset
-csv_file <- ifelse(is.na(args[1]), "input/esej_features_85k.csv", args[1])
+csv_file <- ifelse(is.na(args[1]), "input/esej_features_341k.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
@@ -67,7 +67,7 @@ fitControl <- trainControl(
   # enable parallel computing if avail
   allowParallel = TRUE,
   returnData = FALSE,
-  sampling = "down", 
+  #sampling = "down", 
   preProcOptions = c("center", "scale")
 )
 
@@ -100,7 +100,7 @@ for(j in 1:length(dataset)) {
                           trControl = fitControl,
                           metric = "ROC",
                           #preProcess = c("center") , #"scale")
-                          tuneLength = 1 # values per param
+                          tuneLength = 5 # values per param
     )
     
     pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
@@ -163,7 +163,7 @@ for(j in 1:length(dataset)) {
   plot_curve(predictions=predictions, classifiers=classifiers,
              colors=g_col, line_type=line_types,
              x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
-             leg_title="", main_title="", leg_horiz=FALSE, pr=prec_rec)
+             leg_title="", main_title="", leg_horiz=FALSE, pr=NULL)
   dev.off()
   par(op) #re-set the plot to the default settings
 }
