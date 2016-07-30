@@ -18,8 +18,12 @@ plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widt
   for(i in 1:length(predictions)) {
     adding <- ifelse(i == 1, FALSE, TRUE)
     perf <- performance(predictions[[i]], y_label, x_label)
-    plot(main=main_title, perf, add=adding, col = colors[i], 
-         lty = line_types[i], lwd = line_widths, xlim=range, ylim=range)
+    if(x_label=="fpr" && y_label=="tpr")
+      plot(main=main_title, perf, add=adding, col = colors[i], 
+           lty = line_types[i], lwd = line_widths, xlim=range, ylim=range)
+    else if (x_label=="rec" && y_label=="prec")
+      PRcurve(main=main_title, predictions[[i]]@predictions,predictions[[i]]@labels, add=adding, col = colors[i], 
+               lty = line_types[i], lwd = line_widths, xlim=range, ylim=range)
   }
   
   if(!is.null(aucs)) {
