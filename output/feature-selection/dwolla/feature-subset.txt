@@ -1,34 +1,34 @@
 *******  BORUTA  *******
-Boruta performed 12 iterations in 5.134798 secs.
+Boruta performed 12 iterations in 3.107599 secs.
  23 attributes confirmed important: answers_count, avg_chars_per_word,
 avg_chars_per_word_rank, avg_words_per_sentence,
 avg_words_per_sentence_rank and 18 more.
  No attributes deemed unimportant.
 
-                               meanImp medianImp    minImp   maxImp normHits
-answers_count                17.547205 17.774133 15.826481 18.63639        1
-date_time                    13.740688 13.603584 12.340148 14.90067        1
-time_difference              12.218656 12.308604 11.236422 13.16122        1
-time_difference_rank         12.940742 12.831740 12.194907 13.96206        1
-len                          16.530154 16.499450 15.462700 17.37917        1
-len_rank                     25.034035 25.120177 23.840838 25.89598        1
-wordcount                    14.463095 14.500627 13.816392 15.21069        1
-wordcount_rank               21.888826 21.999297 19.907561 23.36389        1
-avg_chars_per_word           21.465856 21.583300 19.710225 22.39610        1
-avg_chars_per_word_rank      14.795142 14.754773 14.085834 15.35035        1
-sentences                    16.492205 16.340519 15.394546 17.57048        1
-sentences_rank               23.091324 23.025441 20.987330 24.80386        1
-avg_words_per_sentence       14.482843 14.570020 13.313893 16.28361        1
-avg_words_per_sentence_rank  12.821805 12.859460 12.003356 13.88860        1
-longest_sentence             14.138693 14.110094 12.844209 15.29151        1
-longest_sentence_rank        13.442469 13.609103 12.580371 14.41525        1
-loglikelihood                16.476880 16.469889 14.993850 17.50709        1
-loglikelihood_ascending_rank 17.853747 17.777799 16.830490 19.12166        1
-F.K                          16.085819 15.833523 15.441014 16.89977        1
-F.K_ascending_rank           22.531090 22.729750 20.601402 23.75314        1
-upvotes                      10.016666  9.752317  9.518608 11.33586        1
-upvotes_rank                 12.989007 12.956237 11.449537 13.82077        1
-has_links                     8.990857  9.001469  8.195070 10.28402        1
+                               meanImp medianImp    minImp    maxImp normHits
+answers_count                10.649135 10.678142  9.861014 11.881277        1
+date_time                     9.405145  9.284793  8.416580 10.153327        1
+time_difference               7.831418  7.591520  6.795634  9.716088        1
+time_difference_rank          9.105673  9.228145  7.926377  9.754581        1
+len                           9.546109  9.656527  8.853725 10.174851        1
+len_rank                     16.084087 16.069803 15.189338 17.092084        1
+wordcount                     9.672719  9.671824  8.583516 10.809515        1
+wordcount_rank               13.268068 13.096972 12.129451 14.877594        1
+avg_chars_per_word            7.862735  7.933505  6.745781  8.533152        1
+avg_chars_per_word_rank       8.963047  8.904429  7.894799 10.160795        1
+sentences                     9.095767  9.072106  8.145781  9.860637        1
+sentences_rank               13.911272 13.940290 12.931014 14.943393        1
+avg_words_per_sentence        8.639136  8.583143  8.108430  9.146983        1
+avg_words_per_sentence_rank   7.949308  8.041429  6.847218  8.545048        1
+longest_sentence              7.845449  7.925934  6.853929  8.679800        1
+longest_sentence_rank         8.995359  9.071701  7.861074  9.586610        1
+loglikelihood                12.011717 12.020760 11.306903 12.765628        1
+loglikelihood_ascending_rank 10.033432 10.100018  8.959837 10.855769        1
+F.K                           8.725856  8.769371  7.812548  9.096865        1
+F.K_ascending_rank           12.735436 12.953033 11.420224 13.618439        1
+upvotes                       5.933548  5.921559  4.892978  6.912966        1
+upvotes_rank                 11.114603 11.005426 10.341638 12.437474        1
+has_links                    43.032023 42.865095 41.486128 45.206279        1
                               decision
 answers_count                Confirmed
 date_time                    Confirmed
@@ -55,5 +55,68 @@ upvotes_rank                 Confirmed
 has_links                    Confirmed
 
 *******  CFS  *******
-solution ~ sentences
-<environment: 0x000000001555c358>
+solution ~ has_links
+<environment: 0x7fa6a479a6b0>
+
+*******  Pearson's correlation filter *******
+                             attr_importance
+answers_count                     0.21832419
+date_time                         0.23523643
+time_difference                   0.13209426
+time_difference_rank              0.17674816
+len                               0.24537460
+len_rank                          0.57508219
+wordcount                         0.43620204
+wordcount_rank                    0.55170979
+avg_chars_per_word                0.11400152
+avg_chars_per_word_rank           0.15083622
+sentences                         0.41690253
+sentences_rank                    0.53567445
+avg_words_per_sentence            0.22307341
+avg_words_per_sentence_rank       0.38743563
+longest_sentence                  0.19734675
+longest_sentence_rank             0.46572059
+loglikelihood                     0.25750280
+loglikelihood_ascending_rank      0.28434373
+F.K                               0.20740797
+F.K_ascending_rank                0.26454603
+upvotes                           0.01512388
+upvotes_rank                      0.11125326
+has_links                         1.00000000
+
+ [1] "has_links"                    "len_rank"                    
+ [3] "wordcount_rank"               "sentences_rank"              
+ [5] "longest_sentence_rank"        "wordcount"                   
+ [7] "sentences"                    "avg_words_per_sentence_rank" 
+ [9] "loglikelihood_ascending_rank" "F.K_ascending_rank"          
+
+*******  Spearman's ro correlation filter *******
+                             attr_importance
+answers_count                   0.1644449063
+date_time                       0.2263081218
+time_difference                 0.0008641016
+time_difference_rank            0.1438232262
+len                             0.5497813670
+len_rank                        0.6114063322
+wordcount                       0.5636289528
+wordcount_rank                  0.5588114209
+avg_chars_per_word              0.0412365123
+avg_chars_per_word_rank         0.0513921174
+sentences                       0.5287180899
+sentences_rank                  0.5353910437
+avg_words_per_sentence          0.3755922936
+avg_words_per_sentence_rank     0.3544958981
+longest_sentence                0.3897057066
+longest_sentence_rank           0.4326839616
+loglikelihood                   0.5907246935
+loglikelihood_ascending_rank    0.3811363347
+F.K                             0.3897591151
+F.K_ascending_rank              0.3523151149
+upvotes                         0.0712808152
+upvotes_rank                    0.2206529551
+has_links                       1.0000000000
+
+ [1] "has_links"             "len_rank"              "loglikelihood"        
+ [4] "wordcount"             "wordcount_rank"        "len"                  
+ [7] "sentences_rank"        "sentences"             "longest_sentence_rank"
+[10] "F.K"                  
