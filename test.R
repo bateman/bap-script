@@ -1,7 +1,7 @@
 # This files generates the ROC plots for the top-ranked (Scott-Knott test) models.
 # Here we re-run the classification, with the same seed and param config under which the generated models
 # achieved the best performance. Then, we plot the predictions
-
+set.seed(345)
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
 
@@ -23,8 +23,8 @@ if(!exists("enable_parallel", mode="function"))
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid")
-#excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank", "views", "views_rank",
+excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank","answers_count")
+#excluded_predictors <- c("resolved", "answer_uid", "question_uid", "views", "views_rank", "answers_count",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
 csv_file <- ifelse(is.na(args[1]), "input/test.csv", args[1])
@@ -35,7 +35,7 @@ SO <- temp[[1]]
 predictorsNames <- temp[[2]]
 
 choice <- ifelse(is.na(args[2]), "so", args[2])
-choice <- "yahoo"
+choice <- "docusign"
 
 if(choice == "so") {
   seeds <- readLines("seeds.txt")
@@ -45,13 +45,13 @@ if(choice == "so") {
   SO <- SMOTE(solution ~ ., data=SO[splitIndex, ], perc.under = 100, perc.over = 700)
   #summary(SO$solution)
 } else {
-  SO <- SMOTE(solution ~ ., data=SO)#, perc.under = 100, perc.over = 700)
+  #SO <- SMOTE(solution ~ ., data=SO, perc.under = 100, perc.over = 700)
   if(choice == "docusign") { 
     csv_file <- "input/docusing.csv"
-    sep <- ","
+    sep <- ";"
     time_format <- "%d/%m/%Y %H:%M:%S"
   } else if(choice == "dwolla") { 
-    csv_file <- "input/dwolla.csv"
+    csv_file <- "input/dwolla_test.csv"
     sep <- ";"
     time_format <- "%d/%m/%Y %H:%M"
   } else if(choice == "yahoo") { 
@@ -125,7 +125,7 @@ for(i in 1:length(classifiers)){
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
-                        trControl = trainControl(method="none", classProbs = TRUE, sampling = "down"),  
+                        trControl = trainControl(method="none", classProbs = TRUE, sampling = "smote"),  
                         tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
@@ -188,6 +188,6 @@ png(filename=paste(plot_dir, paste(choice, "pr_plot.png", sep="_"), sep = "/"))
 plot_curve(predictions=predictions, classifiers=classifiers,
            colors=g_col, line_type=line_types,
            x_label="rec", y_label="prec", leg_pos="bottomleft", plot_abline=FALSE,
-           leg_title="", main_title="", leg_horiz=FALSE, pr=prec_rec)
+           leg_title="", main_title="", leg_horiz=FALSE, pr=NULL)
 dev.off()
 par(op) #re-set the plot to the default settings
