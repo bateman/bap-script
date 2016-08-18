@@ -23,11 +23,11 @@ if(!exists("enable_parallel", mode="function"))
 # name of outcome var to be predicted
 outcomeName <- "solution"
 # list of predictor vars by name
-excluded_predictors <- c("resolved", "answer_uid", "question_uid", "upvotes", "upvotes_rank","answers_count")
+excluded_predictors <- c("resolved", "answer_uid", "question_uid","answers_count")
 #excluded_predictors <- c("resolved", "answer_uid", "question_uid", "views", "views_rank", "answers_count",
 #                         "has_code_snippet", "has_tags", "loglikelihood_descending_rank", "F.K_descending_rank")
 
-csv_file <- ifelse(is.na(args[1]), "input/test.csv", args[1])
+csv_file <- ifelse(is.na(args[1]), "input/esej_features_85k.csv", args[1])
 temp <- read.csv(csv_file, header = TRUE, sep=",")
 temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_predictors = excluded_predictors,
                         time_format="%Y-%m-%d %H:%M:%S", normalize = FALSE)
@@ -35,7 +35,7 @@ SO <- temp[[1]]
 predictorsNames <- temp[[2]]
 
 choice <- ifelse(is.na(args[2]), "so", args[2])
-choice <- "docusign"
+choice <- "scn"
 
 if(choice == "so") {
   seeds <- readLines("seeds.txt")
@@ -47,11 +47,11 @@ if(choice == "so") {
 } else {
   #SO <- SMOTE(solution ~ ., data=SO, perc.under = 100, perc.over = 700)
   if(choice == "docusign") { 
-    csv_file <- "input/docusing.csv"
+    csv_file <- "input/docusing_10f.csv"
     sep <- ";"
     time_format <- "%d/%m/%Y %H:%M:%S"
   } else if(choice == "dwolla") { 
-    csv_file <- "input/dwolla_test.csv"
+    csv_file <- "input/dwolla.csv"
     sep <- ";"
     time_format <- "%d/%m/%Y %H:%M"
   } else if(choice == "yahoo") { 
@@ -125,7 +125,7 @@ for(i in 1:length(classifiers)){
   model <- caret::train(solution ~ ., 
                         data = SO,
                         method = classifier,
-                        trControl = trainControl(method="none", classProbs = TRUE, sampling = "smote"),  
+                        trControl = trainControl(method="none", classProbs = TRUE, sampling = "down"),  
                         tuneGrid = grid,  preProcess = c("center", "scale"))
   
   pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
@@ -167,7 +167,7 @@ g_col <- gray.colors(
   gamma = 2.2,
   alpha = NULL
 )
-#g_col <- rainbow(length(classifiers))
+g_col <- rainbow(length(classifiers))
 
 if(!exists("plot_curve", mode="function")) 
   source(paste(getwd(), "lib/plot_curve.R", sep="/"))

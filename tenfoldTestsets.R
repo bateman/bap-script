@@ -75,7 +75,8 @@ temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_pr
 scn <- temp[[1]]
 scnPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(scn[,outcomeName], p = .70, list = FALSE)
-scnTraining <- scn[splitIndex, ]
+#scnTraining <- scn[splitIndex, ]
+scnTraining <- SMOTE(solution ~ ., data=scn[splitIndex, ])
 scnTesting <- scn[-splitIndex, ]
 rm(scn)
 
@@ -88,14 +89,14 @@ models_file <- ifelse(is.na(args[1]), "models/top-models1.txt", args[1])
 classifiers <- readLines(models_file)
 
 #datasets <- c("dwolla", "docusign", "scn", "yahoo")
-datasets <- c("dwolla")
+datasets <- c("scn")
 
 # 10-fold CV repetitions
 fitControl <- trainControl(
   method = "repeatedcv",
   number = 10,
   ## repeated ten times, works only with method="repeatedcv", otherwise 1
-  repeats = 10,
+  repeats = 1,
   #verboseIter = TRUE,
   #savePredictions = TRUE,
   # binary problem
@@ -104,7 +105,7 @@ fitControl <- trainControl(
   # enable parallel computing if avail
   allowParallel = TRUE,
   returnData = FALSE,
-  sampling = "up",
+  sampling = "down",
   preProcOptions = c("center", "scale")
 )
 
