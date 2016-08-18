@@ -1,0 +1,29 @@
+
+===========  xgbTree  ============
+
+Confusion Matrix and Statistics
+
+       reference
+data    False  True
+  False 32659  1853
+  True   3834 13820
+                                          
+               Accuracy : 0.891           
+                 95% CI : (0.8883, 0.8936)
+    No Information Rate : 0.6996          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.7497          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.8818          
+            Specificity : 0.8949          
+         Pos Pred Value : 0.7828          
+         Neg Pred Value : 0.9463          
+             Prevalence : 0.3004          
+         Detection Rate : 0.2649          
+   Detection Prevalence : 0.3384          
+      Balanced Accuracy : 0.8884          
+                                          
+       'Positive' Class : True            
+                                          

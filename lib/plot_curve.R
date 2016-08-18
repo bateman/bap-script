@@ -55,5 +55,5 @@ plot_curve <- function(predictions, classifiers, colors, line_types=1, line_widt
 
   # and random guess line
   if(plot_abline == TRUE)
-    abline(a = 0, b = 1, lty = "dotted", lwd = 0.3, col="grey")
+    abline(a = 0, b = 1, lty = "dotted", lwd = 0.85, col="grey")
 }
