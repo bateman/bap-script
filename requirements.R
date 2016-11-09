@@ -1,4 +1,4 @@
-print("Checking the required packages... will be re-installed if already present.")
+print("Checking the required packages... won't be re-installed if already present.")
 
 # checks if multicore parallel package can be enabled
 if(.Platform$OS.type == "unix") {
