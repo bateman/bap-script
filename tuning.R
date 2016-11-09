@@ -99,7 +99,7 @@ for(i in 1:length(classifiers)){
   nline <- strsplit(classifiers[i], ":")[[1]]
   classifier <- nline[1]
   cpackage <- nline[2]
-  # RWeka packages does need parallel computing to be off
+  # RWeka packages do need parallel computing to be off
   fitControl$allowParallel <- ifelse(!is.na(cpackage) && cpackage == "RWeka", FALSE, TRUE)
   print(paste("Building model for classifier", classifier))
 
@@ -127,7 +127,7 @@ for(i in 1:length(classifiers)){
                           trControl = fitControl,
                           tuneGrid = xgb_grid,
                           metric = "ROC",
-                          preProcess = c("center") #, "scale")
+                          preProcess = c("center", "scale")
     )
     time.end <- Sys.time()
   } 
@@ -138,7 +138,7 @@ for(i in 1:length(classifiers)){
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          preProcess = c("center") , #"scale")
+                          preProcess = c("center", "scale"),
                           tuneLength = 5 # five values per param
     )
     time.end <- Sys.time()
