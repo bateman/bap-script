@@ -1,6 +1,6 @@
-# This files generates the ROC plots for the top-ranked (Scott-Knott test) models.
-# Here we re-run the classification, with the same seed and param config under which the generated models
-# achieved the best performance. Then, we plot the predictions
+# This files generates the ROC plots for the top-ranked models (according to the Scott-Knott test).
+# Here we re-run the classification, with the same seed and budget threshold
+# as in the tuning stage. Then, we plot the predictions
 
 # enable commandline arguments from script launched using Rscript
 args<-commandArgs(TRUE)
@@ -51,7 +51,7 @@ dwolla <- temp[[1]]
 dwollaPredictorsNames <- temp[[2]] 
 splitIndex <- createDataPartition(dwolla[,outcomeName], p = .70, list = FALSE)
 dwollaTraining <- dwolla[splitIndex, ]
-dwollaTraining <- SMOTE(solution ~ ., data=dwolla[splitIndex, ])
+#dwollaTraining <- SMOTE(solution ~ ., data=dwolla[splitIndex, ])
 dwollaTesting <- dwolla[-splitIndex, ]
 rm(dwolla)
 # config
@@ -75,8 +75,8 @@ temp <- setup_dataframe(dataframe = temp, outcomeName = outcomeName, excluded_pr
 scn <- temp[[1]]
 scnPredictorsNames <- temp[[2]]
 splitIndex <- createDataPartition(scn[,outcomeName], p = .70, list = FALSE)
-#scnTraining <- scn[splitIndex, ]
-scnTraining <- SMOTE(solution ~ ., data=scn[splitIndex, ])
+scnTraining <- scn[splitIndex, ]
+#scnTraining <- SMOTE(solution ~ ., data=scn[splitIndex, ])
 scnTesting <- scn[-splitIndex, ]
 rm(scn)
 
@@ -89,14 +89,14 @@ models_file <- ifelse(is.na(args[1]), "models/top-models1.txt", args[1])
 classifiers <- readLines(models_file)
 
 #datasets <- c("dwolla", "docusign", "scn", "yahoo")
-datasets <- c("scn")
+datasets <- c("scn", "yahoo")
 
 # 10-fold CV repetitions
 fitControl <- trainControl(
   method = "repeatedcv",
   number = 10,
   ## repeated ten times, works only with method="repeatedcv", otherwise 1
-  repeats = 1,
+  repeats = 10,
   #verboseIter = TRUE,
   #savePredictions = TRUE,
   # binary problem
@@ -105,7 +105,7 @@ fitControl <- trainControl(
   # enable parallel computing if avail
   allowParallel = TRUE,
   returnData = FALSE,
-  sampling = "down",
+  #sampling = "down",
   preProcOptions = c("center", "scale")
 )
 
@@ -138,7 +138,7 @@ for(j in 1:length(datasets)) {
                           method = classifier,
                           trControl = fitControl,
                           metric = "ROC",
-                          tuneLength = 10 # values per param
+                          tuneLength = 5 # values per param
     )
     
     pred_prob <- predict(model, testing[,predictorsNames], type = 'prob')
