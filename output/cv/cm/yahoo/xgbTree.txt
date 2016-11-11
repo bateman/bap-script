@@ -1,29 +1,36 @@
 
 ===========  xgbTree  ============
 
-Confusion Matrix and Statistics
+$positive
+[1] "True"
 
+$table
        reference
 data    False  True
-  False 32659  1853
-  True   3834 13820
-                                          
-               Accuracy : 0.891           
-                 95% CI : (0.8883, 0.8936)
-    No Information Rate : 0.6996          
-    P-Value [Acc > NIR] : < 2.2e-16       
-                                          
-                  Kappa : 0.7497          
- Mcnemar's Test P-Value : < 2.2e-16       
-                                          
-            Sensitivity : 0.8818          
-            Specificity : 0.8949          
-         Pos Pred Value : 0.7828          
-         Neg Pred Value : 0.9463          
-             Prevalence : 0.3004          
-         Detection Rate : 0.2649          
-   Detection Prevalence : 0.3384          
-      Balanced Accuracy : 0.8884          
-                                          
-       'Positive' Class : True            
-                                          
+  False 33479  1884
+  True   3014 13789
+
+$overall
+      Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
+  9.061074e-01   7.811366e-01   9.035722e-01   9.085974e-01   6.995553e-01 
+AccuracyPValue  McnemarPValue 
+  0.000000e+00   1.523520e-58 
+
+$byClass
+         Sensitivity          Specificity       Pos Pred Value 
+           0.8797933            0.9174088            0.8206273 
+      Neg Pred Value            Precision               Recall 
+           0.9467240            0.8206273            0.8797933 
+                  F1           Prevalence       Detection Rate 
+           0.8491809            0.3004447            0.2643293 
+Detection Prevalence    Balanced Accuracy 
+           0.3221064            0.8986010 
+
+$mode
+[1] "sens_spec"
+
+$dots
+list()
+
+attr(,"class")
+[1] "confusionMatrix"
