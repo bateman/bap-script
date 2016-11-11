@@ -1,29 +1,36 @@
 
 ===========  gbm  ============
 
-Confusion Matrix and Statistics
+$positive
+[1] "True"
 
+$table
        reference
 data    False  True
-  False 39278  2862
-  True     46    42
-                                          
-               Accuracy : 0.9311          
-                 95% CI : (0.9287, 0.9335)
-    No Information Rate : 0.9312          
-    P-Value [Acc > NIR] : 0.5356          
-                                          
-                  Kappa : 0.0241          
- Mcnemar's Test P-Value : <2e-16          
-                                          
-            Sensitivity : 0.0144628       
-            Specificity : 0.9988302       
-         Pos Pred Value : 0.4772727       
-         Neg Pred Value : 0.9320835       
-             Prevalence : 0.0687695       
-         Detection Rate : 0.0009946       
-   Detection Prevalence : 0.0020839       
-      Balanced Accuracy : 0.5066465       
-                                          
-       'Positive' Class : True            
-                                          
+  False 39255  2851
+  True     69    53
+
+$overall
+      Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
+    0.93085157     0.02964895     0.92839017     0.93325352     0.93123046 
+AccuracyPValue  McnemarPValue 
+    0.62543021     0.00000000 
+
+$byClass
+         Sensitivity          Specificity       Pos Pred Value 
+         0.018250689          0.998245346          0.434426230 
+      Neg Pred Value            Precision               Recall 
+         0.932289935          0.434426230          0.018250689 
+                  F1           Prevalence       Detection Rate 
+         0.035029742          0.068769537          0.001255091 
+Detection Prevalence    Balanced Accuracy 
+         0.002889078          0.508248018 
+
+$mode
+[1] "sens_spec"
+
+$dots
+list()
+
+attr(,"class")
+[1] "confusionMatrix"
