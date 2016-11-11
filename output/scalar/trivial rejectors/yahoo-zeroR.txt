@@ -1,0 +1,78 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.rules.ZeroR 
+Relation:     yahoo_column
+Instances:    173890
+Attributes:   33
+              resolved
+              question_uid
+              answers_count
+              answer_uid
+              date_time
+              time_difference
+              time_difference_rank
+              solution
+              len
+              len_rank
+              wordcount
+              wordcount_rank
+              avg_chars_per_word
+              avg_chars_per_word_rank
+              sentences
+              sentences_rank
+              avg_words_per_sentence
+              avg_words_per_sentence_rank
+              longest_sentence
+              longest_sentence_rank
+              views
+              views_rank
+              loglikelihood
+              loglikelihood_ascending_rank
+              loglikelihood_descending_rank
+              F-K
+              F-K_ascending_rank
+              F-K_descending_rank
+              upvotes
+              upvotes_rank
+              has_links
+              has_code_snippet
+              has_tags
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+ZeroR predicts class value: False
+
+Time taken to build model: 0.02 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances      121644               69.9546 %
+Incorrectly Classified Instances     52246               30.0454 %
+Kappa statistic                          0     
+Mean absolute error                      0.4204
+Root mean squared error                  0.4585
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances           173890     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,000    0,000    0,000      0,000    0,000      0,000    0,500     0,300     True
+                 1,000    1,000    0,700      1,000    0,823      0,000    0,500     0,700     False
+Weighted Avg.    0,700    0,700    0,489      0,700    0,576      0,000    0,500     0,580     
+
+=== Confusion Matrix ===
+
+      a      b   <-- classified as
+      0  52246 fn |      a = True
+      0 121644 tn |      b = False
+
+TN Rate (specificity) =  tn / (tn+fp) = 1
+
+G = sqrt(recall x TNrate) = sqrt(0.7 x 1) = 0.84
+               
+bal = 1- [ (sqrt(FPr^2 + (1-TPr)^2) ) / 1.41  ] = 1- [ sqrt(0.49 + 0.09) / 1.41] = 1- 0.54 = 0.46
+

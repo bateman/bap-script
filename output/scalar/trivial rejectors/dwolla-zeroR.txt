@@ -1,0 +1,70 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.rules.ZeroR 
+Relation:     dwolla_column
+Instances:    375
+Attributes:   25
+              answers_count
+              answer_uid
+              date_time
+              time_difference
+              time_difference_rank
+              solution
+              len
+              len_rank
+              wordcount
+              wordcount_rank
+              avg_chars_per_word
+              avg_chars_per_word_rank
+              sentences
+              sentences_rank
+              avg_words_per_sentence
+              avg_words_per_sentence_rank
+              longest_sentence
+              longest_sentence_rank
+              loglikelihood
+              loglikelihood_ascending_rank
+              F-K
+              F-K_ascending_rank
+              upvotes
+              upvotes_rank
+              has_links
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+ZeroR predicts class value: False
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         325               86.6667 %
+Incorrectly Classified Instances        50               13.3333 %
+Kappa statistic                          0     
+Mean absolute error                      0.2327
+Root mean squared error                  0.3399
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances              375     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    1,000    0,867      1,000    0,929      0,000    0,496     0,866     False
+                 0,000    0,000    0,000      0,000    0,000      0,000    0,496     0,132     True
+Weighted Avg.    0,867    0,867    0,751      0,867    0,805      0,000    0,496     0,768     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 325 tn   0 |   a = False
+  50 fn  0 |   b = True
+
+TN Rate (specificity) =  tn / (tn+fp) = 1
+
+G = sqrt(recall x TNrate) = sqrt(0.87 x 1) = 0.93
+
+               
+bal = 1- [ (sqrt(FPr^2 + (1-TPr)^2) ) / 1.41  ] = 1- [ sqrt(0.75 + 0.02) / 1.41] = 1- 0.62 = 0.38
