@@ -7,24 +7,24 @@ $positive
 $table
        reference
 data    False  True
-  False 39255  2851
-  True     69    53
+  False 39278  2862
+  True     46    42
 
 $overall
       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull 
-    0.93085157     0.02964895     0.92839017     0.93325352     0.93123046 
+     0.9311357      0.0241272      0.9286789      0.9335331      0.9312305 
 AccuracyPValue  McnemarPValue 
-    0.62543021     0.00000000 
+     0.5355689      0.0000000 
 
 $byClass
          Sensitivity          Specificity       Pos Pred Value 
-         0.018250689          0.998245346          0.434426230 
+        0.0144628099         0.9988302309         0.4772727273 
       Neg Pred Value            Precision               Recall 
-         0.932289935          0.434426230          0.018250689 
+        0.9320835311         0.4772727273         0.0144628099 
                   F1           Prevalence       Detection Rate 
-         0.035029742          0.068769537          0.001255091 
+        0.0280748663         0.0687695368         0.0009946007 
 Detection Prevalence    Balanced Accuracy 
-         0.002889078          0.508248018 
+        0.0020839254         0.5066465204 
 
 $mode
 [1] "sens_spec"
