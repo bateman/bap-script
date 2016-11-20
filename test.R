@@ -45,7 +45,6 @@ if(choice == "so") {
   SO <- SMOTE(solution ~ ., data=SO[splitIndex, ], perc.under = 100, perc.over = 700)
   #summary(SO$solution)
 } else {
-  #SO <- SMOTE(solution ~ ., data=SO, perc.under = 100, perc.over = 700)
   if(choice == "docusign") { 
     csv_file <- "input/docusing_10f.csv"
     sep <- ";"
