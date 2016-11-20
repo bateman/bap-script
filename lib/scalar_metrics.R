@@ -13,9 +13,9 @@ scalar_metrics <- function(predictions, truth, outdir="output/scalar", outfile) 
   FP <- as.numeric(CM[3])
   FN <- as.numeric(CM[2])
   TN <- as.numeric(CM[4])
-  precision <- posPredValue(predictions, testing[,outcomeName])
-  recall <- sensitivity(predictions, testing[,outcomeName])
-  TNr <- specificity(predictions, testing[,outcomeName])
+  precision <- posPredValue(predictions, testing[,outcomeName], positive="True")
+  recall <- sensitivity(predictions, testing[,outcomeName], positive="True")
+  TNr <- specificity(predictions, testing[,outcomeName], positive="True")
   TPr <- recall
   FPr <- FP / (FP + TN)
   
