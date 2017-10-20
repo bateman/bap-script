@@ -25,8 +25,8 @@ if(!require("xlsx", quietly = TRUE)){
   install.packages(c("xlsx", "xlsxjars"), dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
-if(!require("ScottKnott", quietly = TRUE)){
-  install.packages("ScottKnott", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
+if(!require("ScottKnottESD", quietly = TRUE)){
+  install.packages("ScottKnottESD", dependencies = c("Imports", "Depends"), repos = "http://cran.mirror.garr.it/mirrors/CRAN/")
 }
 
 if(!require("Boruta", quietly = TRUE)){
